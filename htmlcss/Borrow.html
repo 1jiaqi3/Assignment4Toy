@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Borrow</title>
+        <style type="text/css">
+            .main {
+                width: 90%;
+                margin: auto;
+                padding: 20px;
+            }
+            .header {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+            .headerItem {
+                margin: 20px;
+            }
+            .title div {
+                width: 300px;
+            }
+            .search {
+                margin: 40px 0;
+            }
+            input {
+                width: 800px;
+                height: 35px;
+            }
+            input[type=submit] {
+                border-radius: 8px;
+                font-size: 25px;
+                height: 35px;
+                width: 130px;
+            }
+            .content {
+                margin: 20px 0;
+            }
+            .listingContainer {
+                display: flex;
+                width: 100%;
+                flex-direction: row;
+            }
+            .listItem {
+                margin: auto;
+            }
+        </style>
+	</head>
+	<body>
+        <div class="main">
+            <div class="header">
+                <div class="headerItem">Help</div>
+                <div class="headerItem">Sign Up</div>
+                <div class="headerItem">Log In</div>
+            </div>
+            <div class="title">
+                <h1>Lion Books!</h1>
+                <div>Borrow/buy second-hand book from your peer or trade in your books in a snap.</div>
+            </div>
+            <form class="search">
+                <input type="text" name="search">
+                <input type="submit" value="Search">
+            </form>
+            <div class="content">
+                <h3>Current Listings</h3>
+                <div class="listingContainer">
+                    <div class="listItem">
+                        <img src="pikapika.jpg">
+                    </div>
+                    <div class="listItem">
+                        <img src="pikapika.jpg">
+                    </div>
+                    <div class="listItem">
+                        <img src="pikapika.jpg">
+                    </div>
+                    <div class="listItem">
+                        <img src="pikapika.jpg">
+                    </div>
+                </div>
+            </div>
+        </div>
+	</body>
+</html>

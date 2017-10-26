@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My Books</title>
+        <style type="text/css">
+            .menuContainer {
+                display: flex;
+                flex-direction: row;
+            }
+            .menuItem {
+                margin: 5px 20px;
+            }
+            .content{
+                width: 90%;
+                margin: auto;
+                padding: 30px 20px;
+            }
+            .contentContainer{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+            .subcontentContainer {
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                margin: auto;
+                padding: 20px 10px;
+            }
+            .subcontentContainer.subcontentContainerLeft {
+                border-right: 1px solid;
+            }
+            h2 {
+                align-self: center;
+            }
+            .subcontentItem {
+                margin: 20px auto;
+                width: 90%;
+                padding: 10px 20px;
+                border: 1px solid;
+            }
+            .flexContainer {
+                display: flex;
+            }
+            .flexItem {
+                flex: 1;
+            }
+            .flexItem div {
+                margin: 10px 0;
+            }
+            .flexItem.owner {
+                flex: 2;
+            }
+            .flexItem.sender {
+                flex: 2;
+            }
+            button {
+                font-size: 20px;
+                padding: 5px 20px;
+                background-color: white;
+                margin-top: 15px;
+            }
+        </style>
+	</head>
+	<body>
+        <div class="main">
+            <menu class="menuContainer">
+                <div class="menuItem">Account</div>
+                <div class="menuItem">My Books</div>
+                <div class="menuItem">Requests</div>
+            </menu>
+            <hr>
+            <div class="content">
+                <div class="contentContainer">
+                    <div class="subcontentContainer subcontentContainerLeft">
+                        <h2>Sent</h2>
+                        <div class="subcontentItem">
+                            <div class="flexContainer">
+                                <div class="flexItem">
+                                    <div>Title</div>
+                                    <div>Book1</div>
+                                </div>
+                                <div class="flexItem">
+                                    <div>Author</div>
+                                    <div>Author1</div>
+                                </div>
+                                <div class="flexItem">
+                                    <div>Status</div>
+                                    <div>Approved</div>
+                                </div>
+                                <div class="flexItem owner">
+                                    <div>Owner</div>
+                                    <div>john@gmail.com</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="subcontentItem">
+                            <div class="flexContainer">
+                                <div class="flexItem">
+                                    <div>Title</div>
+                                    <div>Book2</div>
+                                </div>
+                                <div class="flexItem">
+                                    <div>Author</div>
+                                    <div>Author2</div>
+                                </div>
+                                <div class="flexItem">
+                                    <div>Status</div>
+                                    <div>Pending</div>
+                                </div>
+                                <div class="flexItem owner">
+                                    <div>Owner</div>
+                                    <div>jane@gmail.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="subcontentContainer">
+                        <h2>Received</h2>
+                        <div class="subcontentItem">
+                            <div class="flexContainer">
+                                <div class="flexItem">
+                                    <div>Title</div>
+                                    <div>Book1</div>
+                                </div>
+                                <div class="flexItem">
+                                    <div>Author</div>
+                                    <div>Author1</div>
+                                </div>
+                                <div class="flexItem  sender">
+                                    <div>Sender</div>
+                                    <div>tom@gmail.com</div>
+                                </div>
+                                <div class="flexItem">
+                                    <button>Approve</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="subcontentItem">
+                            <div class="flexContainer">
+                                <div class="flexItem">
+                                    <div>Title</div>
+                                    <div>Book2</div>
+                                </div>
+                                <div class="flexItem">
+                                    <div>Author</div>
+                                    <div>Author2</div>
+                                </div>
+                                <div class="flexItem sender">
+                                    <div>Sender</div>
+                                    <div>jerry@gmail.com</div>
+                                </div>
+                                <div class="flexItem">
+                                    <button>Approve</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My Books</title>
+        <style type="text/css">
+            .menuContainer {
+                display: flex;
+                flex-direction: row;
+            }
+            .menuItem {
+                margin: 5px 20px;
+            }
+            .content{
+                width: 80%;
+                padding: 30px 20px;
+                margin: auto;
+            }
+            .contentContainer {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .contentItem {
+                margin: 20px 0;
+                width: 100%;
+                border: 1px solid;
+            }
+            .flexContainer {
+                display: flex;
+            }
+            .flexItem {
+                margin: 10px 30px;
+                flex: 1;
+            }
+            .flexItem div {
+                margin: 10px 0;
+            }
+            .flexItem.lentTo {
+                flex: 2;
+            }
+            button {
+                font-size: 20px;
+                padding: 5px 30px;
+                margin: 50px 0;
+                background-color: white;
+                float: right;
+            }
+        </style>
+	</head>
+	<body>
+        <div class="main">
+            <menu class="menuContainer">
+                <div class="menuItem">Account</div>
+                <div class="menuItem">My Books</div>
+                <div class="menuItem">Requests</div>
+            </menu>
+            <hr>
+            <div class="content">
+                <div class="contentContainer">
+                    <div class="contentItem">
+                        <div class="flexContainer">
+                            <div class="flexItem">
+                                <div>Title</div>
+                                <div>Book1</div>
+                            </div>
+                            <div class="flexItem">
+                                <div>Author</div>
+                                <div>Author1</div>
+                            </div>
+                            <div class="flexItem">
+                                <div>Status</div>
+                                <div>Lent</div>
+                            </div>
+                            <div class="flexItem lentTo">
+                                <div>Lent to</div>
+                                <div>123@gmail.com</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contentItem">
+                        <div class="flexContainer">
+                            <div class="flexItem">
+                                <div>Title</div>
+                                <div>Book2</div>
+                            </div>
+                            <div class="flexItem">
+                                <div>Author</div>
+                                <div>Author2</div>
+                            </div>
+                            <div class="flexItem">
+                                <div>Status</div>
+                                <div>Not Lent</div>
+                            </div>
+                            <div class="flexItem lentTo">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button>Add a Book!</button>
+                </div>
+            </div>
+        </div>
+	</body>
+</html>

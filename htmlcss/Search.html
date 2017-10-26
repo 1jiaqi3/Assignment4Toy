@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Search</title>
+        <style type="text/css">
+            .main {
+                width: 90%;
+                margin: auto;
+                padding: 20px;
+            }
+            .header {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+            .headerItem {
+                margin: 20px;
+            }
+            .title div {
+                width: 300px;
+            }
+            .search {
+                margin: 40px 0;
+            }
+            .search input {
+                width: 800px;
+                height: 35px;
+                font-size: 20px;
+                padding: 2px;
+            }
+            input[type=submit] {
+                border-radius: 8px;
+                font-size: 25px;
+                height: 35px;
+                width: 130px;
+                margin: 6px 0;
+            }
+            .content {
+                margin: 20px 0;
+            }
+            .resultContainer {
+                display: flex;
+                flex-direction: row;
+                margin: 20px 0;
+                width: 80%;
+            }
+            .resultItem {
+                width: 50%;
+            }
+            .resultItem form {
+                margin: 20px 0;
+            }
+        </style>
+	</head>
+	<body>
+        <div class="main">
+            <div class="header">
+                <div class="headerItem">Add a book</div>
+                <div class="headerItem">My books (3)</div>
+                <div class="headerItem">Requests (1)</div>
+                <div class="headerItem">User first name</div>
+            </div>
+            <div class="title">
+                <h1>Lion Books!</h1>
+                <div>Borrow/buy second-hand book from your peer or trade in your books in a snap.</div>
+            </div>
+            <form class="search">
+                <input type="text" placeholder="PILLARS OF THE REPUBLIC" name="search">
+                <input type="submit" value="Search">
+            </form>
+            <div class="content">
+                <h3>Search Result</h3>
+                <div>Showing 1 results: /Sorry we cannot find available listings, please try different keywords: ISBN, author name, etc.</div>
+                <div class="resultContainer">
+                    <div class="resultItem">
+                        <img src="pika.jpg" style="width:50%;">
+                    </div>
+                    <div class="resultItem">
+                        <div>Listed By: user2</div>
+                        <div>Edition: 12</div>
+                        <div>Remarks: Hardcover</div>
+                        <div>For Borrowing</div>
+                        <form>
+                            <div>
+                                <input type="checkbox" name="terms" value="yes">Check to accept our terms
+                            </div>
+                            <div>
+                                <input type="submit" value="Request">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</body>
+</html>
