@@ -13,3 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('./htmlcss'))
 app.listen(port)
 console.log('listening on port: ', port);
+/*
+app.get('/register', (req, res) => { //given four fields, first name, last name, email, id, upload to server
+
+})
+
+app.get('/login', (req, res) =>{ //given username and password, chekc if its in server and confirm.
+
+})
+*/
