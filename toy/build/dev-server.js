@@ -26,19 +26,18 @@ var proxyTable = config.dev.proxyTable
 var app = express()
 var apiRoutes = express.Router();
 
-apiRoutes.get('/reg', function (req, res) {
-  res.json({
-    errno: 0,
-    data: 'welldone'
-  });
-});
+
+app.use('/v1', apiRoutes)
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //handle get request through /account route
-apiRoutes.get('/account', bodyParser.json({extended: true}), function (req, res) {
+apiRoutes.all('/account', bodyParser.json({extended: true}), function (req, res) {
   var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 // Connection URL
-  var url = 'DatabaseURL';
+  var url = 'mongodb://localhost:27017/toy';
 // Use connect method to connect to the Server
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
@@ -48,7 +47,7 @@ apiRoutes.get('/account', bodyParser.json({extended: true}), function (req, res)
           // If it failed, return error
           res.json({
             errno: 1,
-            data: 'welldone'
+            data: ''
           });
         }
         else {
@@ -64,7 +63,6 @@ apiRoutes.get('/account', bodyParser.json({extended: true}), function (req, res)
 });
 
 
-app.use('/v1', apiRoutes);
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
