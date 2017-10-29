@@ -27,13 +27,11 @@ var app = express()
 var apiRoutes = express.Router();
 
 
-app.use('/v1', apiRoutes)
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //handle get request through /account route
-apiRoutes.all('/account', bodyParser.json({extended: true}), function (req, res) {
+apiRoutes.post('/account', bodyParser.json({extended: true}), function (req, res) {
   var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 // Connection URL
@@ -62,6 +60,7 @@ apiRoutes.all('/account', bodyParser.json({extended: true}), function (req, res)
   });
 });
 
+app.use('/v1', apiRoutes)
 
 var compiler = webpack(webpackConfig)
 
