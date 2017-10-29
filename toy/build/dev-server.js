@@ -32,6 +32,7 @@ app.use(bodyParser.json());
 
 //handle get request through /account route
 apiRoutes.post('/account', bodyParser.json({extended: true}), function (req, res) {
+  console.log(req.body);
   var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
 // Connection URL
