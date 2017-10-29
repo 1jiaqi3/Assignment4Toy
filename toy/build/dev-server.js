@@ -5,6 +5,7 @@ if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
+var bodyParser = require('body-parser')
 var opn = require('opn')
 var path = require('path')
 var express = require('express')
@@ -25,13 +26,43 @@ var proxyTable = config.dev.proxyTable
 var app = express()
 var apiRoutes = express.Router();
 
-apiRoutes.get('/reg', function (req, res) {
-  res.json({
-    errno: 0,
-    data: 'welldone'
+
+app.use('/v1', apiRoutes)
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+//handle get request through /account route
+apiRoutes.all('/account', bodyParser.json({extended: true}), function (req, res) {
+  var MongoClient = require('mongodb').MongoClient
+    , assert = require('assert');
+// Connection URL
+  var url = 'mongodb://localhost:27017/toy';
+// Use connect method to connect to the Server
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+    var accdoc = db.collection('dbname').find({google_id: req.body.id}, function (err, doc) {
+        if (err) {
+          // If it failed, return error
+          res.json({
+            errno: 1,
+            data: ''
+          });
+        }
+        else {
+          var accitem = toJSON(accdoc.next());
+          res.json({
+            errno: 0,
+            data: accitem
+          });
+        }
+      });
+    db.close();
   });
 });
-app.use('/v1', apiRoutes);
+
+
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {

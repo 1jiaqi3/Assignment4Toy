@@ -6,8 +6,8 @@ const express = require('express');
 const app  = express()
 const port = 8080
 const bodyParser  = require('body-parser')
-const mongodb = require('mongodb');
-const mongoose = require('mongoose');
+//const mongodb = require('mongodb');
+//const mongoose = require('mongoose');
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('./htmlcss'))
