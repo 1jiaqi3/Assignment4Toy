@@ -1,8 +1,9 @@
 <template>
   <div class="mb-main">
+    <hr/>
     <div class="mb-content">
       <div class="mb-content-container">
-        <MyBookItem :title="temp1" :author="temp2"></MyBookItem>
+        <MyBookItem :title="'temp1'" :author="'temp2'"></MyBookItem>
       </div>
       <div>
         <button class="mb-button">Add a Book!</button>

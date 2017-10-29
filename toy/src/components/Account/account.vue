@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="ac-main">
     <hr>
     <div class="ac-content">
       <div class="ac-content-container">
@@ -28,7 +27,6 @@
       </div>
     </div>
   </div>
-  </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -42,7 +40,9 @@
       }
     },
     created() {
-      this.$http.get('/userinfo').then((res) => {
+      this.$http.get('/account', {
+        id: '123'
+      }).then((res) => {
         res = res.body
         if (res.errno === ERR_OK) {
           this.first_name = res.first_name
