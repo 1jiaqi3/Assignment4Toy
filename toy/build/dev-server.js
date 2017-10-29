@@ -5,6 +5,7 @@ if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
+var bodyParser = require('body-parser')
 var opn = require('opn')
 var path = require('path')
 var express = require('express')
@@ -31,6 +32,38 @@ apiRoutes.get('/reg', function (req, res) {
     data: 'welldone'
   });
 });
+
+//handle get request through /account route
+apiRoutes.get('/account', bodyParser.json({extended: true}), function (req, res) {
+  var MongoClient = require('mongodb').MongoClient
+    , assert = require('assert');
+// Connection URL
+  var url = 'DatabaseURL';
+// Use connect method to connect to the Server
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log("Connected correctly to server");
+    var accdoc = db.collection('dbname').find({google_id: req.body.id}, function (err, doc) {
+        if (err) {
+          // If it failed, return error
+          res.json({
+            errno: 1,
+            data: 'welldone'
+          });
+        }
+        else {
+          var accitem = toJSON(accdoc.next());
+          res.json({
+            errno: 0,
+            data: accitem
+          });
+        }
+      });
+    db.close();
+  });
+});
+
+
 app.use('/v1', apiRoutes);
 var compiler = webpack(webpackConfig)
 
