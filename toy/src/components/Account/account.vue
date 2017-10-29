@@ -1,37 +1,27 @@
 <template>
   <div>
-    <div class="main">
-    <menu class="menuContainer">
-      <div class="menuItem">Account</div>
-      <div class="menuItem">My Books</div>
-      <div class="menuItem">Requests</div>
-    </menu>
+    <div class="ac-main">
     <hr>
-    <div class="content">
-      <div class="contentContainer">
-        <img src="../../assets/pika.jpg" style="width: 30%" class="contentItem"></img>
-        <div class="contentItem">
+    <div class="ac-content">
+      <div class="ac-content-container">
+        <img src="../../assets/pika.jpg" style="width: 30%" class="ac-content-item"></img>
+        <div class="ac-content-item">
           <form>
-            <div class="flexContainer">
-              <div class="flexItem">
+            <div class="ac-flex-container">
+              <div class="ac-flex-item">
                 <div>First Name</div>
-                <input type="text" name="email">
+                <input v-model="first_name" class="ac-input">
               </div>
-              <div class="flexItem">
+              <div class="ac-flex-item">
                 <div>Last Name</div>
-                <input type="text" name="email">
+                <input v-model="last_name" class="ac-input">
               </div>
-              <div class="flexItem">
-                <div>Email</div>
-                <input type="email" name="email">
+              <div class="ac-submit-button">
+                <button @click="submitForm">
+                  Submit
+                </button>
               </div>
-              <div class="flexItem">
-                <div>Password</div>
-                <input type="password" name="password">
-              </div>
-              <div class="submitButton">
-                <input type="submit" value="Save">
-              </div>
+              <p>{{message}}</p>
             </div>
           </form>
         </div>
@@ -42,51 +32,68 @@
 </template>
 
 <script type="text/ecmascript-6">
-
+  const ERR_OK = 0
+  export default {
+    data() {
+      return {
+        first_name: '',
+        last_name: '',
+        message: ''
+      }
+    },
+    created() {
+      this.$http.get('/userinfo').then((res) => {
+        res = res.body
+        if (res.errno === ERR_OK) {
+          this.first_name = res.first_name
+          this.last_name = res.last_name
+        }
+      })
+    },
+    methods: {
+      submitForm() {
+        this.$http.post('/updateuserinfo', {
+          first_name: this.first_name,
+          last_name: this.last_name
+        }).then((response) => {
+          response = response.body
+          if (response.errno === ERR_OK) {
+            this.message = 'Successfully Updated!'
+          }
+        })
+      }
+    }
+  }
 </script>
 
 <style rel="stylesheet">
-  .menuContainer {
-    display: flex;
-    flex-direction: row;
-  }
-  .menuItem {
-    margin: 5px 20px;
-  }
-  .content{
+  .ac-content{
     width: 80%;
     padding: 30px 20px;
     margin: auto;
   }
-  .contentContainer {
+  .ac-content-container {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
   }
-  .contentItem {
+  .ac-content-item {
     margin: auto;
   }
-  .flexContainer {
+  .ac-flex-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
   }
-  .flexItem {
+  .ac-flex-item {
     margin: 10px auto;
   }
-  input {
+  .ac-input {
     width: 400px;
     height: 30px;
     margin: 3px 0;
   }
-  .submitButton {
+  .ac-submit-button {
     text-align: end;
-  }
-  input[type=submit] {
-    border-radius: 8px;
-    font-size: 25px;
-    height: 40px;
-    width: 130px;
-    margin: 10px;
   }
 </style>
