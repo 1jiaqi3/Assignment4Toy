@@ -40,13 +40,14 @@
       }
     },
     created() {
-      this.$http.get('/account', {
+      this.$http.post('/v1/account', {
         id: '123'
       }).then((res) => {
         res = res.body
+        console.log(res)
         if (res.errno === ERR_OK) {
-          this.first_name = res.first_name
-          this.last_name = res.last_name
+          this.first_name = res.firstname
+          this.last_name = res.lastname
         }
       })
     },
