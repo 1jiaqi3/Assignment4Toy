@@ -7,14 +7,13 @@ import App from './App'
 import Account from './components/Account/account.vue'
 import MyBook from './components/MyBook/MyBook.vue'
 import Request from './components/Request/Request.vue'
-import Home from './components/Home/Home.vue'
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
 Vue.config.productionTip = false
 
 const routes = [
-  { path: '/', component: Home },
+  { path: '/', component: Account },
   { path: '/account', component: Account },
   { path: '/mybook', component: MyBook },
   { path: '/request', component: Request }

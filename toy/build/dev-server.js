@@ -26,6 +26,10 @@ var proxyTable = config.dev.proxyTable
 var app = express()
 var apiRoutes = express.Router();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 27f6cc3f943f54c1c4cc0cbc1b2b3960b58bd9a1
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -58,6 +62,10 @@ apiRoutes.post('/account', bodyParser.json({extended: true}), function (req, res
     db.close();
   });
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 27f6cc3f943f54c1c4cc0cbc1b2b3960b58bd9a1
 app.use('/v1', apiRoutes)
 
 var compiler = webpack(webpackConfig)
