@@ -1,5 +1,16 @@
 <template>
   <div class="mb-main">
+    <div class="menu-container">
+      <div class="menu-item">
+        <router-link to="/account" class="item">Account</router-link>
+      </div>
+      <div class="menu-item">
+        <router-link to="/mybook" class="item">My Books</router-link>
+      </div>
+      <div class="menu-item">
+        <router-link to="/request" class="item">Requests</router-link>
+      </div>
+    </div>
     <hr/>
     <div class="mb-content">
       <div class="mb-content-container">

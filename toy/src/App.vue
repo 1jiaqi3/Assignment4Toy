@@ -5,13 +5,8 @@
 </template>
 
 <script>
-import account from './components/Account/account.vue'
-
 export default {
-  name: 'app',
-  components: {
-    account
-  }
+  name: 'app'
 }
 </script>
 
@@ -23,15 +18,5 @@ export default {
     text-align: center;
     color: #2c3e50;
     height: 100%;
-  }
-  .menu-container {
-    display: flex;
-    flex-direction: row;
-  }
-  .menu-item {
-    margin: 5px 20px;
-  }
-  .item {
-    text-decoration: none;
   }
 </style>

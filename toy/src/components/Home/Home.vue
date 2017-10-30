@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="hm-submit-button">
-          <button class="hm-button" @click="submitForm">Join Now!</button>
+          <button class="hm-button" @click="submitForm" type="button">Join Now!</button>
         </div>
       </form>
       <div class="otherOptions">
@@ -59,7 +59,6 @@
         }).then((response) => {
           response = response.body
           if (response.errno === ERR_OK) {
-            console.log('successfully registered')
             this.$router.push('/account')
           }
         })

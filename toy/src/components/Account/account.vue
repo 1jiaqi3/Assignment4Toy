@@ -11,9 +11,6 @@
         <router-link to="/request" class="item">Requests</router-link>
       </div>
     </div>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
     <hr>
     <div class="ac-content">
       <div class="ac-content-container">
