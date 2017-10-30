@@ -85,8 +85,23 @@ apiRoutes.post('/reg', function(req, res) {
 
 apiRoutes.post('/login', function (req, res) {
   res.json({
-    errno: 0,
+    errno: 0
   });
+})
+
+apiRoutes.post('/account', function (req, res) {
+  let data = req.body;
+  User.findOne({'email': data.email}, function (err, foundUser) {
+    if (err) {
+      res.status(400).send({error: 'query error occurred'});
+    } else {
+      res.json({
+        first_name: foundUser.first_name,
+        last_name: foundUser.last_name,
+        errno: 0
+      })
+    }
+  })
 })
 
 app.use('/v1', apiRoutes)

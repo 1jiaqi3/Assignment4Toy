@@ -52,13 +52,12 @@
     },
     created() {
       this.$http.post('/v1/account', {
-        id: '123'
+        email: localStorage.getItem('email')
       }).then((res) => {
         res = res.body
-        console.log(res)
         if (res.errno === ERR_OK) {
-          this.first_name = res.firstname
-          this.last_name = res.lastname
+          this.first_name = res.first_name
+          this.last_name = res.last_name
         }
       })
     },
