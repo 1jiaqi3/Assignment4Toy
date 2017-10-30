@@ -1,5 +1,19 @@
 <template>
   <div>
+    <div class="menu-container">
+      <div class="menu-item">
+        <router-link to="/account" class="item">Account</router-link>
+      </div>
+      <div class="menu-item">
+        <router-link to="/mybook" class="item">My Books</router-link>
+      </div>
+      <div class="menu-item">
+        <router-link to="/request" class="item">Requests</router-link>
+      </div>
+    </div>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <hr>
     <div class="ac-content">
       <div class="ac-content-container">
@@ -96,5 +110,15 @@
   }
   .ac-submit-button {
     text-align: end;
+  }
+  .menu-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .menu-item {
+    margin: 5px 20px;
+  }
+  .item {
+    text-decoration: none;
   }
 </style>

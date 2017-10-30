@@ -31,38 +31,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //handle get request through /account route
-apiRoutes.post('/account', bodyParser.json({extended: true}), function (req, res) {
-  console.log(req.body);
-  var MongoClient = require('mongodb').MongoClient
-    , assert = require('assert');
-// Connection URL
-  var url = 'mongodb://localhost:27017/toy';
-// Use connect method to connect to the Server
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-    console.log("Connected correctly to server");
-    var accdoc = db.collection('dbname').find({google_id: req.body.id}, function (err, doc) {
-        if (err) {
-          // If it failed, return error
-          res.json({
-            errno: 1,
-            data: ''
-          });
-        }
-        else {
-          var accitem = toJSON(accdoc.next());
-          res.json({
-            errno: 0,
-            data: accitem
-          });
-        }
-      });
-    db.close();
-  });
-});
+
 
 apiRoutes.post('/reg', function (req, res) {
-
+  console.log(req.body);
+  res.json({
+    errno: 0,
+  });
 })
 
 apiRoutes.post('/login', function (req, res) {
