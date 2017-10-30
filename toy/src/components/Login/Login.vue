@@ -1,39 +1,25 @@
 <template>
-  <div class="hm-main">
-    <div class="hm-title">
+  <div class="lg-main">
+    <div class="lg-title">
       <h1>Lion Books!</h1>
       <h3>A platform for trading used books</h3>
     </div>
-    <div class="hm-content">
+    <div class="lg-content">
       <form>
-        <div class="hm-flex-container">
-          <div class="hm-flex-item">
-            <div>First name</div>
-            <input v-model="first_name">
-          </div>
-          <div class="hm-flex-item">
-            <div>Last name</div>
-            <input v-model="last_name">
-          </div>
-          <div class="hm-flex-item">
+        <div class="lg-flex-container">
+          <div class="lg-flex-item">
             <div>Email</div>
-            <input v-model="email">
+            <input v-model="email"/>
           </div>
-          <div class="hm-flex-item">
+          <div class="lg-flex-item">
             <div>Password</div>
-            <input v-model="password">
+            <input type="password" v-model="password">
           </div>
         </div>
-        <div class="hm-submit-button">
-          <button class="hm-button" @click="submitForm" type="button">Join Now!</button>
+        <div class="lg-submit-button">
+          <button type="button" @click="submitForm">Log In</button>
         </div>
       </form>
-      <div class="otherOptions">
-        <div>
-          Already a user?
-          <button style="text-decoration:underline;">Sign in</button>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -43,17 +29,13 @@
   export default {
     data() {
       return {
-        first_name: '',
-        last_name: '',
         email: '',
         password: ''
       }
     },
     methods: {
       submitForm() {
-        this.$http.post('/v1/reg', {
-          first_name: this.first_name,
-          last_name: this.last_name,
+        this.$http.post('/v1/login', {
           email: this.email,
           password: this.password
         }).then((response) => {
@@ -68,24 +50,24 @@
 </script>
 
 <style rel="stylesheet">
-  .hm-main {
+  .lg-main {
     width: 50%;
     margin: auto;
   }
-  .hm-title {
+  .lg-title {
     text-align: center;
   }
-  .hm-content {
+  .lg-content {
     padding: 30px 20px;
     border: thin solid;
   }
-  .hm-flex-container {
+  .lg-flex-container {
     display: flex;
-    height: 300px;
+    height: 150px;
     flex-direction: column;
     justify-content: center;
   }
-  .hm-flex-item {
+  .lg-flex-item {
     height: 60px;
     width: 400px;
     margin: auto;
@@ -95,18 +77,20 @@
     height: 30px;
     margin: 3px 0;
   }
-  .hm-submit-button {
+  .lg-submit-button {
     text-align: center;
   }
-  .hm-button {
+  input[type=submit] {
     border-radius: 8px;
     font-size: 25px;
     height: 40px;
     width: 130px;
     margin: 10px;
   }
-  .otherOptions {
-    text-align: center;
+  button {
+    font-size: 20px;
+    padding: 5px 50px;
+    margin: 20px 0;
+    background-color: white;
   }
 </style>
-]

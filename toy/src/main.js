@@ -7,14 +7,16 @@ import App from './App'
 import Account from './components/Account/account.vue'
 import MyBook from './components/MyBook/MyBook.vue'
 import Request from './components/Request/Request.vue'
-import Home from './components/Home/Home.vue'
+import Reg from './components/Reg/Reg.vue'
+import Login from './components/Login/Login.vue'
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
 Vue.config.productionTip = false
 
 const routes = [
-  { path: '/', component: Home },
+  { path: '/', component: Reg },
+  { path: '/login', component: Login },
   { path: '/account', component: Account },
   { path: '/mybook', component: MyBook },
   { path: '/request', component: Request }

@@ -41,7 +41,9 @@ apiRoutes.post('/reg', function (req, res) {
 })
 
 apiRoutes.post('/login', function (req, res) {
-
+  res.json({
+    errno: 0,
+  });
 })
 
 
