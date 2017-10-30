@@ -20,6 +20,7 @@
           <button type="button" @click="submitForm">Log In</button>
         </div>
       </form>
+      <p>{{message}}</p>
     </div>
   </div>
 </template>
@@ -30,7 +31,8 @@
     data() {
       return {
         email: '',
-        password: ''
+        password: '',
+        message: ''
       }
     },
     methods: {
@@ -44,6 +46,8 @@
             localStorage.setItem('status', true)
             this.$router.push('/account')
           }
+        }, response => {
+          this.message = 'Wrong combination of email and password!'
         })
       }
     }

@@ -21,7 +21,7 @@
           </div>
           <div class="hm-flex-item">
             <div>Password</div>
-            <input v-model="password">
+            <input v-model="password" type="password">
           </div>
         </div>
         <div class="hm-submit-button">
