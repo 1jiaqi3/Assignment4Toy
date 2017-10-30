@@ -41,6 +41,7 @@
         }).then((response) => {
           response = response.body
           if (response.errno === ERR_OK) {
+            localStorage.setItem('status', true)
             this.$router.push('/account')
           }
         })
