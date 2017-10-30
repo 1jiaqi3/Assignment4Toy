@@ -99,8 +99,8 @@ apiRoutes.post('/login', function(req, res) {
         if (hashErr) {
           throw hashErr;
         }
-        console.log(hash)
-        console.log(user.password)
+        //console.log(hash)
+        //console.log(user.password)
         data.password = hash;
         if (data.password !== user.password) {
           res.status(401).send({error: 'unauthorized'});
