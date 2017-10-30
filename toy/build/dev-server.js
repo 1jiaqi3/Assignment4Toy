@@ -14,7 +14,17 @@ var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = (process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'production')
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
+var mongoose = require('mongoose')
+var bcrypt = require('bcryptjs')
+var models = require('./userModel')
 
+let User = models.User;
+
+const SALT_FACTOR = 10;
+
+mongoose.connect('mongodb://192.168.99.100:32773', {
+  useMongoClient: true,
+})
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
 // automatically open browser, if not set will be false
@@ -33,20 +43,51 @@ app.use(bodyParser.json());
 //handle get request through /account route
 
 
-apiRoutes.post('/reg', function (req, res) {
-  console.log(req.body);
-  res.json({
-    errno: 0,
+apiRoutes.post('/reg', function(req, res) {
+  let data = req.body;
+
+  let user = new User({
+    password: data.password,
+    first_name: data.first_name,
+    last_name: data.last_name,
+    email: data.email,
   });
-})
+
+  bcrypt.genSalt(SALT_FACTOR, function (saltErr, salt) {
+    if (saltErr) {
+      throw saltErr;
+    }
+    user.salt = salt;
+  });
+  console.log(user)
+  User.findOne({'email': user.email}, function (err, newUser) {
+    console.log(newUser)
+    if (err) {
+      res.status(400).send({error: 'query error occurred'});
+    }
+    if (newUser) {
+      res.status(401).send({ error: 'email already in use' });
+    } else {
+      console.log("hi")
+      user.save(function (err) {
+        if (err) {
+          res.status(400).send({ error: 'email, password, first_name, and last_name required' });
+        } else {
+          res.json({
+            email: data.email,
+            errno: 0
+          });
+        }
+      });
+    }
+  });
+});
 
 apiRoutes.post('/login', function (req, res) {
   res.json({
     errno: 0,
   });
 })
-
-
 
 app.use('/v1', apiRoutes)
 
