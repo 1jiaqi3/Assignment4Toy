@@ -61,6 +61,16 @@ apiRoutes.post('/account', bodyParser.json({extended: true}), function (req, res
   });
 });
 
+apiRoutes.post('/reg', function (req, res) {
+
+})
+
+apiRoutes.post('/login', function (req, res) {
+
+})
+
+
+
 app.use('/v1', apiRoutes)
 
 var compiler = webpack(webpackConfig)
