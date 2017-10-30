@@ -68,7 +68,7 @@ apiRoutes.post('/reg', function(req, res) {
     if (newUser) {
       res.status(401).send({ error: 'email already in use' });
     } else {
-      console.log("hi")
+      console.log(user)
       user.save(function (err) {
         if (err) {
           res.status(400).send({ error: 'email, password, first_name, and last_name required' });
@@ -83,11 +83,37 @@ apiRoutes.post('/reg', function(req, res) {
   });
 });
 
-apiRoutes.post('/login', function (req, res) {
-  res.json({
-    errno: 0
+apiRoutes.post('/login', function(req, res) {
+  let data = req.body;
+  if (!data) {
+    res.status(400).send({ error: 'username and password required' });
+  }
+  User.findOne({email: data.email}, function (err, user) {
+    if (err) {
+      res.status(400).send({ error: 'username and password required' });
+    }
+    if (!user) {
+      res.status(400).send({ error: 'no user found!' });
+    } else {
+      bcrypt.hash(data.password, user.salt, function (hashErr, hash) {
+        if (hashErr) {
+          throw hashErr;
+        }
+        console.log(hash)
+        console.log(user.password)
+        data.password = hash;
+        if (data.password !== user.password) {
+          res.status(401).send({error: 'unauthorized'});
+        } else {
+          res.json({
+            email: user.email,
+            errno: 0
+          });
+        }
+      });
+    }
   });
-})
+});
 
 apiRoutes.post('/account', function (req, res) {
   let data = req.body;
