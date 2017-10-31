@@ -102,6 +102,7 @@ apiRoutes.post('/login', function(req, res) {
         if (hashErr) {
           throw hashErr;
         }
+
         console.log(hash);
         console.log(user.password);
         data.password = hash;
@@ -140,8 +141,6 @@ apiRoutes.post('/addbook', function (req, res) {
     } if (!foundUser) {
       res.status(400).send({ error: 'no user found!' });
     } else {
-      console.log(data.remarks);
-      console.log(foundUser._id);
 
       let book = new Book({
         title: data.title,
