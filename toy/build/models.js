@@ -14,31 +14,31 @@ let userSchema = new Schema({
 });
 
 let bookSchema = new Schema({
-  name: String,
-  edition: String,
-  remarks: [],
-  listing_status: String,
-  on_list: Boolean,
-  listed_by: {type: Schema.Types.ObjectId, ref: 'User'},
+  title: {type: String, required: true},
+  author: {type: String, required: true},
+  remarks: {type: Array},
+  status: {type: String, required: true},
+  on_list: {type: Boolean, required: true},
+  listed_by: {type: Schema.Types.ObjectId, ref: 'User', required: true},
   lento: {type: Schema.Types.ObjectId, ref: 'User'}
 
 });
 
 let requestSchema = new Schema({
-  from: {type: Schema.Types.ObjectId, ref: 'User'},
-  to: {type: Schema.Types.ObjectId, ref: 'User'},
-  status: Number
+  from: {type: Schema.Types.ObjectId, ref: 'User', required:true},
+  to: {type: Schema.Types.ObjectId, ref: 'User', required:true},
+  status: {type: String, required: true}
 });
-
-let request_inboxSchema = new Schema ({
-  belongs_to: {type: Schema.Types.ObjectId, ref: 'User'},
-  requests: [{type: Schema.Types.ObjectId, ref: 'Request'}]
-});
-
-let book_listingSchema = new Schema ({
-  belongs_to: {type: Schema.Types.ObjectId, ref: 'User'},
-  books: [{type: Schema.Types.ObjectId, ref: 'Book'}]
-});
+//
+// let request_inboxSchema = new Schema ({
+//   belongs_to: {type: Schema.Types.ObjectId, ref: 'User', required:true},
+//   requests: [{type: Schema.Types.ObjectId, ref: 'Request'}]
+// });
+//
+// let book_listingSchema = new Schema ({
+//   belongs_to: {type: Schema.Types.ObjectId, ref: 'User'},
+//   books: [{type: Schema.Types.ObjectId, ref: 'Book'}]
+// });
 
 
 userSchema.pre('save', function(next) {
@@ -56,5 +56,9 @@ userSchema.pre('save', function(next) {
 
 module.exports = {
   User: mongoose.model('User', userSchema),
+  Book: mongoose.model('Book', bookSchema),
+  Request: mongoose.model('Request', requestSchema),
+  // Request_inbox: mongoose.model('Request_inbox', request_inboxSchema),
+  // Book_listing: mongoose.model('Book_listing', book_listingSchema)
 
 };

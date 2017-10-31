@@ -16,13 +16,17 @@ var webpackConfig = (process.env.NODE_ENV === 'testing' || process.env.NODE_ENV 
   : require('./webpack.dev.conf')
 var mongoose = require('mongoose')
 var bcrypt = require('bcryptjs')
-var models = require('./userModel')
+var models = require('./models')
 
 let User = models.User;
+let Book = models.Book;
+let Request = models.Request;
+// let Book_listing = models.Book_listing;
+// let Request_inbox = models.Request_inbox;
 
 const SALT_FACTOR = 10;
 
-mongoose.connect('mongodb://192.168.99.100:32773', {
+mongoose.connect('mongodb://192.168.99.100:32768', {
   useMongoClient: true,
 })
 // default port where dev server listens for incoming traffic
@@ -45,7 +49,6 @@ app.use(bodyParser.json());
 
 apiRoutes.post('/reg', function(req, res) {
   let data = req.body;
-
   let user = new User({
     password: data.password,
     first_name: data.first_name,
@@ -59,16 +62,16 @@ apiRoutes.post('/reg', function(req, res) {
     }
     user.salt = salt;
   });
-  console.log(user)
+  console.log(user);
   User.findOne({'email': user.email}, function (err, newUser) {
-    console.log(newUser)
+    console.log(newUser);
     if (err) {
       res.status(400).send({error: 'query error occurred'});
     }
     if (newUser) {
       res.status(401).send({ error: 'email already in use' });
     } else {
-      console.log(user)
+      console.log(user);
       user.save(function (err) {
         if (err) {
           res.status(400).send({ error: 'email, password, first_name, and last_name required' });
@@ -99,8 +102,8 @@ apiRoutes.post('/login', function(req, res) {
         if (hashErr) {
           throw hashErr;
         }
-        console.log(hash)
-        console.log(user.password)
+        console.log(hash);
+        console.log(user.password);
         data.password = hash;
         if (data.password !== user.password) {
           res.status(401).send({error: 'unauthorized'});
@@ -128,9 +131,44 @@ apiRoutes.post('/account', function (req, res) {
       })
     }
   })
+});
+
+apiRoutes.post('/addbook', function (req, res) {
+  let data = req.body;
+  User.findOne({'email': data.email}, function (err, foundUser) {
+    if(err) {res.status(400).send({error: 'query error occurred'});
+    } if (!foundUser) {
+      res.status(400).send({ error: 'no user found!' });
+    } else {
+      console.log(data.remarks);
+      console.log(foundUser._id);
+
+      let book = new Book({
+        title: data.title,
+        author: data.author,
+        remarks: data.remarks.split(','),
+        status : 'available',
+        listed_by: foundUser._id,
+        on_list: true
+      });
+
+      book.save(function (err) {
+        if (err) {
+          console.log(err);
+          res.status(400).send({ error: 'cannot save to database' });
+        } else {
+          // success
+          res.json({
+            title: book.title,
+            listedbyUser: foundUser.first_name,
+            errno: 0
+          })
+        }
+      });
+    }
+  })
+
 })
-
-
 
 app.use('/v1', apiRoutes)
 
