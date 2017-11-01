@@ -137,16 +137,18 @@ apiRoutes.post('/account', function (req, res) {
 apiRoutes.post('/addbook', function (req, res) {
   let data = req.body;
   User.findOne({'email': data.email}, function (err, foundUser) {
-    if(err) {res.status(400).send({error: 'query error occurred'});
-    } if (!foundUser) {
-      res.status(400).send({ error: 'no user found!' });
+    if (err) {
+      res.status(400).send({error: 'query error occurred'});
+    }
+    if (!foundUser) {
+      res.status(400).send({error: 'no user found!'});
     } else {
 
       let book = new Book({
         title: data.title,
         author: data.author,
         remarks: data.remarks.split(','),
-        status : 'available',
+        status: 'available',
         listed_by: foundUser._id,
         on_list: true
       });
@@ -154,7 +156,7 @@ apiRoutes.post('/addbook', function (req, res) {
       book.save(function (err) {
         if (err) {
           console.log(err);
-          res.status(400).send({ error: 'cannot save to database' });
+          res.status(400).send({error: 'cannot save to database'});
         } else {
           // success
           res.json({
@@ -166,8 +168,8 @@ apiRoutes.post('/addbook', function (req, res) {
       });
     }
   })
-
 });
+
 
 apiRoutes.post('/getbook', function (req, res) {
   let data = req.body;
@@ -191,6 +193,26 @@ apiRoutes.post('/getbook', function (req, res) {
 
 });
 
+
+apiRoutes.get('/search', function (req, res) {
+  let data = req.body;
+  let srch = data.title;
+  srch.trim();
+  Book.find({title : { $regex: /srch/, $options: "i" }}).lean().exec(function (err, Books) {
+    if(err) {res.status(400).send({error: 'query error occurred'});
+    } if (!Books) {
+      res.json({
+        books: [],
+        errno: 0
+      })
+    } else {
+      res.json({
+        books: JSON.stringify(Books),
+        errno: 0
+      });
+    }
+  })
+})
 app.use('/v1', apiRoutes);
 
 var compiler = webpack(webpackConfig)
