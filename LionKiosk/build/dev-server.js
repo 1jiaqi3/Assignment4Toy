@@ -168,7 +168,25 @@ apiRoutes.post('/addbook', function (req, res) {
   })
 
 })
-
+apiRoutes.get('/search', function (req, res) {
+  let data = req.body;
+  let srch = data.title;
+  srch.trim();
+  Book.find({title : { $regex: /srch/, $options: "i" }}).lean().exec(function (err, Books) {
+    if(err) {res.status(400).send({error: 'query error occurred'});
+    } if (!Books) {
+      res.json({
+        books: [],
+        errno: 0
+      })
+    } else {
+      res.json({
+        books: JSON.stringify(Books),
+        errno: 0
+      });
+    }
+  })
+})
 app.use('/v1', apiRoutes)
 
 var compiler = webpack(webpackConfig)
