@@ -167,9 +167,31 @@ apiRoutes.post('/addbook', function (req, res) {
     }
   })
 
-})
+});
 
-app.use('/v1', apiRoutes)
+apiRoutes.post('/getbook', function (req, res) {
+  let data = req.body;
+  User.findOne({'email': data.email}, function (err, foundUser) {
+    if(err) {res.status(400).send({error: 'user query error occurred'});
+    } if (!foundUser) {
+      res.status(400).send({ error: 'no user found!' });
+    } else {
+      // user found, query book
+      Book.find({'listed_by':foundUser._id}, function (err, foundBooks) {
+        if(err) {res.status(400).send({error: 'book query error occurred'});
+        } if (!foundBooks) {
+          res.status(400).send({ error: 'no books found!' });
+        } else {
+          // found books in a list
+          res.status(200).send(foundBooks);
+        }
+      })
+    }
+  })
+
+});
+
+app.use('/v1', apiRoutes);
 
 var compiler = webpack(webpackConfig)
 
