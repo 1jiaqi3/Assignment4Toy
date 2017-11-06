@@ -26,7 +26,7 @@ let Request = models.Request;
 
 const SALT_FACTOR = 10;
 
-mongoose.connect('mongodb://192.168.99.100:32768', {
+mongoose.connect('mongodb://127.0.0.1:27017/test', {
   useMongoClient: true,
 })
 // default port where dev server listens for incoming traffic
@@ -194,11 +194,18 @@ apiRoutes.post('/getbook', function (req, res) {
 });
 
 
-apiRoutes.get('/search', function (req, res) {
-  let data = req.body;
-  let srch = data.title;
+apiRoutes.all('/search', function (req, res) {
+  let srch = req.body.titleOrAuthor;
+  console.log(srch);
   srch.trim();
-  Book.find({title : { $regex: /srch/, $options: "i" }}).lean().exec(function (err, Books) {
+  let srchArray = srch.split(" ");
+  var srchexp =  new RegExp(srchArray.join("|"), "i");
+  console.log(srchexp);
+
+    Book.find({ $or: [
+    {$and: [{title : { $regex: srchexp }}, {on_list: true}]},
+    {$and: [{author : { $regex: srchexp }}, {on_list: true}]}
+]}).exec(function (err, Books) {
     if(err) {res.status(400).send({error: 'query error occurred'});
     } if (!Books) {
       res.json({
@@ -206,8 +213,9 @@ apiRoutes.get('/search', function (req, res) {
         errno: 0
       })
     } else {
+      console.log("here");
       res.json({
-        books: JSON.stringify(Books),
+        books: JSON.parse(JSON.stringify(Books)),
         errno: 0
       });
     }
