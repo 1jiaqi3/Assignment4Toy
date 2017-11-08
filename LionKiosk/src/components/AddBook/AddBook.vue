@@ -5,19 +5,19 @@
         <div class="ab-flex-container">
           <div class="ab-flex-item">
             <div>Book Title</div>
-            <input type="text" v-model="title">
+            <input type="text" v-model="title" class="ab-input">
           </div>
           <div class="ab-flex-item">
             <div>Author</div>
-            <input type="text" v-model="author">
+            <input type="text" v-model="author" class="ab-input">
           </div>
           <div class="ab-flex-item">
             <div>Condition</div>
-            <input type="text" v-model="remarks">
+            <input type="text" v-model="remarks" class="ab-input">
           </div>
         </div>
         <div class="submitButton">
-          <input type="submit" value="Add it!" @click="submitForm">
+          <button type="button" @click="submitForm" class="ab-button ab-submitButton">Add It!</button>
         </div>
       </form>
     </div>
@@ -36,7 +36,7 @@
     },
     methods: {
       submitForm() {
-        this.$http.post('/v1/login', {
+        this.$http.post('/v1/addbook', {
           email: localStorage.getItem('email'),
           title: this.title,
           author: this.author,
@@ -75,15 +75,15 @@
     width: 400px;
     margin: auto;
   }
-  input {
+  .ab-input {
     width: 100%;
     height: 30px;
     margin: 3px 0;
   }
-  .submitButton {
+  .ab-submitButton {
     text-align: center;
   }
-  input[type=submit] {
+  .ab-button {
     border-radius: 8px;
     font-size: 25px;
     height: 40px;

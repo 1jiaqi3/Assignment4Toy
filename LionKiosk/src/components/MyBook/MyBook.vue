@@ -33,11 +33,12 @@
         books: []
       }
     },
-    beforeMount() {
+    created() {
       this.$http.post('/v1/getbook', {
         email: localStorage.getItem('email')
       }).then((response) => {
         response = response.body
+        console.log(response)
         if (response.errno === ERR_OK) {
           this.books = response.books
         }
@@ -74,5 +75,15 @@
     margin: 50px 0;
     background-color: white;
     float: right;
+  }
+  .menu-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .menu-item {
+    margin: 5px 20px;
+  }
+  .item {
+    text-decoration: none;
   }
 </style>

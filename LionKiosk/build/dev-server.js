@@ -26,7 +26,7 @@ let Request = models.Request;
 
 const SALT_FACTOR = 10;
 
-mongoose.connect('mongodb://127.0.0.1:27017/test', {
+mongoose.connect('mongodb://192.168.99.100:32768', {
   useMongoClient: true,
 })
 // default port where dev server listens for incoming traffic
@@ -185,7 +185,12 @@ apiRoutes.post('/getbook', function (req, res) {
           res.status(400).send({ error: 'no books found!' });
         } else {
           // found books in a list
-          res.json({books: foundBooks});
+          console.log(foundBooks)
+          res.json({
+            books: foundBooks,
+            errno: 0
+          });
+
         }
       })
     }
