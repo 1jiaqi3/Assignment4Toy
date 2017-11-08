@@ -27,7 +27,8 @@ let bookSchema = new Schema({
 let requestSchema = new Schema({
   from: {type: Schema.Types.ObjectId, ref: 'User', required:true},
   to: {type: Schema.Types.ObjectId, ref: 'User', required:true},
-  status: {type: String, required: true}
+  status: {type: String, required: true},
+  bid: {type: Schema.Types.ObjectId, ref: 'Book', required: true},
 });
 //
 // let request_inboxSchema = new Schema ({
