@@ -26,7 +26,7 @@ let Request = models.Request;
 
 const SALT_FACTOR = 10;
 
-mongoose.connect('mongodb://192.168.99.100:32768', {
+mongoose.connect('mongodb://127.0.0.1:27017/test', {
   useMongoClient: true,
 })
 // default port where dev server listens for incoming traffic

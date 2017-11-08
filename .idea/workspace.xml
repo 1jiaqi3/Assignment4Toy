@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="966c1054-f175-4ffd-ac57-bd50803ec820" name="Default" comment="Preliminary implementation for get requests through /account. Needs correct path and db names.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/toy/build/dev-server.js" afterPath="$PROJECT_DIR$/toy/build/dev-server.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/toy/src/components/Account/account.vue" afterPath="$PROJECT_DIR$/toy/src/components/Account/account.vue" />
     </list>
@@ -36,7 +35,7 @@
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#140#161#0" expanded="true" />
-                <marker date="1509315390856" expanded="true" signature="903:905" ph="{&quot;el&quot;: '##app'...}" />
+                <marker date="1509317730144" expanded="true" signature="903:905" ph="{&quot;el&quot;: '##app'...}" />
               </folding>
             </state>
           </provider>
@@ -92,21 +91,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="account.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="account.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/toy/src/components/Account/account.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="55" column="24" lean-forward="true" selection-start-line="55" selection-start-column="24" selection-end-line="55" selection-end-column="24" />
+            <state relative-caret-position="145">
+              <caret line="42" column="20" lean-forward="true" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dev-server.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="dev-server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/toy/build/dev-server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="58">
-              <caret line="35" column="59" lean-forward="true" selection-start-line="35" selection-start-column="59" selection-end-line="35" selection-end-column="59" />
+            <state relative-caret-position="232">
+              <caret line="61" column="0" lean-forward="true" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -129,8 +128,8 @@
       <list>
         <option value="$PROJECT_DIR$/toy/src/main.js" />
         <option value="$PROJECT_DIR$/toy/src/components/Hello.vue" />
-        <option value="$PROJECT_DIR$/toy/build/dev-server.js" />
         <option value="$PROJECT_DIR$/toy/src/components/Account/account.vue" />
+        <option value="$PROJECT_DIR$/toy/build/dev-server.js" />
       </list>
     </option>
   </component>
@@ -321,7 +320,7 @@
       <workItem from="1507071137803" duration="1309000" />
       <workItem from="1507075415005" duration="1999000" />
       <workItem from="1507077713995" duration="2920000" />
-      <workItem from="1509123672284" duration="7494000" />
+      <workItem from="1509123672284" duration="9016000" />
     </task>
     <task id="LOCAL-00001" summary="Preliminary implementation for get requests through /account. Needs correct path and db names.">
       <created>1509236678015</created>
@@ -334,7 +333,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15700000" />
+    <option name="totallyTimeSpent" value="17222000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-12" y="-12" width="1944" height="1034" extended-state="6" />
@@ -389,7 +388,7 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#140#161#0" expanded="true" />
-            <marker date="1509315390856" expanded="true" signature="903:905" ph="{&quot;el&quot;: '##app'...}" />
+            <marker date="1509317730144" expanded="true" signature="903:905" ph="{&quot;el&quot;: '##app'...}" />
           </folding>
         </state>
       </provider>
@@ -561,7 +560,7 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#140#161#0" expanded="true" />
-            <marker date="1509315390856" expanded="true" signature="903:905" ph="{&quot;el&quot;: '##app'...}" />
+            <marker date="1509317730144" expanded="true" signature="903:905" ph="{&quot;el&quot;: '##app'...}" />
           </folding>
         </state>
       </provider>
@@ -574,14 +573,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/toy/src/components/Hello.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="31" column="6" lean-forward="false" selection-start-line="31" selection-start-column="6" selection-end-line="31" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/toy/test/unit/specs/Hello.spec.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="261">
@@ -590,18 +581,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/toy/build/dev-server.js">
+    <entry file="file://$PROJECT_DIR$/toy/src/components/Hello.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="35" column="59" lean-forward="true" selection-start-line="35" selection-start-column="59" selection-end-line="35" selection-end-column="59" />
+        <state relative-caret-position="29">
+          <caret line="31" column="6" lean-forward="false" selection-start-line="31" selection-start-column="6" selection-end-line="31" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/toy/src/components/Account/account.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="55" column="24" lean-forward="true" selection-start-line="55" selection-start-column="24" selection-end-line="55" selection-end-column="24" />
+        <state relative-caret-position="145">
+          <caret line="42" column="20" lean-forward="true" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/toy/build/dev-server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="61" column="0" lean-forward="true" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding />
         </state>
       </provider>
