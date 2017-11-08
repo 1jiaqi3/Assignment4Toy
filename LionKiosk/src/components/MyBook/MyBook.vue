@@ -28,7 +28,28 @@
   import MyBookItem from './MyBookItem.vue'
   const ERR_OK = 0
   export default {
-
+    data() {
+      return {
+        books: []
+      }
+    },
+    beforeMount() {
+      this.$http.post('/v1/getbook', {
+        email: localStorage.getItem('email')
+      }).then((response) => {
+        response = response.body
+        if (response.errno === ERR_OK) {
+          this.books = response.books
+        }
+      }, response => {
+        this.message = 'Wrong combination of email and password!'
+      })
+    },
+    methods: {
+      addBook() {
+        this.$router.push('/addBook')
+      }
+    },
     components: {
       MyBookItem
     }
