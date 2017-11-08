@@ -137,16 +137,18 @@ apiRoutes.post('/account', function (req, res) {
 apiRoutes.post('/addbook', function (req, res) {
   let data = req.body;
   User.findOne({'email': data.email}, function (err, foundUser) {
-    if(err) {res.status(400).send({error: 'query error occurred'});
-    } if (!foundUser) {
-      res.status(400).send({ error: 'no user found!' });
+    if (err) {
+      res.status(400).send({error: 'query error occurred'});
+    }
+    if (!foundUser) {
+      res.status(400).send({error: 'no user found!'});
     } else {
 
       let book = new Book({
         title: data.title,
         author: data.author,
         remarks: data.remarks.split(','),
-        status : 'available',
+        status: 'available',
         listed_by: foundUser._id,
         on_list: true
       });
@@ -154,7 +156,7 @@ apiRoutes.post('/addbook', function (req, res) {
       book.save(function (err) {
         if (err) {
           console.log(err);
-          res.status(400).send({ error: 'cannot save to database' });
+          res.status(400).send({error: 'cannot save to database'});
         } else {
           // success
           res.json({
@@ -166,10 +168,60 @@ apiRoutes.post('/addbook', function (req, res) {
       });
     }
   })
+});
 
+
+apiRoutes.post('/getbook', function (req, res) {
+  let data = req.body;
+  User.findOne({'email': data.email}, function (err, foundUser) {
+    if(err) {res.status(400).send({error: 'user query error occurred'});
+    } if (!foundUser) {
+      res.status(400).send({ error: 'no user found!' });
+    } else {
+      // user found, query book
+      Book.find({'listed_by':foundUser._id}, function (err, foundBooks) {
+        if(err) {res.status(400).send({error: 'book query error occurred'});
+        } if (!foundBooks) {
+          res.status(400).send({ error: 'no books found!' });
+        } else {
+          // found books in a list
+          res.status(200).send(foundBooks);
+        }
+      })
+    }
+  })
+
+});
+
+
+apiRoutes.all('/search', function (req, res) {
+  let srch = req.body.titleOrAuthor;
+  console.log(srch);
+  srch.trim();
+  let srchArray = srch.split(" ");
+  var srchexp =  new RegExp(srchArray.join("|"), "i");
+  console.log(srchexp);
+
+  Book.find({ $or: [
+    {$and: [{title : { $regex: srchexp }}, {on_list: true}]},
+    {$and: [{author : { $regex: srchexp }}, {on_list: true}]}
+  ]}).exec(function (err, Books) {
+    if(err) {res.status(400).send({error: 'query error occurred'});
+    } if (!Books) {
+      res.json({
+        books: [],
+        errno: 0
+      })
+    } else {
+      console.log("here");
+      res.json({
+        books: JSON.parse(JSON.stringify(Books)),
+        errno: 0
+      });
+    }
+  })
 })
-
-app.use('/v1', apiRoutes)
+app.use('/v1', apiRoutes);
 
 var compiler = webpack(webpackConfig)
 
