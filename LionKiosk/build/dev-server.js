@@ -26,7 +26,7 @@ let Request = models.Request;
 
 const SALT_FACTOR = 10;
 
-mongoose.connect('mongodb://127.0.0.1:27017/test', {
+mongoose.connect('mongodb://192.168.99.100:32768', {
   useMongoClient: true,
 })
 // default port where dev server listens for incoming traffic
@@ -185,7 +185,12 @@ apiRoutes.post('/getbook', function (req, res) {
           res.status(400).send({ error: 'no books found!' });
         } else {
           // found books in a list
-          res.status(200).send(foundBooks);
+          console.log(foundBooks)
+          res.json({
+            books: foundBooks,
+            errno: 0
+          });
+
         }
       })
     }
@@ -202,10 +207,10 @@ apiRoutes.all('/search', function (req, res) {
   var srchexp =  new RegExp(srchArray.join("|"), "i");
   console.log(srchexp);
 
-    Book.find({ $or: [
+  Book.find({ $or: [
     {$and: [{title : { $regex: srchexp }}, {on_list: true}]},
     {$and: [{author : { $regex: srchexp }}, {on_list: true}]}
-]}).exec(function (err, Books) {
+  ]}).exec(function (err, Books) {
     if(err) {res.status(400).send({error: 'query error occurred'});
     } if (!Books) {
       res.json({
@@ -221,6 +226,126 @@ apiRoutes.all('/search', function (req, res) {
     }
   })
 })
+
+
+apiRoutes.post('/sendreq', function (req, res) {
+  let data = req.body;
+  User.findOne({'email' : data.from}, function (err, sender) {
+    if(err) {res.status(400).send({error: 'sender query error occurred'});
+    } if (!sender) {
+      res.status(400).send({ error: 'no sender found!' });
+    } else {
+      User.findOne({'email' : data.to}, function (err, receiver) {
+        if(err) {res.status(400).send({error: 'receiver query error occurred'});
+        } if (!receiver) {
+          res.status(400).send({ error: 'no receiver found!' });
+        } else {
+          let request = new Request({
+            from: sender._id,
+            to: receiver._id,
+            status: 'pending',
+            bid: data.bid
+          });
+
+          request.save(function (err) {
+            if (err) {
+              console.log(err);
+              res.status(400).send({error: 'cannot save req to database'});
+            } else {
+              // success
+              console.log(request);
+              res.status(200).send(request);
+            }
+          });
+
+        }
+      })
+    }
+  })
+
+});
+
+apiRoutes.post('/acceptreq', function (req, res) {
+  let data = req.body;
+
+  User.findOne({'email' : data.from}, function (err, sender) {
+    if(err) {res.status(400).send({error: 'sender query error occurred'});
+    } if (!sender) {res.status(400).send({ error: 'no sender found!' });
+    } else {
+      User.findOne({'email' : data.to}, function (err, receiver) {
+        if(err) {res.status(400).send({error: 'receiver query error occurred'});
+        } if (!receiver) { res.status(400).send({ error: 'no receiver found!' });
+        } else {
+          Request.findOne({
+            'from':sender.id,
+            'to': receiver.id,
+            'bid': data.bid,
+            'status': 'pending'
+          }, function (err, request) {
+            if(err) {res.status(400).send({error: 'request query error occurred'});
+            } if (!request) {res.status(400).send({ error: 'req found!' });
+            } else {
+              Book.findOne({_id:data.bid}, function (err, book) {
+                if (err) {res.status(400).send({error: 'request query error occurred'})
+                } else {
+                  // update req and book
+                  // update req and book
+                  request.status = 'approved';
+                  book.status = 'lent';
+                  book.on_list = false;
+                  book.lento = sender._id;
+
+                  request.save(function (err) {
+                    if (err) {
+                      console.log(err);
+                      res.status(400).send({error: 'cannot update req database'});
+                    } else {
+                      // success
+                      console.log(request);
+                      book.save(function (err) {
+                        if (err) {
+                          console.log(err);
+                          res.status(400).send({error: 'cannot update book database'});
+                        } else {
+                          // success
+                          console.log(request);
+                          res.status(200).send(request);
+                        }});
+                    }});
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  })
+});
+
+apiRoutes.post('/getreqs', function (req, res) {
+  let data = req.body;
+  User.findOne({'email': data.email}, function (err, foundUser) {
+    if(err) {res.status(400).send({error: 'user query error occurred'});
+    } if (!foundUser) {
+      res.status(400).send({ error: 'no user found!' });
+    } else {
+      // user found, query book
+      Request.find({'to':foundUser._id}, function (err, reqs) {
+        if(err) {res.status(400).send({error: 'request error occurred'});
+        } if (!reqs) {
+          res.status(400).send({ error: 'no reqs found!' });
+        } else {
+          // found books in a list
+          res.status(200).send(reqs);
+        }
+      })
+    }
+  })
+
+});
+
+
+
 app.use('/v1', apiRoutes);
 
 var compiler = webpack(webpackConfig)

@@ -9,15 +9,15 @@
         <div class="lg-flex-container">
           <div class="lg-flex-item">
             <div>Email</div>
-            <input v-model="email"/>
+            <input v-model="email" class="lg-input"/>
           </div>
           <div class="lg-flex-item">
             <div>Password</div>
-            <input type="password" v-model="password">
+            <input type="password" v-model="password" class="lg-input"/>
           </div>
         </div>
         <div class="lg-submit-button">
-          <button type="button" @click="submitForm">Log In</button>
+          <button type="button" @click="submitForm" class="lg-submit">Log In</button>
         </div>
       </form>
       <p>{{message}}</p>
@@ -44,7 +44,8 @@
           response = response.body
           if (response.errno === ERR_OK) {
             localStorage.setItem('status', true)
-            this.$router.push('/account')
+            localStorage.setItem('email', this.email)
+            this.$router.push('/search')
           }
         }, response => {
           this.message = 'Wrong combination of email and password!'
@@ -77,7 +78,7 @@
     width: 400px;
     margin: auto;
   }
-  input {
+  .lg-input {
     width: 100%;
     height: 30px;
     margin: 3px 0;
@@ -85,17 +86,11 @@
   .lg-submit-button {
     text-align: center;
   }
-  input[type=submit] {
+  .lg-submit {
     border-radius: 8px;
     font-size: 25px;
     height: 40px;
     width: 130px;
     margin: 10px;
-  }
-  button {
-    font-size: 20px;
-    padding: 5px 50px;
-    margin: 20px 0;
-    background-color: white;
   }
 </style>

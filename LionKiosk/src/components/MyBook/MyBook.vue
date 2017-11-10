@@ -13,11 +13,11 @@
     </div>
     <hr/>
     <div class="mb-content">
-      <div class="mb-content-container">
-        <MyBookItem :title="'temp1'" :author="'temp2'"></MyBookItem>
+      <div class="mb-content-container" v-for="book in books">
+        <MyBookItem :title="book.title" :author="book.author"></MyBookItem>
       </div>
       <div>
-        <button class="mb-button">Add a Book!</button>
+        <button class="mb-button" @click="addBook">Add a Book!</button>
       </div>
     </div>
   </div>
@@ -26,7 +26,31 @@
 
 <script type="text/ecmascript-6">
   import MyBookItem from './MyBookItem.vue'
+  const ERR_OK = 0
   export default {
+    data() {
+      return {
+        books: []
+      }
+    },
+    created() {
+      this.$http.post('/v1/getbook', {
+        email: localStorage.getItem('email')
+      }).then((response) => {
+        response = response.body
+        console.log(response)
+        if (response.errno === ERR_OK) {
+          this.books = response.books
+        }
+      }, response => {
+        this.message = 'Wrong combination of email and password!'
+      })
+    },
+    methods: {
+      addBook() {
+        this.$router.push('/addBook')
+      }
+    },
     components: {
       MyBookItem
     }
@@ -51,5 +75,15 @@
     margin: 50px 0;
     background-color: white;
     float: right;
+  }
+  .menu-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .menu-item {
+    margin: 5px 20px;
+  }
+  .item {
+    text-decoration: none;
   }
 </style>

@@ -60,6 +60,7 @@
           response = response.body
           if (response.errno === ERR_OK) {
             localStorage.setItem('email', response.email)
+            console.log(response)
             this.$router.push('/account')
           }
         })
