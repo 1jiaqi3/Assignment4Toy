@@ -344,7 +344,9 @@ apiRoutes.post('/getreqs', function (req, res) {
 
 });
 
-
+apiRoutes.get('/test', function (req, res) {
+  res.status(200).send({'hi': 'he'})
+});
 
 app.use('/v1', apiRoutes);
 
