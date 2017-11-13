@@ -37,6 +37,12 @@
         </div>
       </div>
     </div>
+    <div>
+      <button @click="goSearch">Find a Book!</button>
+    </div>
+    <div>
+      <button @click="logOut">Log Out!</button>
+    </div>
   </div>
 </template>
 
@@ -72,6 +78,15 @@
             this.message = 'Successfully Updated!'
           }
         })
+      },
+      goSearch() {
+        this.$router.push('/search')
+      },
+      logOut() {
+        localStorage.setItem('status', false)
+        localStorage.setItem('id', '')
+        localStorage.setItem('email', '')
+        this.$router.push('/login')
       }
     }
   }

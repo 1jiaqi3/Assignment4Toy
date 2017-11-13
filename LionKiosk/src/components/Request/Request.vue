@@ -17,12 +17,12 @@
 
         <div class="rq-sub-container rq-sub-container-left" v-for="req in sentReqs">
           <h2>Sent</h2>
-          <send-req :title="'temp1'" :author="'temp2'"></send-req>
+          <send-req :title="''" :author="''"></send-req>
         </div>
 
         <div class="rq-sub-container" v-for="req in recvReqs">
           <h2>Received</h2>
-          <rcv-req :title="'temp1'" :author="'temp2'"></rcv-req>
+          <rcv-req :title="''" :author="''"></rcv-req>
         </div>
       </div>
     </div>
