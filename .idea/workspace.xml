@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="966c1054-f175-4ffd-ac57-bd50803ec820" name="Default" comment="Preliminary implementation for get requests through /account. Needs correct path and db names.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LionKiosk/build/dev-server.js" afterPath="$PROJECT_DIR$/LionKiosk/build/dev-server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LionKiosk/src/components/Request/Request.vue" afterPath="$PROJECT_DIR$/LionKiosk/src/components/Request/Request.vue" />
-    </list>
+    <list default="true" id="966c1054-f175-4ffd-ac57-bd50803ec820" name="Default" comment="Preliminary implementation for get requests through /account. Needs correct path and db names." />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -83,17 +79,17 @@
       <file leaf-file-name="RcvReq.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LionKiosk/src/components/Request/RcvReq.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
+            <state relative-caret-position="255">
               <caret line="17" column="12" lean-forward="false" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Request.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Request.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LionKiosk/src/components/Request/Request.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="471">
+            <state relative-caret-position="660">
               <caret line="44" column="27" lean-forward="true" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
               <folding>
                 <element signature="e#945#978#0" expanded="true" />
@@ -112,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Search.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Search.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LionKiosk/src/components/Search/Search.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="37" column="22" lean-forward="true" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
+            <state relative-caret-position="285">
+              <caret line="49" column="39" lean-forward="true" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -400,7 +396,7 @@
       <workItem from="1509930865221" duration="8690000" />
       <workItem from="1510242842215" duration="95000" />
       <workItem from="1510261334918" duration="9825000" />
-      <workItem from="1510532900282" duration="4938000" />
+      <workItem from="1510532900282" duration="6438000" />
     </task>
     <task id="LOCAL-00001" summary="Preliminary implementation for get requests through /account. Needs correct path and db names.">
       <created>1509236678015</created>
@@ -413,7 +409,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45427000" />
+    <option name="totallyTimeSpent" value="46927000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="962" extended-state="6" />
@@ -588,14 +584,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LionKiosk/src/components/Request/RcvReq.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="17" column="12" lean-forward="false" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LionKiosk/test/unit/specs/Hello.spec.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -630,14 +618,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LionKiosk/src/components/Search/Search.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="22" lean-forward="true" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/LionKiosk/src/components/MyBook/MyBook.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="443">
@@ -662,13 +642,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/LionKiosk/src/components/Request/RcvReq.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="12" lean-forward="false" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/LionKiosk/src/components/Request/Request.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
+        <state relative-caret-position="660">
           <caret line="44" column="27" lean-forward="true" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
           <folding>
             <element signature="e#945#978#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LionKiosk/src/components/Search/Search.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="49" column="39" lean-forward="true" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -126,7 +126,7 @@ apiRoutes.post('/account', function (req, res) {
     if (err) {
       res.status(400).send({error: 'query error occurred'});
     } else {
-      res.json({
+      res.status(200).json({
         first_name: foundUser.first_name,
         last_name: foundUser.last_name,
         errno: 0
