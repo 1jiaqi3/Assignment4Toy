@@ -44,6 +44,7 @@
           response = response.body
           if (response.errno === ERR_OK) {
             localStorage.setItem('status', true)
+            localStorage.setItem('id', response.id)
             localStorage.setItem('email', this.email)
             this.$router.push('/search')
           }

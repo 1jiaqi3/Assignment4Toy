@@ -20,6 +20,10 @@
         <div class="sr-listItem">
           <img src="../../assets/pikapika.jpg">
           <h1>{{book.title}}</h1>
+          <div>
+            <button @click="requestBook(book._id, book.listed_by)">Request</button>
+          </div>
+          <p>{{reqSuccess}}</p>
         </div>
       </div>
     </div>
@@ -32,7 +36,8 @@
     data() {
       return {
         searchStr: '',
-        books: []
+        books: [],
+        reqSuccess: ''
       }
     },
     methods: {
@@ -43,6 +48,7 @@
           response = response.body
           if (response.errno === ERR_OK) {
             this.books = response.books
+            console.log(this.books)
           }
         }, response => {
           this.message = 'Wrong search'
@@ -50,6 +56,26 @@
       },
       toAccount() {
         this.$router.push('/account')
+      },
+      requestBook(bid, listedBy) {
+        this.$http.post('/v1/sendreq', {
+          bid: bid,
+          from: localStorage.getItem('email'),
+          to: listedBy
+        }).then(response => {
+          response = response.body
+          this.reqSuccess = 'Successfully Sent!!'
+          let self = this
+          setTimeout(function () {
+            self.reqSuccess = ''
+          }, 3000)
+        }, response => {
+          this.reqSuccess = 'Invalid Request!'
+          let self = this
+          setTimeout(function () {
+            self.reqSuccess = ''
+          }, 3000)
+        })
       }
     }
   }

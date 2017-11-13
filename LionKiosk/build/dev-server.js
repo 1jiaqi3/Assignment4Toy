@@ -111,6 +111,7 @@ apiRoutes.post('/login', function(req, res) {
         } else {
           res.json({
             email: user.email,
+            id: user._id,
             errno: 0
           });
         }
@@ -235,7 +236,7 @@ apiRoutes.post('/sendreq', function (req, res) {
     } if (!sender) {
       res.status(400).send({ error: 'no sender found!' });
     } else {
-      User.findOne({'email' : data.to}, function (err, receiver) {
+      User.findOne({'_id' : data.to}, function (err, receiver) {
         if(err) {res.status(400).send({error: 'receiver query error occurred'});
         } if (!receiver) {
           res.status(400).send({ error: 'no receiver found!' });
