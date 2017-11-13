@@ -337,7 +337,7 @@ apiRoutes.post('/getreqs', function (req, res) {
           res.status(400).send({ error: 'no reqs found!' });
         } else {
           // found books in a list
-          res.status(200).send(reqs);
+          res.status(200).json({reqs: reqs});
         }
       })
     }

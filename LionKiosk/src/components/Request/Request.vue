@@ -14,11 +14,13 @@
     <hr/>
     <div class="rq-content">
       <div class="rq-content-container">
-        <div class="rq-sub-container rq-sub-container-left">
+
+        <div class="rq-sub-container rq-sub-container-left" v-for="req in sentReqs">
           <h2>Sent</h2>
           <send-req :title="'temp1'" :author="'temp2'"></send-req>
         </div>
-        <div class="rq-sub-container">
+
+        <div class="rq-sub-container" v-for="req in recvReqs">
           <h2>Received</h2>
           <rcv-req :title="'temp1'" :author="'temp2'"></rcv-req>
         </div>
@@ -31,6 +33,20 @@
   import RcvReq from './RcvReq.vue'
   import SendReq from './SendReq.vue'
   export default {
+    data() {
+      return {
+        recvReqs: [],
+        sentReqs: []
+      }
+    },
+    created() {
+      this.$http.post('/v1/getreqs', {
+        email: localStorage.getItem('email')
+      }).then(response => {
+        response = response.body
+        this.recvReqs = response.reqs
+      })
+    },
     components: {
       RcvReq,
       SendReq
