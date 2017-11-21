@@ -6,33 +6,33 @@ let bcrypt = require('bcryptjs');
 let Schema = mongoose.Schema;
 
 let userSchema = new Schema({
-  first_name: {type: String, required: true},
-  last_name: {type: String, required: true},
-  email: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
-  salt: {type: String, required: true}
+  first_name: {type: String},
+  last_name: {type: String},
+  email: {type: String, unique: true},
+  password: {type: String},
+  salt: {type: String}
 });
 
 let bookSchema = new Schema({
-  title: {type: String, required: true},
-  author: {type: String, required: true},
+  title: {type: String},
+  author: {type: String},
   remarks: {type: Array},
-  status: {type: String, required: true},
-  on_list: {type: Boolean, required: true},
-  listed_by: {type: Schema.Types.ObjectId, ref: 'User', required: true},
+  status: {type: String},
+  on_list: {type: Boolean},
+  listed_by: {type: Schema.Types.ObjectId, ref: 'User'},
   lento: {type: Schema.Types.ObjectId, ref: 'User'}
 
 });
 
 let requestSchema = new Schema({
-  from: {type: Schema.Types.ObjectId, ref: 'User', required:true},
-  to: {type: Schema.Types.ObjectId, ref: 'User', required:true},
+  from: {type: Schema.Types.ObjectId, ref: 'User'},
+  to: {type: Schema.Types.ObjectId, ref: 'User'},
   status: {type: String, required: true},
-  bid: {type: Schema.Types.ObjectId, ref: 'Book', required: true},
+  bid: {type: Schema.Types.ObjectId, ref: 'Book'},
 });
 //
 // let request_inboxSchema = new Schema ({
-//   belongs_to: {type: Schema.Types.ObjectId, ref: 'User', required:true},
+//   belongs_to: {type: Schema.Types.ObjectId, ref: 'User'},
 //   requests: [{type: Schema.Types.ObjectId, ref: 'Request'}]
 // });
 //
