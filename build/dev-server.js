@@ -28,7 +28,7 @@ const SALT_FACTOR = 10;
 
 mongodb://<dbuser>:<dbpassword>@ds117316.mlab.com:17316/heroku_kwp6q0dd
 
-mongoose.connect('mongodb://192.168.99.100:32768', {
+mongoose.connect('mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd', {
   useMongoClient: true,
 })
 // default port where dev server listens for incoming traffic
