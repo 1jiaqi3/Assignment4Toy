@@ -14,7 +14,7 @@ describe('loading express', function () {
     request(server)
       .post('/v1/reg')
       .send({
-        'first_name': 'Mary',
+        'first_name': 'Mar',
         'last_name': 'Smith',
         'email': 'ms@columbia.edu4',
         'password': 'passpass'
