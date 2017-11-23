@@ -29,17 +29,8 @@ let requestSchema = new Schema({
   to: {type: Schema.Types.ObjectId, ref: 'User'},
   status: {type: String, required: true},
   bid: {type: Schema.Types.ObjectId, ref: 'Book'},
+  read: {type: Boolean}
 });
-//
-// let request_inboxSchema = new Schema ({
-//   belongs_to: {type: Schema.Types.ObjectId, ref: 'User'},
-//   requests: [{type: Schema.Types.ObjectId, ref: 'Request'}]
-// });
-//
-// let book_listingSchema = new Schema ({
-//   belongs_to: {type: Schema.Types.ObjectId, ref: 'User'},
-//   books: [{type: Schema.Types.ObjectId, ref: 'Book'}]
-// });
 
 
 userSchema.pre('save', function(next) {
@@ -58,8 +49,5 @@ userSchema.pre('save', function(next) {
 module.exports = {
   User: mongoose.model('User', userSchema),
   Book: mongoose.model('Book', bookSchema),
-  Request: mongoose.model('Request', requestSchema),
-  // Request_inbox: mongoose.model('Request_inbox', request_inboxSchema),
-  // Book_listing: mongoose.model('Book_listing', book_listingSchema)
-
+  Request: mongoose.model('Request', requestSchema)
 };
