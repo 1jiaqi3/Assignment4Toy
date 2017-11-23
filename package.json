@@ -11,7 +11,7 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "mocha",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
-    "heroku-postbuild": "webpack -p --config ./build/webpack.dev.conf.js --progress"
+    "heroku-postbuild": "webpack -p --config ./build/webpack.prod.conf.js --progress"
   },
   "dependencies": {
     "axios": "^0.16.2",
