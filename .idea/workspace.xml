@@ -60,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
-              <caret line="13" column="73" lean-forward="false" selection-start-line="13" selection-start-column="73" selection-end-line="13" selection-end-column="73" />
+              <caret line="13" column="64" lean-forward="false" selection-start-line="13" selection-start-column="64" selection-end-line="13" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -319,7 +319,7 @@
       <workItem from="1510242842215" duration="95000" />
       <workItem from="1510261334918" duration="9825000" />
       <workItem from="1510532900282" duration="6438000" />
-      <workItem from="1511418602511" duration="3645000" />
+      <workItem from="1511418602511" duration="3728000" />
     </task>
     <task id="LOCAL-00001" summary="Preliminary implementation for get requests through /account. Needs correct path and db names.">
       <created>1509236678015</created>
@@ -337,7 +337,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50572000" />
+    <option name="totallyTimeSpent" value="50655000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="962" extended-state="0" />
@@ -516,7 +516,7 @@
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
-          <caret line="13" column="73" lean-forward="false" selection-start-line="13" selection-start-column="73" selection-end-line="13" selection-end-column="73" />
+          <caret line="13" column="64" lean-forward="false" selection-start-line="13" selection-start-column="64" selection-end-line="13" selection-end-column="64" />
           <folding />
         </state>
       </provider>
