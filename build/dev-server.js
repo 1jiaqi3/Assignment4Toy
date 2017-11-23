@@ -26,6 +26,8 @@ let Request = models.Request;
 
 const SALT_FACTOR = 10;
 
+mongodb://<dbuser>:<dbpassword>@ds117316.mlab.com:17316/heroku_kwp6q0dd
+
 mongoose.connect('mongodb://192.168.99.100:32768', {
   useMongoClient: true,
 })
