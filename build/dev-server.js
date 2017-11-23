@@ -285,7 +285,7 @@ apiRoutes.all('/search', function (req, res) {
       });
     }
   })
-})
+});
 
 
 apiRoutes.post('/sendreq', function (req, res) {
@@ -300,22 +300,35 @@ apiRoutes.post('/sendreq', function (req, res) {
         } if (!receiver) {
           res.status(400).send({ error: 'no receiver found!' });
         } else {
-          let request = new Request({
-            from: sender._id,
-            to: receiver._id,
-            status: 'pending',
-            bid: data.bid,
-            read:false
-          });
-
-          request.save(function (err) {
-            if (err) {
-              console.log(err);
-              res.status(400).send({error: 'cannot save req to database'});
+          // check if the req already exist
+          Request.findOne({
+            'from':sender.id,
+            'to': receiver.id,
+            'bid': data.bid,
+            'status': 'pending'
+          }, function (err, request) {
+            if(err) {res.status(400).send({error: 'request query error occurred'});
+            } if (request) {res.status(401).send({ error: 'request already sent' });
             } else {
-              // success
-              console.log(request);
-              res.status(200).send(request);
+              // send new req
+              let request = new Request({
+                from: sender._id,
+                to: receiver._id,
+                status: 'pending',
+                bid: data.bid,
+                read:false
+              });
+
+              request.save(function (err) {
+                if (err) {
+                  console.log(err);
+                  res.status(400).send({error: 'cannot save req to database'});
+                } else {
+                  // success
+                  console.log(request);
+                  res.status(200).send(request);
+                }
+              });
             }
           });
 
@@ -325,6 +338,7 @@ apiRoutes.post('/sendreq', function (req, res) {
   })
 
 });
+
 
 apiRoutes.post('/acceptreq', function (req, res) {
   let data = req.body;
@@ -399,10 +413,9 @@ apiRoutes.post('/getreqs', function (req, res) {
         } else {
           console.log(reqs);
           // found reqs in a list
-          updatedReqs = []
+          let updatedReqs = []
           while (reqs.length != 0) {
-            request = reqs.pop()
-            console.log(request);
+            request = reqs.pop();
             request.read = true;
             request.save(function (err) {
               if (err) {
@@ -418,6 +431,36 @@ apiRoutes.post('/getreqs', function (req, res) {
     }
   })
 
+});
+
+apiRoutes.post('/getUnread', function (req, res) {
+  let data = req.body;
+  User.findOne({'email': data.email}, function (err, foundUser) {
+    if (err) {
+      res.status(400).send({error: 'user query error occurred'});
+    }
+    if (!foundUser) {
+      res.status(400).send({error: 'no user found!'});
+    } else {
+      Request.find({'to':foundUser._id}, function (err, reqs) {
+        if(err) {res.status(400).send({error: 'request error occurred'});
+        } if (!reqs) {
+          res.status(400).send({ error: 'no reqs found!' });
+        } else {
+          console.log(reqs);
+          // found reqs in a list
+          let unread = 0;
+          while (reqs.length != 0) {
+            request = reqs.pop();
+            if (request.read == false) {
+              unread += 1;
+            }
+          }
+          res.status(200).json({unread: unread});
+        }
+      })
+    }
+  })
 });
 
 apiRoutes.get('/test', function (req, res) {
