@@ -262,11 +262,13 @@ apiRoutes.post('/getreq', function (req, res) {
 
 apiRoutes.all('/search', function (req, res) {
   let srch = req.body.titleOrAuthor;
-  console.log(srch);
-  srch.trim();
-  let srchArray = srch.split(" ");
-  var srchexp =  new RegExp(srchArray.join("|"), "i");
-  console.log(srchexp);
+  if (srch) {
+    console.log(srch);
+    srch.trim();
+    let srchArray = srch.split(" ");
+    var srchexp = new RegExp(srchArray.join("|"), "i");
+    console.log(srchexp);
+  }
 
   Book.find({ $or: [
     {$and: [{title : { $regex: srchexp }}, {on_list: true}]},
