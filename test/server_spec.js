@@ -1,3 +1,4 @@
+//let mongoose = require('mongoose')
 
 let request = require('supertest')
 describe('loading express', function () {
@@ -5,6 +6,9 @@ describe('loading express', function () {
   beforeEach(function () {
     this.timeout(50000)
     server = require('../build/dev-server')
+    // let db = mongoose.connect('URL', {
+  // useMongoClient: true})
+    //db.connection.db.dropDatabase()
   })
   afterEach(function () {
     server.close()
