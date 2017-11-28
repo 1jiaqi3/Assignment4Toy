@@ -20,7 +20,7 @@
           <button type="button" @click="submitForm" class="lg-submit">Log In</button>
         </div>
         <div class="lg-submit-button">
-          <button type="button" @click="onSuccess" class="lg-submit">Log In</button>
+          <button type="button" @click="onSuccess" class="lg-submit">Google Sign-In</button>
         </div>
       </form>
       <p>{{message}}</p>
@@ -59,12 +59,13 @@
         firebase.initializeApp(config)
 
         var provider = new firebase.auth.GoogleAuthProvider()
-        firebase.auth().signInWithPopup(provider).then(function(result) {
+        firebase.auth().signInWithPopup(provider).then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
           var token = result.credential.accessToken
           // The signed-in user info.
           user = result.user
           console.log(user.email)
+          this.$http.post('/v1/googlelogin', {name: user.displayName, email: user.email})
           // ...
         }).catch(function(error) {
           var errorCode = error.code
@@ -73,6 +74,7 @@
           var credential = error.credential
           console.log(errorMessage)
         })
+        this.$http.post('/v1/googlelogin', {hi: 'hi'})
       },
       submitForm() {
         this.$http.post('/v1/login', {
