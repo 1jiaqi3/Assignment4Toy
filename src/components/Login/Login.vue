@@ -19,11 +19,17 @@
         <div class="lg-submit-button">
           <button type="button" @click="submitForm" class="lg-submit">Log In</button>
         </div>
+        <div class="lg-submit-button">
+          <button type="button" @click="onSuccess" class="lg-submit">Log In</button>
+        </div>
       </form>
       <p>{{message}}</p>
     </div>
   </div>
 </template>
+
+
+
 
 <script type="text/ecmascript-6">
   const ERR_OK = 0
@@ -36,6 +42,38 @@
       }
     },
     methods: {
+      onSuccess() {
+        var user
+        var firebase = require('firebase/app')
+        require('firebase/auth')
+        require('firebase/database')
+
+        var config = {
+          apiKey: 'AIzaSyAbnWoOY5MpD7U0kVH9R0gGjj8LdSMPjEY',
+          authDomain: 'team-sprite-project.firebaseapp.com',
+          databaseURL: 'https://team-sprite-project.firebaseio.com',
+          projectId: 'team-sprite-project',
+          storageBucket: '',
+          messagingSenderId: '716422527835'
+        }
+        firebase.initializeApp(config)
+
+        var provider = new firebase.auth.GoogleAuthProvider()
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = result.credential.accessToken
+          // The signed-in user info.
+          user = result.user
+          console.log(user.email)
+          // ...
+        }).catch(function(error) {
+          var errorCode = error.code
+          var errorMessage = error.message
+          var email = error.email
+          var credential = error.credential
+          console.log(errorMessage)
+        })
+      },
       submitForm() {
         this.$http.post('/v1/login', {
           email: this.email,
