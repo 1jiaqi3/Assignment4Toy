@@ -59,22 +59,30 @@
         firebase.initializeApp(config)
 
         var provider = new firebase.auth.GoogleAuthProvider()
+        provider.setCustomParameters({
+          hd: 'columbia.edu'
+        })
         firebase.auth().signInWithPopup(provider).then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
           var token = result.credential.accessToken
           // The signed-in user info.
           user = result.user
-          console.log(user.email)
-          this.$http.post('/v1/googlelogin', {name: user.displayName, email: user.email}).then((response) => {
-            response = response.body
-            if (response.errno === ERR_OK) {
-              localStorage.setItem('status', true)
-              localStorage.setItem('id', response.id)
-              localStorage.setItem('email', response.email)
-              this.$router.push('/search')
-            }
-          })
-          // ...
+          console.log(user)
+          console.log(token)
+          var emailcomps = (user.email).split('@')
+          if (emailcomps[1] !== 'columbia.edu') {
+            this.message = 'Please use @columbia.edu email'
+          } else {
+            this.$http.post('/v1/googlelogin', {name: user.displayName, email: user.email}).then((response) => {
+              response = response.body
+              if (response.errno === ERR_OK) {
+                localStorage.setItem('status', true)
+                localStorage.setItem('id', response.id)
+                localStorage.setItem('email', response.email)
+                this.$router.push('/search')
+              }
+            })
+          }
         }).catch(function(error) {
           var errorCode = error.code
           var errorMessage = error.message
