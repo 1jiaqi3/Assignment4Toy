@@ -91,6 +91,17 @@ apiRoutes.post('/reg', function(req, res) {
   });
 });
 
+apiRoutes.all('/googlelogin', function (req, res) {
+  console.log("entered google route")
+  let data = req.body;
+  console.log(data);
+  res.json({
+    email: data.email,
+    id: '1234',
+    errno: 0
+  });
+})
+
 apiRoutes.post('/login', function(req, res) {
 
   let data = req.body;

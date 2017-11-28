@@ -20,7 +20,7 @@
           <button type="button" @click="submitForm" class="lg-submit">Log In</button>
         </div>
         <div class="lg-submit-button">
-          <button type="button" @click="onSuccess" class="lg-submit">Google Sign-In</button>
+          <button type="button" @click="onSuccess" class="lg-submit">Google</button>
         </div>
       </form>
       <p>{{message}}</p>
@@ -65,7 +65,15 @@
           // The signed-in user info.
           user = result.user
           console.log(user.email)
-          this.$http.post('/v1/googlelogin', {name: user.displayName, email: user.email})
+          this.$http.post('/v1/googlelogin', {name: user.displayName, email: user.email}).then((response) => {
+            response = response.body
+            if (response.errno === ERR_OK) {
+              localStorage.setItem('status', true)
+              localStorage.setItem('id', response.id)
+              localStorage.setItem('email', response.email)
+              this.$router.push('/search')
+            }
+          })
           // ...
         }).catch(function(error) {
           var errorCode = error.code
@@ -74,7 +82,6 @@
           var credential = error.credential
           console.log(errorMessage)
         })
-        this.$http.post('/v1/googlelogin', {hi: 'hi'})
       },
       submitForm() {
         this.$http.post('/v1/login', {
