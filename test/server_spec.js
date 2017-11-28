@@ -136,4 +136,55 @@ describe('loading express', function () {
       })
       .expect(200, done)
   });
+
+  it('test getreqs', function testRoute(done) {
+    request(server)
+      .post('/v1/getreqs')
+      .send({
+        'email': 'ms@columbia.edu'
+      })
+      .expect(200, done)
+  });
+  it('test search', function testRoute(done) {
+    request(server)
+      .post('/v1/search')
+      .send({
+        'titleOrAuthor': 'Adam'
+      })
+      .expect(200, done)
+  });
+  it('test search with blank string', function testRoute(done) {
+    request(server)
+      .post('/v1/search')
+      .send({
+        'titleOrAuthor': ''
+      })
+      .expect(200, done)
+  });
+  it('test search with blank spaces', function testRoute(done) {
+
+    request(server)
+      .post('/v1/search')
+      .send({
+        'titleOrAuthor': '   '
+      })
+      .expect(200, done)
+  });
+  it('test search with blanks on either side of term', function testRoute(done) {
+    request(server)
+      .post('/v1/search')
+      .send({
+        'titleOrAuthor': ' Adam '
+      })
+      .expect(200, done)
+  });
+  it('test search with two terms', function testRoute(done) {
+    request(server)
+      .post('/v1/search')
+      .send({
+        'titleOrAuthor': 'Adam Psychology'
+      })
+      .expect(200, done)
+  });
+
 })
