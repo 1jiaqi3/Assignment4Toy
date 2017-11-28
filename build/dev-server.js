@@ -28,7 +28,9 @@ const SALT_FACTOR = 10;
 
 mongodb://<dbuser>:<dbpassword>@ds117316.mlab.com:17316/heroku_kwp6q0dd
 
-mongoose.connect('mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd', {
+var MONGO_URL_PROD = 'mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd'
+var MONGO_URL_DEV = 'mongodb://127.0.0.1:27017'
+mongoose.connect(MONGO_URL_DEV, {
   useMongoClient: true,
 })
 // default port where dev server listens for incoming traffic
@@ -263,31 +265,40 @@ apiRoutes.post('/getreq', function (req, res) {
 apiRoutes.all('/search', function (req, res) {
   let srch = req.body.titleOrAuthor;
   if (srch) {
+    console.log("search expression")
     console.log(srch);
     srch.trim();
     let srchArray = srch.split(" ");
     var srchexp = new RegExp(srchArray.join("|"), "i");
     console.log(srchexp);
+    Book.find({
+      $or: [
+        {$and: [{title: {$regex: srchexp}}, {on_list: true}]},
+        {$and: [{author: {$regex: srchexp}}, {on_list: true}]}
+      ]
+    }).exec(function (err, Books) {
+      if (err) {
+        res.status(400).send({error: 'query error occurred'});
+      }
+      if (!Books) {
+        res.json({
+          books: [],
+          errno: 0
+        })
+      } else {
+        res.json({
+          books: JSON.parse(JSON.stringify(Books)),
+          errno: 0
+        });
+      }
+    })
   }
-
-  Book.find({ $or: [
-    {$and: [{title : { $regex: srchexp }}, {on_list: true}]},
-    {$and: [{author : { $regex: srchexp }}, {on_list: true}]}
-  ]}).exec(function (err, Books) {
-    if(err) {res.status(400).send({error: 'query error occurred'});
-    } if (!Books) {
-      res.json({
-        books: [],
-        errno: 0
-      })
-    } else {
-      console.log("here");
-      res.json({
-        books: JSON.parse(JSON.stringify(Books)),
-        errno: 0
-      });
-    }
-  })
+  else{
+    res.json({
+      books: [],
+      errno: 0
+    })
+  }
 });
 
 
