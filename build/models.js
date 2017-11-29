@@ -9,7 +9,7 @@ let userSchema = new Schema({
   first_name: {type: String},
   last_name: {type: String},
   email: {type: String, unique: true},
-  password: {type: String},
+  // password: {type: String},
   salt: {type: String}
 });
 
@@ -32,7 +32,7 @@ let requestSchema = new Schema({
   read: {type: Boolean}
 });
 
-
+/*
 userSchema.pre('save', function(next) {
   let user = this;
   if (user.isModified('password')) {
@@ -45,6 +45,7 @@ userSchema.pre('save', function(next) {
     });
   }
 });
+*/
 
 module.exports = {
   User: mongoose.model('User', userSchema),

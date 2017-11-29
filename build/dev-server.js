@@ -29,7 +29,7 @@ const SALT_FACTOR = 10;
 mongodb://<dbuser>:<dbpassword>@ds117316.mlab.com:17316/heroku_kwp6q0dd
 
 var MONGO_URL_PROD = 'mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd'
-var MONGO_URL_DEV = 'mongodb://127.0.0.1:27017'
+var MONGO_URL_DEV = 'mongodb://127.0.0.1:27017/test'
 mongoose.connect(MONGO_URL_DEV, {
   useMongoClient: true,
 })
@@ -80,6 +80,7 @@ apiRoutes.post('/reg', function(req, res) {
         if (err) {
           res.status(400).send({ error: 'email, password, first_name, and last_name required' });
         } else {
+          console.log('saved')
           res.json({
             email: data.email,
             uid:user._id,
@@ -95,11 +96,56 @@ apiRoutes.all('/googlelogin', function (req, res) {
   console.log("entered google route")
   let data = req.body;
   console.log(data);
-  res.json({
-    email: data.email,
-    id: '1234',
-    errno: 0
-  });
+
+  User.findOne({'email': data.email}, function (err, foundUser) {
+    if (err) {
+      res.status(400).send({error: 'query error occurred'});
+    }
+    if (foundUser) {
+      res.status(200).json({
+        email : foundUser.email,
+        id : foundUser._id,
+        errno: 0
+      })
+    } else {
+      console.log("creating user")
+      var names = (data.name).split(" ");
+      var firstname = names[0];
+      var lastname = names[names.length - 1];
+      console.log(firstname)
+      console.log(lastname)
+
+      let user = new User({
+        first_name: firstname,
+        last_name: lastname,
+        email: data.email,
+      });
+
+      console.log('user created');
+/*
+      bcrypt.genSalt(SALT_FACTOR, function (saltErr, salt) {
+        if (saltErr) {
+          throw saltErr;
+        }
+        user.salt = salt;
+      });
+*/
+      console.log(user);
+
+      user.save(function (err) {
+        if (err) {
+          console.log(err);
+          res.status(400).send({error: 'cannot save to database'});
+        }
+          console.log(user._id);
+          res.status(200).json({
+            email: user.email,
+            id: user._id,
+            errno: 0
+          })
+      });
+    }
+  })
 })
 
 apiRoutes.post('/login', function(req, res) {

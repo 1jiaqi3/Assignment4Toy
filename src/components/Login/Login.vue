@@ -75,7 +75,8 @@
           } else {
             this.$http.post('/v1/googlelogin', {name: user.displayName, email: user.email}).then((response) => {
               response = response.body
-              if (response.errno === ERR_OK) {
+              console.log(response)
+              if (response.errno === 0) {
                 localStorage.setItem('status', true)
                 localStorage.setItem('id', response.id)
                 localStorage.setItem('email', response.email)
