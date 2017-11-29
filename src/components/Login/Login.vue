@@ -48,16 +48,17 @@
         require('firebase/auth')
         require('firebase/database')
 
-        var config = {
-          apiKey: 'AIzaSyAbnWoOY5MpD7U0kVH9R0gGjj8LdSMPjEY',
-          authDomain: 'team-sprite-project.firebaseapp.com',
-          databaseURL: 'https://team-sprite-project.firebaseio.com',
-          projectId: 'team-sprite-project',
-          storageBucket: '',
-          messagingSenderId: '716422527835'
+        if (!firebase.apps.length) {
+          var config = {
+            apiKey: 'AIzaSyAbnWoOY5MpD7U0kVH9R0gGjj8LdSMPjEY',
+            authDomain: 'team-sprite-project.firebaseapp.com',
+            databaseURL: 'https://team-sprite-project.firebaseio.com',
+            projectId: 'team-sprite-project',
+            storageBucket: '',
+            messagingSenderId: '716422527835'
+          }
+          firebase.initializeApp(config)
         }
-        firebase.initializeApp(config)
-
         var provider = new firebase.auth.GoogleAuthProvider()
         provider.setCustomParameters({
           hd: 'columbia.edu'
