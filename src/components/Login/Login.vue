@@ -44,27 +44,13 @@
     methods: {
       onSuccess() {
         var user
-        var firebase = require('firebase/app')
-        require('firebase/auth')
-        require('firebase/database')
-
-        if (!firebase.apps.length) {
-          var config = {
-            apiKey: 'AIzaSyAbnWoOY5MpD7U0kVH9R0gGjj8LdSMPjEY',
-            authDomain: 'team-sprite-project.firebaseapp.com',
-            databaseURL: 'https://team-sprite-project.firebaseio.com',
-            projectId: 'team-sprite-project',
-            storageBucket: '',
-            messagingSenderId: '716422527835'
-          }
-          firebase.initializeApp(config)
-        }
+        var firebase = require('firebase')
+        var firebaseApp = require('../../fireconfig.js')
         var provider = new firebase.auth.GoogleAuthProvider()
         provider.setCustomParameters({
           hd: 'columbia.edu'
         })
         firebase.auth().signInWithPopup(provider).then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
           var token = result.credential.accessToken
           // The signed-in user info.
           user = result.user
