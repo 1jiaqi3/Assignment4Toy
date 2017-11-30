@@ -44,9 +44,9 @@
         var firebase = require('firebase')
         var firebaseApp = require('../../fireconfig.js')
         var provider = new firebase.auth.GoogleAuthProvider()
-        provider.setCustomParameters({
-          hd: 'columbia.edu'
-        })
+//        provider.setCustomParameters({
+//          hd: 'columbia.edu'
+//        })
         firebase.auth().signInWithPopup(provider).then((result) => {
           var token = result.credential.accessToken
           // The signed-in user info.

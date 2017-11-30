@@ -361,6 +361,7 @@ apiRoutes.all('/search', function (req, res) {
 
 apiRoutes.post('/sendreq', function (req, res) {
   let data = req.body;
+  console.log(data)
   User.findOne({'email' : data.from}, function (err, sender) {
     if(err) {res.status(400).send({error: 'sender query error occurred'});
     } if (!sender) {
@@ -486,7 +487,7 @@ apiRoutes.post('/acceptreq', function (req, res) {
   })
 });
 
-apiRoutes.post('/getreqs', function (req, res) {
+apiRoutes.post('/getRecvReqs', function (req, res) {
   let data = req.body;
   User.findOne({'email': data.email}, function (err, foundUser) {
     if(err) {
@@ -520,6 +521,29 @@ apiRoutes.post('/getreqs', function (req, res) {
     }
   })
 
+});
+
+
+apiRoutes.post('/getSentReqs', function (req, res) {
+  let data = req.body;
+  User.findOne({'email': data.email}, function (err, foundUser) {
+    if(err) {
+      res.status(400).send({error: 'user query error occurred'});
+    } if (!foundUser) {
+      res.status(400).send({ error: 'no user found!' });
+    } else {
+      // user found, query book
+      Request.find({'from':foundUser._id}, function (err, reqs) {
+        if(err) {res.status(400).send({error: 'request error occurred'});
+        } if (!reqs) {
+          res.status(400).send({ error: 'no reqs found!' });
+        } else {
+          console.log(reqs);
+          res.status(200).json({reqs: reqs});
+        }
+      })
+    }
+  })
 });
 
 apiRoutes.post('/getUnread', function (req, res) {
