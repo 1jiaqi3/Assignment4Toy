@@ -26,10 +26,10 @@ let Request = models.Request;
 
 const SALT_FACTOR = 10;
 
-mongodb://<dbuser>:<dbpassword>@ds117316.mlab.com:17316/heroku_kwp6q0dd
+//mongodb:<dbuser>:<dbpassword>@ds117316.mlab.com:17316/heroku_kwp6q0dd
 
-var MONGO_URL_PROD = 'mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd'
-var MONGO_URL_DEV = 'mongodb://127.0.0.1:27017/test'
+//var MONGO_URL_PROD = 'mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd'
+var MONGO_URL_DEV = 'mongodb://192.168.99.100:32770'
 mongoose.connect(MONGO_URL_DEV, {
   useMongoClient: true,
 })
@@ -270,7 +270,7 @@ apiRoutes.post('/getbook', function (req, res) {
     } else {
       // book found
       console.log(foundBook);
-      res.status(200).send(foundBook);
+      res.status(200).json({book: foundBook});
     }
   })
 });
@@ -366,20 +366,27 @@ apiRoutes.post('/sendreq', function (req, res) {
     } if (!sender) {
       res.status(400).send({ error: 'no sender found!' });
     } else {
-      User.findOne({'email' : data.to}, function (err, receiver) {
-        if(err) {res.status(400).send({error: 'receiver query error occurred'});
+      User.findOne({'_id' : data.to}, function (err, receiver) {
+        if(err) {
+          res.status(400).send({error: 'receiver query error occurred'});
         } if (!receiver) {
           res.status(400).send({ error: 'no receiver found!' });
         } else {
+          if (sender._id === receiver._id) {
+            res.status(400).send({error: 'You can request a book from yourself!'});
+          }
           // check if the req already exist
           Request.findOne({
-            'from':sender.id,
-            'to': receiver.id,
+            'from':sender._id,
+            'to': receiver._id,
             'bid': data.bid,
             'status': 'pending'
           }, function (err, request) {
-            if(err) {res.status(400).send({error: 'request query error occurred'});
-            } if (request) {res.status(401).send({ error: 'request already sent' });
+            if(err) {
+              res.status(400).send({error: 'request query error occurred'});
+            }
+            if (request) {
+              res.status(401).send({ error: 'request already sent' });
             } else {
               // send new req
               let request = new Request({
@@ -415,24 +422,34 @@ apiRoutes.post('/acceptreq', function (req, res) {
   let data = req.body;
 
   User.findOne({'email' : data.from}, function (err, sender) {
-    if(err) {res.status(400).send({error: 'sender query error occurred'});
-    } if (!sender) {res.status(400).send({ error: 'no sender found!' });
+    if (err) {
+      res.status(400).send({error: 'sender query error occurred'});
+    }
+    if (!sender) {
+      res.status(400).send({ error: 'no sender found!' });
     } else {
       User.findOne({'email' : data.to}, function (err, receiver) {
-        if(err) {res.status(400).send({error: 'receiver query error occurred'});
-        } if (!receiver) { res.status(400).send({ error: 'no receiver found!' });
+        if(err) {
+          res.status(400).send({error: 'receiver query error occurred'});
+        }
+        if (!receiver) {
+          res.status(400).send({ error: 'no receiver found!' });
         } else {
           Request.findOne({
-            'from':sender.id,
-            'to': receiver.id,
+            'from':sender._id,
+            'to': receiver._id,
             'bid': data.bid,
             'status': 'pending'
           }, function (err, request) {
-            if(err) {res.status(400).send({error: 'request query error occurred'});
-            } if (!request) {res.status(400).send({ error: 'req found!' });
+            if(err) {
+              res.status(400).send({error: 'request query error occurred'});
+            }
+            if (!request) {
+              res.status(400).send({ error: 'req found!' });
             } else {
               Book.findOne({_id:data.bid}, function (err, book) {
-                if (err) {res.status(400).send({error: 'request query error occurred'})
+                if (err) {
+                  res.status(400).send({error: 'request query error occurred'})
                 } else {
                   // update req and book
                   // update req and book
@@ -472,7 +489,8 @@ apiRoutes.post('/acceptreq', function (req, res) {
 apiRoutes.post('/getreqs', function (req, res) {
   let data = req.body;
   User.findOne({'email': data.email}, function (err, foundUser) {
-    if(err) {res.status(400).send({error: 'user query error occurred'});
+    if(err) {
+      res.status(400).send({error: 'user query error occurred'});
     } if (!foundUser) {
       res.status(400).send({ error: 'no user found!' });
     } else {
@@ -485,7 +503,7 @@ apiRoutes.post('/getreqs', function (req, res) {
           console.log(reqs);
           // found reqs in a list
           let updatedReqs = []
-          while (reqs.length != 0) {
+          while (reqs.length !== 0) {
             request = reqs.pop();
             request.read = true;
             request.save(function (err) {
@@ -521,9 +539,9 @@ apiRoutes.post('/getUnread', function (req, res) {
           console.log(reqs);
           // found reqs in a list
           let unread = 0;
-          while (reqs.length != 0) {
+          while (reqs.length !== 0) {
             request = reqs.pop();
-            if (request.read == false) {
+            if (!request.read) {
               unread += 1;
             }
           }

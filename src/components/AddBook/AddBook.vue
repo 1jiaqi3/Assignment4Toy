@@ -36,6 +36,7 @@
     },
     methods: {
       submitForm() {
+        console.log(localStorage.getItem('email'))
         this.$http.post('/v1/addbook', {
           email: localStorage.getItem('email'),
           title: this.title,

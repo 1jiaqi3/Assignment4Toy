@@ -14,15 +14,17 @@
     <hr/>
     <div class="rq-content">
       <div class="rq-content-container">
-
-        <div class="rq-sub-container rq-sub-container-left" v-for="req in sentReqs">
+        <div>
           <h2>Sent</h2>
-          <send-req :title="''" :author="''"></send-req>
+          <div class="rq-sub-container rq-sub-container-left"  v-for="req in sentReqs">
+            <send-req :title="req.book.title" :author="req.book.author"></send-req>
+          </div>
         </div>
-
-        <div class="rq-sub-container" v-for="req in recvReqs">
+        <div>
           <h2>Received</h2>
-          <rcv-req :title="''" :author="''"></rcv-req>
+          <div class="rq-sub-container"  v-for="req in recvReqs">
+            <rcv-req :title="req.book.title" :author="req.book.author"></rcv-req>
+          </div>
         </div>
       </div>
     </div>
@@ -45,6 +47,15 @@
       }).then(response => {
         response = response.body
         this.recvReqs = response.reqs
+
+        for (let req of this.recvReqs) {
+          this.$http.post('/v1/getbook', {
+            bid: req.bid
+          }).then(responseBook => {
+            responseBook = responseBook.body
+            req.book = responseBook.book
+          })
+        }
       })
     },
     components: {

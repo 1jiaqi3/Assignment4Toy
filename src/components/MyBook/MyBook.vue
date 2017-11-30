@@ -34,7 +34,7 @@
       }
     },
     created() {
-      this.$http.post('/v1/getbook', {
+      this.$http.post('/v1/getbooks', {
         email: localStorage.getItem('email')
       }).then((response) => {
         response = response.body

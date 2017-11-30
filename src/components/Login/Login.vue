@@ -28,9 +28,6 @@
   </div>
 </template>
 
-
-
-
 <script type="text/ecmascript-6">
   const ERR_OK = 0
   export default {
@@ -70,9 +67,9 @@
           console.log(user)
           console.log(token)
           var emailcomps = (user.email).split('@')
-          if (emailcomps[1] !== 'columbia.edu') {
-            this.message = 'Please use @columbia.edu email'
-          } else {
+          // if (emailcomps[1] !== 'columbia.edu') {
+          //  this.message = 'Please use @columbia.edu email'
+          // } else {
             this.$http.post('/v1/googlelogin', {name: user.displayName, email: user.email}).then((response) => {
               response = response.body
               console.log(response)
@@ -83,7 +80,7 @@
                 this.$router.push('/search')
               }
             })
-          }
+          // }
         }).catch(function(error) {
           var errorCode = error.code
           var errorMessage = error.message
