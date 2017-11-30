@@ -17,13 +17,13 @@
         <div class="rq-flex-item rq-flex-item-left">
           <h2>Sent</h2>
           <div class="rq-sub-container"  v-for="req in sentReqs">
-            <send-req :title="req.book.title" :author="req.book.author"></send-req>
+            <send-req :title="req.book.title" :author="req.book.author" :owner="req.email" :status="req.status"></send-req>
           </div>
         </div>
         <div class="rq-flex-item">
           <h2>Received</h2>
           <div class="rq-sub-container"  v-for="req in recvReqs">
-            <rcv-req :title="req.book.title" :author="req.book.title" :sender="req.email"></rcv-req>
+            <rcv-req :book="req.book" :sender="req.user" :req_id="req._id"></rcv-req>
           </div>
         </div>
       </div>
@@ -56,7 +56,8 @@
               uid: req.from
             }).then(responseUser => {
               responseUser = responseUser.body
-              req.email = responseUser.email
+              req.user = responseUser
+              console.log(req.user)
               this.recvReqs = response.reqs
             })
           })
@@ -73,7 +74,14 @@
           }).then(responseBook => {
             responseBook = responseBook.body
             req.book = responseBook.book
-            this.sentReqs = response.reqs
+
+            this.$http.post('/v1/getuser', {
+              uid: req.to
+            }).then(responseUser => {
+              responseUser = responseUser.body
+              req.email = responseUser.email
+              this.sentReqs = response.reqs
+            })
           })
         }
       })

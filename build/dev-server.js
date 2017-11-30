@@ -422,70 +422,49 @@ apiRoutes.post('/sendreq', function (req, res) {
 apiRoutes.post('/acceptreq', function (req, res) {
   let data = req.body;
 
-  User.findOne({'email' : data.from}, function (err, sender) {
-    if (err) {
-      res.status(400).send({error: 'sender query error occurred'});
+  Request.findOne({
+    '_id': data.req_id,
+    'status': 'pending'
+  }, function (err, request) {
+    if(err) {
+      res.status(400).send({error: 'request query error occurred'});
     }
-    if (!sender) {
-      res.status(400).send({ error: 'no sender found!' });
+    if (!request) {
+      res.status(400).send({ error: 'req not found!' });
     } else {
-      User.findOne({'email' : data.to}, function (err, receiver) {
-        if(err) {
-          res.status(400).send({error: 'receiver query error occurred'});
-        }
-        if (!receiver) {
-          res.status(400).send({ error: 'no receiver found!' });
+      Book.findOne({_id: data.bid}, function (err, book) {
+        if (err) {
+          res.status(400).send({error: 'request query error occurred'})
         } else {
-          Request.findOne({
-            'from':sender._id,
-            'to': receiver._id,
-            'bid': data.bid,
-            'status': 'pending'
-          }, function (err, request) {
-            if(err) {
-              res.status(400).send({error: 'request query error occurred'});
-            }
-            if (!request) {
-              res.status(400).send({ error: 'req found!' });
+          // update req and book
+          // update req and book
+          request.status = 'approved';
+          request.read = true;
+          book.status = 'lent';
+          book.on_list = false;
+          book.lento = data.uid;
+          request.save(function (err) {
+            if (err) {
+              console.log(err);
+              res.status(400).send({error: 'cannot update req database'});
             } else {
-              Book.findOne({_id:data.bid}, function (err, book) {
+              // success
+              console.log(request);
+              book.save(function (err) {
                 if (err) {
-                  res.status(400).send({error: 'request query error occurred'})
+                  console.log(err);
+                  res.status(400).send({error: 'cannot update book database'});
                 } else {
-                  // update req and book
-                  // update req and book
-                  request.status = 'approved';
-                  request.read = true;
-                  book.status = 'lent';
-                  book.on_list = false;
-                  book.lento = sender._id;
-
-                  request.save(function (err) {
-                    if (err) {
-                      console.log(err);
-                      res.status(400).send({error: 'cannot update req database'});
-                    } else {
-                      // success
-                      console.log(request);
-                      book.save(function (err) {
-                        if (err) {
-                          console.log(err);
-                          res.status(400).send({error: 'cannot update book database'});
-                        } else {
-                          // success
-                          console.log(request);
-                          res.status(200).send(request);
-                        }});
-                    }});
-                }
-              });
-            }
-          });
+                  // success
+                  console.log(request);
+                  res.status(200).json({req: request});
+                }});
+            }});
         }
       });
     }
-  })
-});
+  });
+})
 
 apiRoutes.post('/getRecvReqs', function (req, res) {
   let data = req.body;

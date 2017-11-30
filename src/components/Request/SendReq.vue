@@ -28,12 +28,8 @@
     props: {
       title: String,
       author: String,
-      owner: String
-    },
-    data() {
-      return {
-        status: PENDING
-      }
+      owner: String,
+      status: String
     }
   }
 </script>
