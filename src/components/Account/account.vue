@@ -83,9 +83,23 @@
         this.$router.push('/search')
       },
       logOut() {
+        /*
         localStorage.setItem('status', false)
         localStorage.setItem('id', '')
         localStorage.setItem('email', '')
+        */
+        var firebase = require('firebase')
+        var firebaseApp = require('../../fireconfig.js')
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            firebase.auth().signOut().then(function() {
+              // Sign-out successful.
+            }).catch(function(error) {
+              console.log(error.message)
+            })
+          } else {
+          }
+        })
         this.$router.push('/login')
       }
     }
