@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="966c1054-f175-4ffd-ac57-bd50803ec820" name="Default" comment="Preliminary implementation for get requests through /account. Needs correct path and db names.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Login/Login.vue" afterPath="$PROJECT_DIR$/src/components/Login/Login.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Search/Search.vue" afterPath="$PROJECT_DIR$/src/components/Search/Search.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Account/account.vue" afterPath="$PROJECT_DIR$/src/components/Account/account.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -91,8 +90,8 @@
       <file leaf-file-name="Search.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Search/Search.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="69" column="21" lean-forward="false" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
+            <state relative-caret-position="102">
+              <caret line="61" column="56" lean-forward="true" selection-start-line="60" selection-start-column="8" selection-end-line="61" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -101,8 +100,8 @@
       <file leaf-file-name="account.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Account/account.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2161">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="29">
+              <caret line="64" column="3" lean-forward="true" selection-start-line="64" selection-start-column="3" selection-end-line="64" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -162,6 +161,7 @@
         <option value="$PROJECT_DIR$/src/fireconfig.js" />
         <option value="$PROJECT_DIR$/src/components/Login/Login.vue" />
         <option value="$PROJECT_DIR$/src/components/Search/Search.vue" />
+        <option value="$PROJECT_DIR$/src/components/Account/account.vue" />
       </list>
     </option>
   </component>
@@ -398,7 +398,7 @@
       <workItem from="1511902956241" duration="10429000" />
       <workItem from="1511979328177" duration="1937000" />
       <workItem from="1512011844815" duration="1845000" />
-      <workItem from="1512015778748" duration="1913000" />
+      <workItem from="1512015778748" duration="2593000" />
     </task>
     <task id="LOCAL-00001" summary="Preliminary implementation for get requests through /account. Needs correct path and db names.">
       <created>1509236678015</created>
@@ -416,7 +416,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95120000" />
+    <option name="totallyTimeSpent" value="95800000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-12" y="-12" width="1944" height="1034" extended-state="6" />
@@ -625,16 +625,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Search/Search.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="69" column="21" lean-forward="false" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
+        <state relative-caret-position="102">
+          <caret line="61" column="56" lean-forward="true" selection-start-line="60" selection-start-column="8" selection-end-line="61" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Account/account.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2161">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="29">
+          <caret line="64" column="3" lean-forward="true" selection-start-line="64" selection-start-column="3" selection-end-line="64" selection-end-column="3" />
           <folding />
         </state>
       </provider>
