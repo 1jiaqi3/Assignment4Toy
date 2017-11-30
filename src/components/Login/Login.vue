@@ -20,7 +20,7 @@
           <button type="button" @click="submitForm" class="lg-submit">Log In</button>
         </div>
         <div class="lg-submit-button">
-          <button type="button" @click="onSuccess" class="lg-submit">Google</button>
+          <button type="button" @click="signIn" class="lg-submit">Google</button>
         </div>
       </form>
       <p>{{message}}</p>
@@ -42,7 +42,7 @@
       }
     },
     methods: {
-      onSuccess() {
+      signIn() {
         var user
         var firebase = require('firebase')
         var firebaseApp = require('../../fireconfig.js')
