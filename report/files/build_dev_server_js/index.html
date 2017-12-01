@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - build\dev-server.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>build\dev-server.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">65.78</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">611</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">76.19</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">7.02</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">require(&#039;./check-versions&#039;)()
+
+var config = require(&#039;../config&#039;)
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
+}
+
+var bodyParser = require(&#039;body-parser&#039;)
+var opn = require(&#039;opn&#039;)
+var path = require(&#039;path&#039;)
+var express = require(&#039;express&#039;)
+var webpack = require(&#039;webpack&#039;)
+var proxyMiddleware = require(&#039;http-proxy-middleware&#039;)
+var webpackConfig = (process.env.NODE_ENV === &#039;testing&#039; || process.env.NODE_ENV === &#039;production&#039;)
+  ? require(&#039;./webpack.prod.conf&#039;)
+  : require(&#039;./webpack.dev.conf&#039;)
+var mongoose = require(&#039;mongoose&#039;)
+var bcrypt = require(&#039;bcryptjs&#039;)
+var models = require(&#039;./models&#039;)
+
+let User = models.User;
+let Book = models.Book;
+let Request = models.Request;
+// let Book_listing = models.Book_listing;
+// let Request_inbox = models.Request_inbox;
+
+const SALT_FACTOR = 10;
+
+mongodb://&lt;dbuser&gt;:&lt;dbpassword&gt;@ds117316.mlab.com:17316/heroku_kwp6q0dd
+
+var MONGO_URL_PROD = &#039;mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd&#039;
+var MONGO_URL_DEV = &#039;mongodb://127.0.0.1:27017/test&#039;
+mongoose.connect(MONGO_URL_DEV, {
+  useMongoClient: true,
+})
+// default port where dev server listens for incoming traffic
+var port = process.env.PORT || config.dev.port
+// automatically open browser, if not set will be false
+var autoOpenBrowser = !!config.dev.autoOpenBrowser
+// Define HTTP proxies to your custom API backend
+// https://github.com/chimurai/http-proxy-middleware
+var proxyTable = config.dev.proxyTable
+
+var app = express()
+var apiRoutes = express.Router();
+
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+//handle get request through /account route
+
+
+apiRoutes.post(&#039;/reg&#039;, function(req, res) {
+  let data = req.body;
+  let user = new User({
+    password: data.password,
+    first_name: data.first_name,
+    last_name: data.last_name,
+    email: data.email,
+  });
+
+  bcrypt.genSalt(SALT_FACTOR, function (saltErr, salt) {
+    if (saltErr) {
+      throw saltErr;
+    }
+    user.salt = salt;
+  });
+  console.log(user);
+  User.findOne({&#039;email&#039;: user.email}, function (err, newUser) {
+    console.log(newUser);
+    if (err) {
+      res.status(400).send({error: &#039;query error occurred&#039;});
+    }
+    if (newUser) {
+      res.status(401).send({ error: &#039;email already in use&#039; });
+    } else {
+      console.log(user);
+      user.save(function (err) {
+        if (err) {
+          res.status(400).send({ error: &#039;email, password, first_name, and last_name required&#039; });
+        } else {
+          console.log(&#039;saved&#039;)
+          res.json({
+            email: data.email,
+            uid:user._id,
+            errno: 0
+          });
+        }
+      });
+    }
+  });
+});
+
+apiRoutes.all(&#039;/googlelogin&#039;, function (req, res) {
+  console.log(&quot;entered google route&quot;)
+  let data = req.body;
+  console.log(data);
+
+  User.findOne({&#039;email&#039;: data.email}, function (err, foundUser) {
+    if (err) {
+      res.status(400).send({error: &#039;query error occurred&#039;});
+    }
+    if (foundUser) {
+      res.status(200).json({
+        email : foundUser.email,
+        id : foundUser._id,
+        errno: 0
+      })
+    } else {
+      console.log(&quot;creating user&quot;)
+      var names = (data.name).split(&quot; &quot;);
+      var firstname = names[0];
+      var lastname = names[names.length - 1];
+      console.log(firstname)
+      console.log(lastname)
+
+      let user = new User({
+        first_name: firstname,
+        last_name: lastname,
+        email: data.email,
+      });
+
+      console.log(&#039;user created&#039;);
+/*
+      bcrypt.genSalt(SALT_FACTOR, function (saltErr, salt) {
+        if (saltErr) {
+          throw saltErr;
+        }
+        user.salt = salt;
+      });
+*/
+      console.log(user);
+
+      user.save(function (err) {
+        if (err) {
+          console.log(err);
+          res.status(400).send({error: &#039;cannot save to database&#039;});
+        }
+          console.log(user._id);
+          res.status(200).json({
+            email: user.email,
+            id: user._id,
+            errno: 0
+          })
+      });
+    }
+  })
+})
+
+apiRoutes.post(&#039;/login&#039;, function(req, res) {
+
+  let data = req.body;
+  if (!data) {
+    res.status(400).send({ error: &#039;username and password required&#039; });
+  }
+  User.findOne({email: data.email}, function (err, user) {
+    if (err) {
+      res.status(400).send({ error: &#039;username and password required&#039; });
+    }
+    if (!user) {
+      res.status(400).send({ error: &#039;no user found!&#039; });
+    } else {
+      bcrypt.hash(data.password, user.salt, function (hashErr, hash) {
+        if (hashErr) {
+          throw hashErr;
+        }
+
+        console.log(hash);
+        console.log(user.password);
+        data.password = hash;
+        if (data.password !== user.password) {
+          res.status(401).send({error: &#039;unauthorized&#039;});
+        } else {
+          res.json({
+            email: user.email,
+            id: user._id,
+            errno: 0
+          });
+        }
+      });
+    }
+  });
+});
+
+apiRoutes.post(&#039;/account&#039;, function (req, res) {
+  let data = req.body;
+  User.findOne({&#039;email&#039;: data.email}, function (err, foundUser) {
+    if (err) {
+      res.status(400).send({error: &#039;query error occurred&#039;});
+    } else {
+      res.status(200).json({
+        first_name: foundUser.first_name,
+        last_name: foundUser.last_name,
+        errno: 0
+      })
+    }
+  })
+});
+
+apiRoutes.post(&#039;/addbook&#039;, function (req, res) {
+  let data = req.body;
+  User.findOne({&#039;email&#039;: data.email}, function (err, foundUser) {
+    if (err) {
+      res.status(400).send({error: &#039;query error occurred&#039;});
+    }
+    if (!foundUser) {
+      res.status(400).send({error: &#039;no user found!&#039;});
+    } else {
+
+      let book = new Book({
+        title: data.title,
+        author: data.author,
+        remarks: data.remarks.split(&#039;,&#039;),
+        status: &#039;available&#039;,
+        listed_by: foundUser._id,
+        on_list: true
+      });
+
+      book.save(function (err) {
+        if (err) {
+          console.log(err);
+          res.status(400).send({error: &#039;cannot save to database&#039;});
+        } else {
+          // success
+          res.json({
+            title: book.title,
+            listedbyUser: foundUser.first_name,
+            errno: 0
+          })
+        }
+      });
+    }
+  })
+});
+
+
+apiRoutes.post(&#039;/getbooks&#039;, function (req, res) {
+  let data = req.body;
+  User.findOne({&#039;email&#039;: data.email}, function (err, foundUser) {
+    if(err) {res.status(400).send({error: &#039;user query error occurred&#039;});
+    } if (!foundUser) {
+      res.status(400).send({ error: &#039;no user found!&#039; });
+    } else {
+      // user found, query book
+      Book.find({&#039;listed_by&#039;:foundUser._id}, function (err, foundBooks) {
+        if(err) {res.status(400).send({error: &#039;book query error occurred&#039;});
+        } if (!foundBooks) {
+          res.status(400).send({ error: &#039;no books found!&#039; });
+        } else {
+          // found books in a list
+          console.log(foundBooks);
+          res.json({
+            books: foundBooks,
+            errno: 0
+          });
+
+        }
+      })
+    }
+  })
+});
+
+apiRoutes.post(&#039;/getbook&#039;, function (req, res) {
+  let data = req.body;
+  Book.findOne({&#039;_id&#039;: data.bid}, function (err, foundBook) {
+    if(err) {res.status(400).send({error: &#039;user query error occurred&#039;});
+    } if (!foundBook) {
+      res.status(400).send({ error: &#039;no book found!&#039; });
+    } else {
+      // book found
+      console.log(foundBook);
+      res.status(200).send(foundBook);
+    }
+  })
+});
+
+apiRoutes.post(&#039;/getuser&#039;, function (req, res) {
+  let data = req.body;
+  if (data.uid) {
+    User.findOne({&#039;_id&#039;: data.uid}, function (err, foundUser) {
+      if(err) {res.status(400).send({error: &#039;user query error occurred&#039;});
+      } if (!foundUser) {
+        res.status(400).send({ error: &#039;no user found!&#039; });
+      } else {
+        // book found
+        console.log(foundUser);
+        res.status(200).send(foundUser);
+      }
+    })
+  } else if (data.email) {
+    User.findOne({&#039;email&#039;: data.email}, function (err, foundUser) {
+      if(err) {res.status(400).send({error: &#039;user query error occurred&#039;});
+      } if (!foundUser) {
+        res.status(400).send({ error: &#039;no user found!&#039; });
+      } else {
+        // book found
+        console.log(foundUser);
+        res.status(200).send(foundUser);
+      }
+    })
+  } else {
+    res.status(400).send({ error: &#039;wrong req format&#039; });
+  }
+
+});
+
+apiRoutes.post(&#039;/getreq&#039;, function (req, res) {
+  let data = req.body;
+  Request.findOne({&#039;_id&#039;: data.rid}, function (err, foundReq) {
+    if(err) {res.status(400).send({error: &#039;user query error occurred&#039;});
+    } if (!foundReq) {
+      res.status(400).send({ error: &#039;no req found!&#039; });
+    } else {
+      // book found
+      console.log(foundReq);
+      res.status(200).send(foundReq);
+    }
+  })
+});
+
+apiRoutes.all(&#039;/search&#039;, function (req, res) {
+  let srch = req.body.titleOrAuthor;
+  if (srch) {
+    console.log(&quot;search expression&quot;)
+    console.log(srch);
+    srch.trim();
+    let srchArray = srch.split(&quot; &quot;);
+    var srchexp = new RegExp(srchArray.join(&quot;|&quot;), &quot;i&quot;);
+    console.log(srchexp);
+    Book.find({
+      $or: [
+        {$and: [{title: {$regex: srchexp}}, {on_list: true}]},
+        {$and: [{author: {$regex: srchexp}}, {on_list: true}]}
+      ]
+    }).exec(function (err, Books) {
+      if (err) {
+        res.status(400).send({error: &#039;query error occurred&#039;});
+      }
+      if (!Books) {
+        res.json({
+          books: [],
+          errno: 0
+        })
+      } else {
+        res.json({
+          books: JSON.parse(JSON.stringify(Books)),
+          errno: 0
+        });
+      }
+    })
+  }
+  else{
+    res.json({
+      books: [],
+      errno: 0
+    })
+  }
+});
+
+
+apiRoutes.post(&#039;/sendreq&#039;, function (req, res) {
+  let data = req.body;
+  User.findOne({&#039;email&#039; : data.from}, function (err, sender) {
+    if(err) {res.status(400).send({error: &#039;sender query error occurred&#039;});
+    } if (!sender) {
+      res.status(400).send({ error: &#039;no sender found!&#039; });
+    } else {
+      User.findOne({&#039;email&#039; : data.to}, function (err, receiver) {
+        if(err) {res.status(400).send({error: &#039;receiver query error occurred&#039;});
+        } if (!receiver) {
+          res.status(400).send({ error: &#039;no receiver found!&#039; });
+        } else {
+          // check if the req already exist
+          Request.findOne({
+            &#039;from&#039;:sender.id,
+            &#039;to&#039;: receiver.id,
+            &#039;bid&#039;: data.bid,
+            &#039;status&#039;: &#039;pending&#039;
+          }, function (err, request) {
+            if(err) {res.status(400).send({error: &#039;request query error occurred&#039;});
+            } if (request) {res.status(401).send({ error: &#039;request already sent&#039; });
+            } else {
+              // send new req
+              let request = new Request({
+                from: sender._id,
+                to: receiver._id,
+                status: &#039;pending&#039;,
+                bid: data.bid,
+                read:false
+              });
+
+              request.save(function (err) {
+                if (err) {
+                  console.log(err);
+                  res.status(400).send({error: &#039;cannot save req to database&#039;});
+                } else {
+                  // success
+                  console.log(request);
+                  res.status(200).send(request);
+                }
+              });
+            }
+          });
+
+        }
+      })
+    }
+  })
+
+});
+
+
+apiRoutes.post(&#039;/acceptreq&#039;, function (req, res) {
+  let data = req.body;
+
+  User.findOne({&#039;email&#039; : data.from}, function (err, sender) {
+    if(err) {res.status(400).send({error: &#039;sender query error occurred&#039;});
+    } if (!sender) {res.status(400).send({ error: &#039;no sender found!&#039; });
+    } else {
+      User.findOne({&#039;email&#039; : data.to}, function (err, receiver) {
+        if(err) {res.status(400).send({error: &#039;receiver query error occurred&#039;});
+        } if (!receiver) { res.status(400).send({ error: &#039;no receiver found!&#039; });
+        } else {
+          Request.findOne({
+            &#039;from&#039;:sender.id,
+            &#039;to&#039;: receiver.id,
+            &#039;bid&#039;: data.bid,
+            &#039;status&#039;: &#039;pending&#039;
+          }, function (err, request) {
+            if(err) {res.status(400).send({error: &#039;request query error occurred&#039;});
+            } if (!request) {res.status(400).send({ error: &#039;req found!&#039; });
+            } else {
+              Book.findOne({_id:data.bid}, function (err, book) {
+                if (err) {res.status(400).send({error: &#039;request query error occurred&#039;})
+                } else {
+                  // update req and book
+                  // update req and book
+                  request.status = &#039;approved&#039;;
+                  request.read = true;
+                  book.status = &#039;lent&#039;;
+                  book.on_list = false;
+                  book.lento = sender._id;
+
+                  request.save(function (err) {
+                    if (err) {
+                      console.log(err);
+                      res.status(400).send({error: &#039;cannot update req database&#039;});
+                    } else {
+                      // success
+                      console.log(request);
+                      book.save(function (err) {
+                        if (err) {
+                          console.log(err);
+                          res.status(400).send({error: &#039;cannot update book database&#039;});
+                        } else {
+                          // success
+                          console.log(request);
+                          res.status(200).send(request);
+                        }});
+                    }});
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  })
+});
+
+apiRoutes.post(&#039;/getreqs&#039;, function (req, res) {
+  let data = req.body;
+  User.findOne({&#039;email&#039;: data.email}, function (err, foundUser) {
+    if(err) {res.status(400).send({error: &#039;user query error occurred&#039;});
+    } if (!foundUser) {
+      res.status(400).send({ error: &#039;no user found!&#039; });
+    } else {
+      // user found, query book
+      Request.find({&#039;to&#039;:foundUser._id}, function (err, reqs) {
+        if(err) {res.status(400).send({error: &#039;request error occurred&#039;});
+        } if (!reqs) {
+          res.status(400).send({ error: &#039;no reqs found!&#039; });
+        } else {
+          console.log(reqs);
+          // found reqs in a list
+          let updatedReqs = []
+          while (reqs.length != 0) {
+            request = reqs.pop();
+            request.read = true;
+            request.save(function (err) {
+              if (err) {
+                console.log(err);
+                res.status(400).send({error: &#039;cannot update request database&#039;});
+              }});
+            updatedReqs.push(request);
+
+          }
+          res.status(200).json({reqs: updatedReqs});
+        }
+      })
+    }
+  })
+
+});
+
+apiRoutes.post(&#039;/getUnread&#039;, function (req, res) {
+  let data = req.body;
+  User.findOne({&#039;email&#039;: data.email}, function (err, foundUser) {
+    if (err) {
+      res.status(400).send({error: &#039;user query error occurred&#039;});
+    }
+    if (!foundUser) {
+      res.status(400).send({error: &#039;no user found!&#039;});
+    } else {
+      Request.find({&#039;to&#039;:foundUser._id}, function (err, reqs) {
+        if(err) {res.status(400).send({error: &#039;request error occurred&#039;});
+        } if (!reqs) {
+          res.status(400).send({ error: &#039;no reqs found!&#039; });
+        } else {
+          console.log(reqs);
+          // found reqs in a list
+          let unread = 0;
+          while (reqs.length != 0) {
+            request = reqs.pop();
+            if (request.read == false) {
+              unread += 1;
+            }
+          }
+          res.status(200).json({unread: unread});
+        }
+      })
+    }
+  })
+});
+
+apiRoutes.get(&#039;/test&#039;, function (req, res) {
+  res.status(200).send({&#039;hi&#039;: &#039;he&#039;})
+});
+
+app.use(&#039;/v1&#039;, apiRoutes);
+
+var compiler = webpack(webpackConfig)
+
+var devMiddleware = require(&#039;webpack-dev-middleware&#039;)(compiler, {
+  publicPath: webpackConfig.output.publicPath,
+  quiet: true
+})
+
+var hotMiddleware = require(&#039;webpack-hot-middleware&#039;)(compiler, {
+  log: false,
+  heartbeat: 2000
+})
+// force page reload when html-webpack-plugin template changes
+compiler.plugin(&#039;compilation&#039;, function (compilation) {
+  compilation.plugin(&#039;html-webpack-plugin-after-emit&#039;, function (data, cb) {
+    hotMiddleware.publish({ action: &#039;reload&#039; })
+    cb()
+  })
+})
+
+// proxy api requests
+Object.keys(proxyTable).forEach(function (context) {
+  var options = proxyTable[context]
+  if (typeof options === &#039;string&#039;) {
+    options = { target: options }
+  }
+  app.use(proxyMiddleware(options.filter || context, options))
+})
+
+// handle fallback for HTML5 history API
+app.use(require(&#039;connect-history-api-fallback&#039;)())
+
+// serve webpack bundle output
+app.use(devMiddleware)
+
+// enable hot-reload and state-preserving
+// compilation error display
+app.use(hotMiddleware)
+
+// serve pure static assets
+var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+app.use(staticPath, express.static(&#039;./static&#039;))
+
+var uri = &#039;http://localhost:&#039; + port
+
+var _resolve
+var readyPromise = new Promise(resolve =&gt; {
+  _resolve = resolve
+})
+
+console.log(&#039;&gt; Starting dev server...&#039;)
+devMiddleware.waitUntilValid(() =&gt; {
+  console.log(&#039;&gt; Listening at &#039; + uri + &#039;\n&#039;)
+  // when env is testing, don&#039;t need open it
+  if (autoOpenBrowser &amp;&amp; process.env.NODE_ENV !== &#039;testing&#039;) {
+    opn(uri)
+  }
+  _resolve()
+})
+
+var server = app.listen(port)
+
+module.exports = server;
+/*module.exports = {
+  ready: readyPromise,
+  close: () =&gt; {
+    server.close()
+  }
+}
+*/</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ cyclomatic }} <br>
+    Length : {{ halstead.length }} <br>
+    Difficulty : {{ halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
