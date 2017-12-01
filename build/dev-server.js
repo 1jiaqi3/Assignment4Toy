@@ -29,8 +29,8 @@ const SALT_FACTOR = 10;
 //mongodb:<dbuser>:<dbpassword>@ds117316.mlab.com:17316/heroku_kwp6q0dd
 
 var MONGO_URL_PROD = 'mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd'
-var MONGO_URL_DEV = 'mongodb://192.168.99.100:32770'
-mongoose.connect(MONGO_URL_PROD, {
+var MONGO_URL_DEV = 'mongodb://192.168.99.100:32769'
+mongoose.connect(MONGO_URL_DEV, {
   useMongoClient: true,
 })
 // default port where dev server listens for incoming traffic
@@ -223,11 +223,7 @@ apiRoutes.post('/addbook', function (req, res) {
           res.status(400).send({error: 'cannot save to database'});
         } else {
           // success
-          res.json({
-            title: book.title,
-            listedbyUser: foundUser.first_name,
-            errno: 0
-          })
+          res.status(200).json({book: book});
         }
       });
     }
@@ -367,7 +363,7 @@ apiRoutes.post('/sendreq', function (req, res) {
     } if (!sender) {
       res.status(400).send({ error: 'no sender found!' });
     } else {
-      User.findOne({'_id' : data.to}, function (err, receiver) {
+      User.findOne({'email' : data.to}, function (err, receiver) {
         if(err) {
           res.status(400).send({error: 'receiver query error occurred'});
         } if (!receiver) {
@@ -383,31 +379,38 @@ apiRoutes.post('/sendreq', function (req, res) {
             'bid': data.bid,
             'status': 'pending'
           }, function (err, request) {
-            if(err) {
-              res.status(400).send({error: 'request query error occurred'});
-            }
-            if (request) {
-              res.status(401).send({ error: 'request already sent' });
+            if(err) {res.status(400).send({error: 'request query error occurred'});
+            } if (request) {res.status(401).send({ error: 'request already sent' });
             } else {
-              // send new req
-              let request = new Request({
-                from: sender._id,
-                to: receiver._id,
-                status: 'pending',
-                bid: data.bid,
-                read:false
-              });
-
-              request.save(function (err) {
-                if (err) {
-                  console.log(err);
-                  res.status(400).send({error: 'cannot save req to database'});
+              // request not sent yet, check if the book is available
+              Book.findOne({_id: data.bid, on_list:true}, function (err, foundBook) {
+                if(err) {res.status(400).send({error: 'user query error occurred'});
+                } if (!foundBook) {
+                  res.status(400).send({ error: 'no book found!' });
                 } else {
-                  // success
-                  console.log(request);
-                  res.status(200).send(request);
+                  // book found
+                  // send new req
+                  let request = new Request({
+                    from: sender._id,
+                    to: receiver._id,
+                    status: 'pending',
+                    bid: data.bid,
+                    read:false
+                  });
+
+                  request.save(function (err) {
+                    if (err) {
+                      console.log(err);
+                      res.status(400).send({error: 'cannot save req to database'});
+                    } else {
+                      // success
+                      console.log(request);
+                      res.status(200).send(request);
+                    }
+                  });
                 }
-              });
+              })
+
             }
           });
 
@@ -426,45 +429,57 @@ apiRoutes.post('/acceptreq', function (req, res) {
     '_id': data.req_id,
     'status': 'pending'
   }, function (err, request) {
-    if(err) {
-      res.status(400).send({error: 'request query error occurred'});
-    }
-    if (!request) {
-      res.status(400).send({ error: 'req not found!' });
+    if(err) {res.status(400).send({error: 'request query error occurred'});
+    } if (!request) {res.status(400).send({ error: 'req not found!' });
     } else {
       Book.findOne({_id: data.bid}, function (err, book) {
-        if (err) {
-          res.status(400).send({error: 'request query error occurred'})
+        if (err) {res.status(400).send({error: 'request query error occurred'})
         } else {
-          // update req and book
           // update req and book
           request.status = 'approved';
           request.read = true;
           book.status = 'lent';
           book.on_list = false;
-          book.lento = data.uid;
+          book.lento = request.from;
           request.save(function (err) {
-            if (err) {
-              console.log(err);
-              res.status(400).send({error: 'cannot update req database'});
+            if (err) {res.status(400).send({error: 'cannot update req database'});
             } else {
-              // success
+              // request update success
               console.log(request);
               book.save(function (err) {
-                if (err) {
-                  console.log(err);
-                  res.status(400).send({error: 'cannot update book database'});
+                if (err) {res.status(400).send({error: 'cannot update book database'});
                 } else {
-                  // success
+                  // book update success
                   console.log(request);
-                  res.status(200).json({req: request});
+                  // find all other requests for the book
+                  Request.find({
+                    'to': request.to,
+                    'bid': request.bid,
+                    'status': 'pending'
+                  }, function (err, reqs) {
+                    if(err) {res.status(400).send({error: 'request query error occurred'});
+                    } if (!reqs) {
+                      // no other requests
+                      res.status(200).json({req: request});
+                    } else {
+                      console.log(reqs);
+                      // found reqs in a list
+                      while (reqs.length !== 0) {
+                        r = reqs.pop();
+                        r.status = 'invalid';
+                        r.save(function (err) {
+                          if (err) {res.status(400).send({error: 'cannot update request database'});
+                          }});}
+                      res.status(200).json({req: request});
+                    }
+                  });
                 }});
             }});
         }
       });
     }
   });
-})
+});
 
 apiRoutes.post('/getRecvReqs', function (req, res) {
   let data = req.body;
