@@ -4,6 +4,10 @@
     <list default="true" id="966c1054-f175-4ffd-ac57-bd50803ec820" name="Default" comment="Preliminary implementation for get requests through /account. Needs correct path and db names.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
 <<<<<<< HEAD
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+=======
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/dev-server.js" afterPath="$PROJECT_DIR$/build/dev-server.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/AddBook/AddBook.vue" afterPath="$PROJECT_DIR$/src/components/AddBook/AddBook.vue" />
@@ -13,6 +17,7 @@
 =======
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Account/account.vue" afterPath="$PROJECT_DIR$/src/components/Account/account.vue" />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -30,17 +35,26 @@
         <entry file="file://$PROJECT_DIR$/build/dev-server.js">
           <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+            <state relative-caret-position="290">
+              <caret line="336" column="16" lean-forward="false" selection-start-line="336" selection-start-column="16" selection-end-line="336" selection-end-column="16" />
+=======
+<<<<<<< HEAD
             <state relative-caret-position="306">
               <caret line="273" column="5" lean-forward="true" selection-start-line="273" selection-start-column="5" selection-end-line="273" selection-end-column="5" />
 =======
             <state relative-caret-position="401">
               <caret line="327" column="16" lean-forward="false" selection-start-line="327" selection-start-column="16" selection-end-line="327" selection-end-column="16" />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="report.history.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/report/report.history.js">
+=======
 <<<<<<< HEAD
       <file leaf-file-name="models.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build/models.js">
@@ -48,14 +62,19 @@
       <file leaf-file-name="fireconfig.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/fireconfig.js">
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="16" column="15" lean-forward="false" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="report.history.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/report/report.history.json">
+=======
 <<<<<<< HEAD
       <file leaf-file-name="Search.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Search/Search.vue">
@@ -65,6 +84,7 @@
 =======
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.js">
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -74,6 +94,10 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="report.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/report/report.js">
+=======
 <<<<<<< HEAD
       <file leaf-file-name="Request.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Request/Request.vue">
@@ -86,15 +110,23 @@
 =======
       <file leaf-file-name="models.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build/models.js">
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1450">
-              <caret line="50" column="1" lean-forward="false" selection-start-line="49" selection-start-column="1" selection-end-line="50" selection-end-column="1" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="report.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/report/report.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
 <<<<<<< HEAD
       <file leaf-file-name="AddBook.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/AddBook/AddBook.vue">
@@ -108,11 +140,19 @@
             <state relative-caret-position="1044">
               <caret line="36" column="18" lean-forward="false" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/report/files/build_dev_server_js/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
 <<<<<<< HEAD
       <file leaf-file-name="MyBook.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/MyBook/MyBook.vue">
@@ -126,11 +166,19 @@
             <state relative-caret-position="1566">
               <caret line="54" column="35" lean-forward="false" selection-start-line="54" selection-start-column="35" selection-end-line="54" selection-end-column="35" />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="report.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/report/files/build_dev_server_js/report.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
 <<<<<<< HEAD
       <file leaf-file-name="server_spec.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/server_spec.js">
@@ -144,11 +192,19 @@
             <state relative-caret-position="362">
               <caret line="69" column="44" lean-forward="false" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="44" />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="report.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/report/files/build_dev_server_js/report.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
 <<<<<<< HEAD
       <file leaf-file-name="Login.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Login/Login.vue">
@@ -162,11 +218,16 @@
             <state relative-caret-position="102">
               <caret line="61" column="56" lean-forward="true" selection-start-line="60" selection-start-column="8" selection-end-line="61" selection-end-column="56" />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="server_spec.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/server_spec.js">
+=======
 <<<<<<< HEAD
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.js">
@@ -174,14 +235,22 @@
       <file leaf-file-name="account.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Account/account.vue">
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="29">
-              <caret line="64" column="3" lean-forward="true" selection-start-line="64" selection-start-column="3" selection-end-line="64" selection-end-column="3" />
+            <state relative-caret-position="970">
+              <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="account.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Account/account.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="29">
+              <caret line="64" column="3" lean-forward="false" selection-start-line="64" selection-start-column="3" selection-end-line="64" selection-end-column="3" />
+=======
 <<<<<<< HEAD
       <file leaf-file-name="webpack.base.conf.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build/webpack.base.conf.js">
@@ -195,6 +264,7 @@
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
               <folding />
             </state>
           </provider>
@@ -254,7 +324,11 @@
         <option value="$PROJECT_DIR$/src/components/Login/Login.vue" />
         <option value="$PROJECT_DIR$/src/components/Search/Search.vue" />
         <option value="$PROJECT_DIR$/src/components/Account/account.vue" />
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/report/files/build_dev_server_js/report.json" />
+=======
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
       </list>
     </option>
   </component>
@@ -265,6 +339,7 @@
     <exe-path />
     <annotation-enable>false</annotation-enable>
     <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
@@ -295,8 +370,11 @@
     <panes>
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
       <pane id="Scratches" />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -317,26 +395,26 @@
             <path>
               <item name="TeamSprite" type="b2602c69:ProjectViewProjectNode" />
               <item name="TeamSprite" type="462c0819:PsiDirectoryNode" />
+              <item name="report" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TeamSprite" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TeamSprite" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TeamSprite" type="b2602c69:ProjectViewProjectNode" />
               <item name="TeamSprite" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TeamSprite" type="b2602c69:ProjectViewProjectNode" />
               <item name="TeamSprite" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Account" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TeamSprite" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TeamSprite" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
               <item name="AddBook" type="462c0819:PsiDirectoryNode" />
             </path>
@@ -369,6 +447,7 @@
 =======
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
               <item name="Search" type="462c0819:PsiDirectoryNode" />
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
             </path>
             <path>
               <item name="TeamSprite" type="b2602c69:ProjectViewProjectNode" />
@@ -397,6 +476,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
 <<<<<<< HEAD
       <pane id="Scratches" />
@@ -409,7 +489,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
-    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript.Linters.JSLint" />
     <property name="JavaScriptPreferStrict" value="false" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="javascript.karma.karma_node_package_dir" value="$PROJECT_DIR$/node_modules/karma" />
@@ -545,8 +625,13 @@
       <workItem from="1511902956241" duration="10429000" />
       <workItem from="1511979328177" duration="1937000" />
       <workItem from="1512011844815" duration="1845000" />
+<<<<<<< HEAD
+      <workItem from="1512015778748" duration="3053000" />
+      <workItem from="1512088785452" duration="1314000" />
+=======
       <workItem from="1512015778748" duration="2593000" />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
     </task>
     <task id="LOCAL-00001" summary="Preliminary implementation for get requests through /account. Needs correct path and db names.">
       <created>1509236678015</created>
@@ -565,6 +650,14 @@
   </component>
   <component name="TimeTrackingManager">
 <<<<<<< HEAD
+    <option name="totallyTimeSpent" value="97574000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-12" y="-12" width="1944" height="1034" extended-state="6" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20416667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+=======
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="83665000" />
 =======
     <option name="totallyTimeSpent" value="95800000" />
@@ -579,6 +672,7 @@
 =======
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20416667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -617,13 +711,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/toy/test/unit/.eslintrc" />
-    <entry file="file://$PROJECT_DIR$/toy/.eslintrc.js" />
-    <entry file="file://$PROJECT_DIR$/toy/.eslintrc.js" />
-    <entry file="file://$PROJECT_DIR$/toy/test/unit/.eslintrc" />
-    <entry file="file://$PROJECT_DIR$/toy/src/App.vue" />
-    <entry file="file://$PROJECT_DIR$/toy/src/main.js" />
-    <entry file="file://$PROJECT_DIR$/toy/package.json" />
     <entry file="file://$PROJECT_DIR$/toy/test/unit/specs/Hello.spec.js" />
     <entry file="file://$PROJECT_DIR$/toy/src/components/Hello.vue" />
     <entry file="file://$PROJECT_DIR$/toy/src/components/Account/account.vue" />
@@ -695,14 +782,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/server_spec.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build/vue-loader.conf.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -721,7 +800,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -811,16 +889,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/dev-server.js">
+    <entry file="file://$PROJECT_DIR$/src/components/Login/Login.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="327" column="16" lean-forward="false" selection-start-line="327" selection-start-column="16" selection-end-line="327" selection-end-column="16" />
+        <state relative-caret-position="2001">
+          <caret line="69" column="44" lean-forward="false" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Login/Login.vue">
+    <entry file="file://$PROJECT_DIR$/src/components/Search/Search.vue">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1769">
+          <caret line="61" column="56" lean-forward="false" selection-start-line="60" selection-start-column="8" selection-end-line="61" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Account/account.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="64" column="3" lean-forward="false" selection-start-line="64" selection-start-column="3" selection-end-line="64" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/server_spec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="970">
+          <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/dev-server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="336" column="16" lean-forward="false" selection-start-line="336" selection-start-column="16" selection-end-line="336" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/report/report.history.js">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
 <<<<<<< HEAD
         <state relative-caret-position="378">
           <caret line="68" column="32" lean-forward="false" selection-start-line="68" selection-start-column="32" selection-end-line="68" selection-end-column="32" />
@@ -837,10 +951,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-276">
           <caret line="38" column="50" lean-forward="true" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="50" />
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/report/report.history.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
     <entry file="file://$PROJECT_DIR$/build/dev-server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -851,10 +972,49 @@
         <state relative-caret-position="102">
           <caret line="61" column="56" lean-forward="true" selection-start-line="60" selection-start-column="8" selection-end-line="61" selection-end-column="56" />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/report/report.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/report/report.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/report/files/build_dev_server_js/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/report/files/build_dev_server_js/report.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/report/files/build_dev_server_js/report.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/components/Search/Search.vue">
       <provider selected="true" editor-type-id="text-editor">
@@ -866,6 +1026,7 @@
         <state relative-caret-position="29">
           <caret line="64" column="3" lean-forward="true" selection-start-line="64" selection-start-column="3" selection-end-line="64" selection-end-column="3" />
 >>>>>>> bc77e1b6804d11afe7c42be93bf5e4fb977dbc18
+>>>>>>> 0cb5ddf51c69bedbbcd21d421f655d25885349b3
           <folding />
         </state>
       </provider>
