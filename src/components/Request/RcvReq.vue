@@ -3,18 +3,18 @@
     <div class="rq-flex-container">
       <div class="rq-flex-item">
         <div>Title</div>
-        <div>{{title}}</div>
+        <div>{{book.title}}</div>
       </div>
       <div class="rq-flex-item">
         <div>Author</div>
-        <div>{{author}}</div>
+        <div>{{book.author}}</div>
       </div>
       <div class="rq-flex-item sender">
         <div>Sender</div>
-        <div>{{sender}}</div>
+        <div>{{sender.email}}</div>
       </div>
-      <div class="rq-flex-item">
-        <button class="rq-button">Approve</button>
+      <div class="rq-flex-item" v-if="!approved">
+        <button class="rq-button" @click="approve()">Approve</button>
       </div>
     </div>
   </div>
@@ -23,9 +23,28 @@
 <script type="text/ecmascript-6">
   export default {
     props: {
-      title: String,
-      author: String,
-      sender: String
+      book: Object,
+      sender: Object,
+      req_id: String
+    },
+    data() {
+      return {
+        approved: false
+      }
+    },
+    methods: {
+      approve() {
+        console.log(this.sender)
+        this.$http.post('/v1/acceptreq', {
+          req_id: this.req_id,
+          bid: this.book._id,
+          uid: this.sender._id
+        }).then(response => {
+          this.approved = true
+        }, response => {
+          console.log(response)
+        })
+      }
     }
   }
 </script>
@@ -50,9 +69,6 @@
     flex: 2;
   }
   .rq-button {
-    font-size: 20px;
-    padding: 5px 20px;
-    background-color: white;
     margin-top: 15px;
   }
 </style>

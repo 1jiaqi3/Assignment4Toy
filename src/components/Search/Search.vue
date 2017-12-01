@@ -77,8 +77,8 @@
         })
         this.$http.post('/v1/sendreq', {
           bid: bid,
-          // from: localStorage.getItem('email'),
-          from: currentUserEmail,
+          from: localStorage.getItem('email'),
+          // from: currentUserEmail,
           to: listedBy
         }).then(response => {
           response = response.body
@@ -88,6 +88,7 @@
             self.reqSuccess = ''
           }, 3000)
         }, response => {
+          console.log(response.body)
           this.reqSuccess = 'Invalid Request!'
           let self = this
           setTimeout(function () {

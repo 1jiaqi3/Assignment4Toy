@@ -14,15 +14,17 @@
     <hr/>
     <div class="rq-content">
       <div class="rq-content-container">
-
-        <div class="rq-sub-container rq-sub-container-left" v-for="req in sentReqs">
+        <div class="rq-flex-item rq-flex-item-left">
           <h2>Sent</h2>
-          <send-req :title="''" :author="''"></send-req>
+          <div class="rq-sub-container"  v-for="req in sentReqs">
+            <send-req :title="req.book.title" :author="req.book.author" :owner="req.email" :status="req.status"></send-req>
+          </div>
         </div>
-
-        <div class="rq-sub-container" v-for="req in recvReqs">
+        <div class="rq-flex-item">
           <h2>Received</h2>
-          <rcv-req :title="''" :author="''"></rcv-req>
+          <div class="rq-sub-container"  v-for="req in recvReqs">
+            <rcv-req :book="req.book" :sender="req.user" :req_id="req._id"></rcv-req>
+          </div>
         </div>
       </div>
     </div>
@@ -39,12 +41,49 @@
         sentReqs: []
       }
     },
-    created() {
-      this.$http.post('/v1/getreqs', {
+    beforeCreate() {
+      this.$http.post('/v1/getRecvReqs', {
         email: localStorage.getItem('email')
       }).then(response => {
         response = response.body
-        this.recvReqs = response.reqs
+        for (let req of response.reqs) {
+          this.$http.post('/v1/getbook', {
+            bid: req.bid
+          }).then(responseBook => {
+            responseBook = responseBook.body
+            req.book = responseBook.book
+            this.$http.post('/v1/getuser', {
+              uid: req.from
+            }).then(responseUser => {
+              responseUser = responseUser.body
+              req.user = responseUser
+              console.log(req.user)
+              this.recvReqs = response.reqs
+            })
+          })
+        }
+      })
+
+      this.$http.post('/v1/getSentReqs', {
+        email: localStorage.getItem('email')
+      }).then(response => {
+        response = response.body
+        for (let req of response.reqs) {
+          this.$http.post('/v1/getbook', {
+            bid: req.bid
+          }).then(responseBook => {
+            responseBook = responseBook.body
+            req.book = responseBook.book
+
+            this.$http.post('/v1/getuser', {
+              uid: req.to
+            }).then(responseUser => {
+              responseUser = responseUser.body
+              req.email = responseUser.email
+              this.sentReqs = response.reqs
+            })
+          })
+        }
       })
     },
     components: {
@@ -58,21 +97,24 @@
   .rq-content{
     width: 90%;
     margin: auto;
-    padding: 30px 20px;
+    padding: 30px 10px;
   }
   .rq-content-container{
     display: flex;
     flex-direction: row;
     justify-content: center;
   }
+  .rq-flex-item {
+    flex: 1
+  }
   .rq-sub-container {
-    width: 50%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     margin: auto;
     padding: 20px 10px;
   }
-  .rq-sub-container.rq-sub-container-left {
+  .rq-flex-item.rq-flex-item-left {
     border-right: 1px solid;
   }
   h2 {
