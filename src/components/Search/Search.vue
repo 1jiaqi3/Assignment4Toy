@@ -30,7 +30,7 @@
         </v-btn>
       </v-form>
 
-      <div class="sr-content">
+      <!--<div class="sr-content">
         <div class="sr-listingContainer" v-for="book in books">
           <div class="sr-listItem">
             <img src="../../assets/pikapika.jpg">
@@ -41,9 +41,26 @@
             <p>{{reqSuccess}}</p>
           </div>
         </div>
-      </div>
+      </div>-->
+      <v-layout v-for="book in books">
+        <v-flex xs12 sm6 offset-sm3>
+          <v-card>
+            <v-card-media :src="require('../../assets/book2.png')" height="200px">
+            </v-card-media>
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">{{book.title}}</h3>
+                <div>By {{book.author}}</div>
+              </div>
+            </v-card-title>
+            <v-card-actions>
+              <v-btn flat color="orange" @click="requestBook(book._id, book.listed_by)">Request</v-btn>
+              <p>{{reqSuccess}}</p>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
     </v-app>
-
   </div>
 </template>
 
