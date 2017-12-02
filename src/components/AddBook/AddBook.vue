@@ -35,22 +35,7 @@
       }
     },
     methods: {
-      submitForm() {
-        console.log(localStorage.getItem('email'))
-        this.$http.post('/v1/addbook', {
-          email: localStorage.getItem('email'),
-          title: this.title,
-          author: this.author,
-          remarks: this.remarks
-        }).then((response) => {
-          response = response.body
-          if (response.errno === ERR_OK) {
-            this.$router.push('/mybook')
-          }
-        }, response => {
-          this.message = 'Wrong combination of email and password!'
-        })
-      }
+
     }
   }
 </script>

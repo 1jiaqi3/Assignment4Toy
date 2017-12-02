@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-main">
+  <v-app class="mb-main">
     <div class="menu-container">
       <div class="menu-item">
         <router-link to="/account" class="item">Account</router-link>
@@ -16,12 +16,40 @@
       <div class="mb-content-container" v-for="book in books">
         <MyBookItem :title="book.title" :author="book.author"></MyBookItem>
       </div>
-      <div>
-        <button class="mb-button" @click="addBook">Add a Book!</button>
-      </div>
     </div>
-  </div>
 
+    <v-layout row justify-center>
+      <v-dialog v-model="dialog" persistent max-width="500px">
+        <v-btn color="primary" dark slot="activator">Add A Book</v-btn>
+        <v-card>
+          <v-card-title>
+            <span class="headline">New Book Info</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                <v-flex xs12>
+                  <v-text-field v-model="title" label="Book Title" required></v-text-field>
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field v-model="author" label="Author" required></v-text-field>
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field v-model="remarks" label="Condition"></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+            <small>*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
+            <v-btn color="blue darken-1" flat @click="submitForm" @click.native="dialog = false">Add</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-layout>
+  </v-app>
 </template>
 
 <script type="text/ecmascript-6">
@@ -30,7 +58,12 @@
   export default {
     data() {
       return {
-        books: []
+        books: [],
+        dialog: false,
+        title: '',
+        author: '',
+        remarks: '',
+        updated: false
       }
     },
     created() {
@@ -43,10 +76,40 @@
           this.books = response.books
         }
       }, response => {
-        this.message = 'Wrong combination of email and password!'
+        console.log('Wrong combination of email and password!')
+      })
+    },
+    beforeUpdate() {
+      this.$http.post('/v1/getbooks', {
+        email: localStorage.getItem('email')
+      }).then((response) => {
+        response = response.body
+        console.log(response)
+        if (response.errno === ERR_OK && !this.updated) {
+          this.books = response.books
+          this.updated = true
+        }
+      }, response => {
+        console.log('Wrong combination of email and password!')
       })
     },
     methods: {
+      submitForm() {
+        this.updated = false
+        this.$http.post('/v1/addbook', {
+          email: localStorage.getItem('email'),
+          title: this.title,
+          author: this.author,
+          remarks: this.remarks
+        }).then((response1) => {
+          response1 = response1.body
+          if (response1.errno === ERR_OK) {
+            this.$forceUpdate()
+          }
+        }, response1 => {
+          this.message = 'Wrong combination of email and password!'
+        })
+      },
       addBook() {
         this.$router.push('/addBook')
       }

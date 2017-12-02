@@ -20,16 +20,11 @@
             <div class="ac-flex-container">
               <div class="ac-flex-item">
                 <div>First Name</div>
-                <input v-model="first_name" class="ac-input">
+                <h2>{{first_name}}</h2>
               </div>
               <div class="ac-flex-item">
                 <div>Last Name</div>
-                <input v-model="last_name" class="ac-input">
-              </div>
-              <div class="ac-submit-button">
-                <button @click="submitForm">
-                  Submit
-                </button>
+                <h2>{{last_name}}</h2>
               </div>
               <p>{{message}}</p>
             </div>
@@ -38,10 +33,26 @@
       </div>
     </div>
     <div>
-      <button @click="goSearch">Find a Book!</button>
-    </div>
-    <div>
-      <button @click="logOut">Log Out!</button>
+      <div class="ac-btn">
+        <v-btn
+          class="blue lighten-2 mt-5"
+          dark
+          large
+          @click="goSearch"
+        >
+          Find a Book!
+        </v-btn>
+      </div>
+      <div class="ac-btn">
+        <v-btn
+          class="red lighten-2 mt-5"
+          dark
+          large
+          @click="logOut"
+        >
+          Log Out!
+        </v-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -100,7 +111,7 @@
           } else {
           }
         })
-        this.$router.push('/login')
+        this.$router.push('/')
       }
     }
   }
@@ -128,13 +139,9 @@
   .ac-flex-item {
     margin: 10px auto;
   }
-  .ac-input {
-    width: 400px;
-    height: 30px;
-    margin: 3px 0;
-  }
-  .ac-submit-button {
-    text-align: end;
+  .ac-btn {
+    display: inline-block;
+    margin: 30px;
   }
   .menu-container {
     display: flex;

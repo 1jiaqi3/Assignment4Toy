@@ -1,5 +1,6 @@
 <template>
-  <div class="mb-content-item">
+
+  <!--<div class="mb-content-item">
     <div class="mb-flex-container">
       <div class="mb-flex-item">
         <div>Title</div>
@@ -18,7 +19,31 @@
         <div>{{lento}}</div>
       </div>
     </div>
-  </div>
+  </div>-->
+    <v-container grid-list-md text-xs-center>
+      <v-layout row wrap>
+        <v-flex xs12>
+          <v-card dark color="primary" class="white--text">
+            <div class="bk-text">
+              <v-card-text class="headline">Title</v-card-text>
+              <v-card-text class="px-0">{{title}}</v-card-text>
+            </div>
+            <div class="bk-text">
+              <v-card-text class="headline">Author</v-card-text>
+              <v-card-text class="px-0">{{author}}</v-card-text>
+            </div>
+            <div class="bk-text">
+              <v-card-text class="headline">Status</v-card-text>
+              <v-card-text class="px-0">{{status}}</v-card-text>
+            </div>
+            <div class="bk-text">
+              <v-card-text class="headline">Lent to</v-card-text>
+              <v-card-text class="px-0">{{lento}}</v-card-text>
+            </div>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
 </template>
 
 <script type="text/ecmascript-6">
@@ -32,29 +57,15 @@
     data() {
       return {
         status: AVAILABLE,
-        lento: ''
+        lento: 'N/A'
       }
     }
   }
 </script>
 
 <style rel="stylesheet">
-  .mb-content-item {
-    margin: 20px 0;
-    width: 100%;
-    border: 1px solid;
-  }
-  .mb-flex-container {
-    display: flex;
-  }
-  .mb-flex-item {
-    margin: 10px 30px;
-    flex: 1;
-  }
-  .mb-flex-item div {
-    margin: 10px 0;
-  }
-  .mb-flex-item.lentTo {
-    flex: 2;
+  .bk-text {
+    display: inline-block;
+    margin: 0 90px 0 90px;
   }
 </style>

@@ -29,7 +29,7 @@ const SALT_FACTOR = 10;
 //mongodb:<dbuser>:<dbpassword>@ds117316.mlab.com:17316/heroku_kwp6q0dd
 
 var MONGO_URL_PROD = 'mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd'
-var MONGO_URL_DEV = 'mongodb://192.168.99.100:32769'
+var MONGO_URL_DEV = 'mongodb://192.168.99.100:32770'
 mongoose.connect(MONGO_URL_DEV, {
   useMongoClient: true,
 })
@@ -223,7 +223,10 @@ apiRoutes.post('/addbook', function (req, res) {
           res.status(400).send({error: 'cannot save to database'});
         } else {
           // success
-          res.status(200).json({book: book});
+          res.status(200).json({
+            book: book,
+            errno: 0
+          });
         }
       });
     }
