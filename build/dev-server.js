@@ -242,18 +242,18 @@ apiRoutes.post('/getbooks', function (req, res) {
   let data = req.body;
   User.findOne({'email': data.email}, function (err, foundUser) {
     if(err) {res.status(400).send({error: 'user query error occurred'});
-    } if (!foundUser) {
+    } else if (!foundUser) {
       res.status(400).send({ error: 'no user found!' });
     } else {
       // user found, query book
       Book.find({'listed_by':foundUser._id}, function (err, foundBooks) {
         if(err) {res.status(400).send({error: 'book query error occurred'});
-        } if (!foundBooks) {
+        } else if (foundBooks.length == 0) {
           res.status(400).send({ error: 'no books found!' });
         } else {
           // found books in a list
           console.log(foundBooks);
-          res.json({
+          res.status(200).json({
             books: foundBooks,
             errno: 0
           });
@@ -268,7 +268,7 @@ apiRoutes.post('/getbook', function (req, res) {
   let data = req.body;
   Book.findOne({'_id': data.bid}, function (err, foundBook) {
     if(err) {res.status(400).send({error: 'user query error occurred'});
-    } if (!foundBook) {
+    } else if (!foundBook) {
       res.status(400).send({ error: 'no book found!' });
     } else {
       // book found
@@ -283,7 +283,7 @@ apiRoutes.post('/getuser', function (req, res) {
   if (data.uid) {
     User.findOne({'_id': data.uid}, function (err, foundUser) {
       if(err) {res.status(400).send({error: 'user query error occurred'});
-      } if (!foundUser) {
+      } else if (!foundUser) {
         res.status(400).send({ error: 'no user found!' });
       } else {
         // book found
@@ -294,7 +294,7 @@ apiRoutes.post('/getuser', function (req, res) {
   } else if (data.email) {
     User.findOne({'email': data.email}, function (err, foundUser) {
       if(err) {res.status(400).send({error: 'user query error occurred'});
-      } if (!foundUser) {
+      } else if (!foundUser) {
         res.status(400).send({ error: 'no user found!' });
       } else {
         // book found
@@ -421,7 +421,6 @@ apiRoutes.post('/sendreq', function (req, res) {
                     });
                   }
                 })
-
               }
             });
           }
@@ -429,7 +428,6 @@ apiRoutes.post('/sendreq', function (req, res) {
       })
     }
   })
-
 });
 
 
