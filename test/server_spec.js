@@ -1,84 +1,76 @@
 //let mongoose = require('mongoose')
 
 let request = require('supertest')
+//var assert = require('assert')
+//var db = mongoose.connect('mongodb://127.0.0.1:27017/test',{
+ // useMongoClient: true})
+
+// ENSURE EMPTY DATABASE
+
 describe('loading express', function () {
   let server
   beforeEach(function () {
-    this.timeout(50000)
-    server = require('../build/dev-server')
+    this.timeout(10000)
+    //delete require.cache[require.resolve('../build/dev-server')];
+    server = require('../build/dev-server');
     // let db = mongoose.connect('URL', {
-  // useMongoClient: true})
+    // useMongoClient: true})
     //db.connection.db.dropDatabase()
   })
   afterEach(function () {
     server.close()
   })
-
-  it('test registration', function testRoute(done) {
+  it('load server', function setUp(done){
     request(server)
-      .post('/v1/reg')
+      .get('/v1/test')
+      .expect(404, done)
+  })
+
+  it('test registration for new email login', function testRoute(done) {
+    request(server)
+      .post('/v1/googlelogin')
       .send({
-        'first_name': 'Mar',
-        'last_name': 'Smith',
-        'email': 'ms@columbia.edu4',
-        'password': 'passpass'
+        'name': 'Tim Tom Tum',
+        'email': 'ms@columbia.edu'
       })
       .expect(200, done)
   });
 
-  it('test registration for u2', function testRoute(done) {
+  it('test registration for new email login', function testRoute(done) {
     request(server)
-      .post('/v1/reg')
+      .post('/v1/googlelogin')
       .send({
-        'first_name': 'John',
-        'last_name': 'Smith',
-        'email': 'js@columbia.edu4',
-        'password': 'passpass'
+        'name': 'Pim Pom Pum',
+        'email': 'ps@columbia.edu'
       })
       .expect(200, done)
   });
 
-  it('test registration for an existent account', function testRoute(done) {
+  it('test signing for existing email login', function testRoute(done) {
     request(server)
-      .post('/v1/reg')
+      .post('/v1/googlelogin')
       .send({
-        'first_name': 'John1',
-        'last_name': 'Smith1',
-        'email': 'js@columbia.edu',
-        'password': 'passpass'
+        'name': 'Tim Tom Tum',
+        'email': 'ms@columbia.edu'
       })
-      .expect(401, done)
+      .expect(200, done)
   });
 
   it('test account', function testRoute(done) {
     request(server)
       .post('/v1/account')
       .send({
-        'email': 'js@columbia.edu'
+        'email': 'ms@columbia.edu'
       })
       .expect(200, done)
   });
 
-  it('test log in', function testRoute(done) {
-    request(server)
-      .post('/v1/login')
-      .send({
-        'email': 'ms@columbia.edu',
-        'password': 'passpass'
-      })
-      .expect(200, done)
-  });
-
-  it('test invalid log in', function testRoute(done) {
-    request(server)
-      .post('/v1/login')
-      .send({
-        'email': 'ms@columbia.edu',
-        'password': 'pass'
-      })
-      .expect(401, done)
-  });
-
+  let bid;
+  var getbid = function(res) {
+    bid = res.body.book._id;
+    console.log("get bid")
+    console.log(bid);
+  };
   it('test add book', function testRoute(done) {
     request(server)
       .post('/v1/addbook')
@@ -88,7 +80,9 @@ describe('loading express', function () {
         'author': 'Adam',
         'remarks': 'new, paper'
       })
-      .expect(200, done)
+      .expect(200)
+      .expect(getbid)
+      .end(done)
   });
 
   it('test add book with invalid email', function testRoute(done) {
@@ -101,36 +95,35 @@ describe('loading express', function () {
         'remarks': 'nothing'
       })
       .expect(400, done)
-  })
+  });
 
-  let bid;
-  it('test getbook', function testRoute(done) {
+  it('test getbooks', function testRoute(done) {
     request(server)
-      .post('/v1/getbook')
+      .post('/v1/getbooks')
       .send({
         'email': 'ms@columbia.edu'
       })
       .expect(200, done)
   });
 
-  it('test getbook with invalid email', function testRoute(done) {
+  it('test getbooks with invalid email', function testRoute(done) {
     request(server)
-      .post('/v1/getbook')
+      .post('/v1/getbooks')
       .send({
         'email': 'zz@columbia.edu',
       })
       .expect(400, done)
   })
-  // it('test sendreq', function testRoute(done) {
-  //   request(server)
-  //     .post('/v1/sendreq')
-  //     .send({
-  //       'from' : 'js@columbia.edu',
-  //       'to': 'ms@columbia.edu',
-  //       'bid':bid
-  //     })
-  //     .expect(200, done)
-  // });
+  it('test sendreq', function testRoute(done) {
+     request(server)
+       .post('/v1/sendreq')
+       .send({
+         'from' : 'ps@columbia.edu',
+         'to': 'ms@columbia.edu',
+         'bid': bid
+       })
+       .expect(200, done)
+   });
 
   it('test getreqs', function testRoute(done) {
     request(server)
@@ -141,14 +134,6 @@ describe('loading express', function () {
       .expect(200, done)
   });
 
-  it('test getreqs', function testRoute(done) {
-    request(server)
-      .post('/v1/getreqs')
-      .send({
-        'email': 'ms@columbia.edu'
-      })
-      .expect(200, done)
-  });
   it('test search', function testRoute(done) {
     request(server)
       .post('/v1/search')
@@ -187,8 +172,7 @@ describe('loading express', function () {
       .post('/v1/search')
       .send({
         'titleOrAuthor': 'Adam Psychology'
-      })
-      .expect(200, done)
+      }).expect(200, done)
   });
 
 })
