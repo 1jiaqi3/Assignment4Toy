@@ -29,11 +29,8 @@ const SALT_FACTOR = 10;
 mongodb://<dbuser>:<dbpassword>@ds117316.mlab.com:17316/heroku_kwp6q0dd
 
 var MONGO_URL_PROD = 'mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd'
-<<<<<<< HEAD
 var MONGO_URL_DEV = 'mongodb://127.0.0.1:27017/test'
-=======
-var MONGO_URL_DEV = 'mongodb://192.168.99.100:32773'
->>>>>>> 0cb25a19bf5bdf89c9004b73b901acfe13b67323
+// var MONGO_URL_DEV = 'mongodb://192.168.99.100:32773'
 mongoose.connect(MONGO_URL_DEV, {
   useMongoClient: true,
 })
@@ -54,7 +51,7 @@ app.use(bodyParser.json());
 
 //handle get request through /account route
 
-
+/*
 apiRoutes.post('/reg', function(req, res) {
   let data = req.body;
   let user = new User({
@@ -95,17 +92,17 @@ apiRoutes.post('/reg', function(req, res) {
     }
   });
 });
-
+*/
 apiRoutes.all('/googlelogin', function (req, res) {
   console.log("entered google route")
   let data = req.body;
-  console.log(data);
 
   User.findOne({'email': data.email}, function (err, foundUser) {
     if (err) {
       res.status(400).send({error: 'query error occurred'});
     }
     if (foundUser) {
+      console.log(foundUser)
       res.status(200).json({
         email : foundUser.email,
         id : foundUser._id,
@@ -151,7 +148,7 @@ apiRoutes.all('/googlelogin', function (req, res) {
     }
   })
 })
-
+/*
 apiRoutes.post('/login', function(req, res) {
 
   let data = req.body;
@@ -186,12 +183,14 @@ apiRoutes.post('/login', function(req, res) {
     }
   });
 });
-
+*/
 apiRoutes.post('/account', function (req, res) {
   let data = req.body;
   User.findOne({'email': data.email}, function (err, foundUser) {
     if (err) {
       res.status(400).send({error: 'query error occurred'});
+    } if(!foundUser){
+      res.status(404).send({error: 'query error occurred'});
     } else {
       res.status(200).json({
         first_name: foundUser.first_name,
@@ -204,11 +203,13 @@ apiRoutes.post('/account', function (req, res) {
 
 apiRoutes.post('/addbook', function (req, res) {
   let data = req.body;
+  console.log(data);
   User.findOne({'email': data.email}, function (err, foundUser) {
     if (err) {
       res.status(400).send({error: 'query error occurred'});
     }
     if (!foundUser) {
+      console.log('not found user!')
       res.status(400).send({error: 'no user found!'});
     } else {
 
@@ -374,13 +375,10 @@ apiRoutes.post('/sendreq', function (req, res) {
         } if (!receiver) {
           res.status(400).send({ error: 'no receiver found!' });
         } else {
-<<<<<<< HEAD
-=======
 
           if (String(sender._id) === String(receiver._id)) {
             return res.status(400).send({error: 'You cannot request a book from yourself!'});
           }
->>>>>>> 0cb25a19bf5bdf89c9004b73b901acfe13b67323
           // check if the req already exist
           Request.findOne({
             'from':sender.id,
@@ -434,7 +432,6 @@ apiRoutes.post('/sendreq', function (req, res) {
 apiRoutes.post('/acceptreq', function (req, res) {
   let data = req.body;
 
-<<<<<<< HEAD
   User.findOne({'email' : data.from}, function (err, sender) {
     if(err) {res.status(400).send({error: 'sender query error occurred'});
     } if (!sender) {res.status(400).send({ error: 'no sender found!' });
@@ -488,7 +485,6 @@ apiRoutes.post('/acceptreq', function (req, res) {
       });
     }
   })
-=======
   Request.findOne({
     '_id': data.req_id,
     'status': 'pending'
@@ -543,7 +539,6 @@ apiRoutes.post('/acceptreq', function (req, res) {
       });
     }
   });
->>>>>>> 0cb25a19bf5bdf89c9004b73b901acfe13b67323
 });
 
 apiRoutes.post('/getreqs', function (req, res) {
