@@ -36,7 +36,7 @@ describe('loading express', function () {
       .expect(200, done)
   });
 
-  it('test registration for new email login', function testRoute(done) {
+  it('test registration for new email login 2', function testRoute(done) {
     request(server)
       .post('/v1/googlelogin')
       .send({
@@ -45,6 +45,16 @@ describe('loading express', function () {
       })
       .expect(200, done)
   });
+  it('test registration for new email login 2', function testRoute(done) {
+    request(server)
+      .post('/v1/googlelogin')
+      .send({
+        'name': 'Kim Kom Kum',
+        'email': 'ks@columbia.edu'
+      })
+      .expect(200, done)
+  });
+
 
   it('test signing for existing email login', function testRoute(done) {
     request(server)
@@ -56,13 +66,21 @@ describe('loading express', function () {
       .expect(200, done)
   });
 
-  it('test account', function testRoute(done) {
+  it('test account for existing email', function testRoute(done) {
     request(server)
       .post('/v1/account')
       .send({
         'email': 'ms@columbia.edu'
       })
       .expect(200, done)
+  });
+  it('test account for non-existing email', function testRoute(done) {
+    request(server)
+      .post('/v1/account')
+      .send({
+        'email': 'ts@columbia.edu'
+      })
+      .expect(404, done)
   });
 
   let bid;
@@ -124,6 +142,66 @@ describe('loading express', function () {
        })
        .expect(200, done)
    });
+  it('test sendreq to self', function testRoute(done) {
+    request(server)
+      .post('/v1/sendreq')
+      .send({
+        'from' : 'ms@columbia.edu',
+        'to': 'ms@columbia.edu',
+        'bid': bid
+      })
+      .expect(400, done)
+  });
+  it('test sendreq to invalid user', function testRoute(done) {
+    request(server)
+      .post('/v1/sendreq')
+      .send({
+        'from' : 'ps@columbia.edu',
+        'to': 'ts@columbia.edu',
+        'bid': bid
+      })
+      .expect(400, done)
+  });
+  it('test sendreq from invalid user', function testRoute(done) {
+    request(server)
+      .post('/v1/sendreq')
+      .send({
+        'from' : 'ts@columbia.edu',
+        'to': 'ms@columbia.edu',
+        'bid': bid
+      })
+      .expect(400, done)
+  });
+  it('test sendreq with invalid bid', function testRoute(done) {
+    request(server)
+      .post('/v1/sendreq')
+      .send({
+        'from' : 'ps@columbia.edu',
+        'to': 'ms@columbia.edu',
+        'bid': '555'
+      })
+      .expect(400, done)
+  });
+  it('test sendreq with valid bid and non-owner', function testRoute(done) {
+    request(server)
+      .post('/v1/sendreq')
+      .send({
+        'from': 'ps@columbia.edu',
+        'to': 'ks@columbia.edu',
+        'bid': bid
+      })
+      .expect(400, done)
+  });
+  it('test sendreq repeat request', function testRoute(done) {
+    request(server)
+      .post('/v1/sendreq')
+      .send({
+        'from': 'ps@columbia.edu',
+        'to': 'ms@columbia.edu',
+        'bid': bid
+      })
+      .expect(401, done)
+  });
 
   it('test getreqs', function testRoute(done) {
     request(server)
