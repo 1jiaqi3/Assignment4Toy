@@ -1,5 +1,5 @@
 <template>
-  <div class="rq-subcontent-item">
+  <!--<div class="rq-subcontent-item">
     <div class="rq-flex-container">
       <div class="rq-flex-item">
         <div>Title</div>
@@ -17,7 +17,30 @@
         <button class="rq-button" @click="approve()">Approve</button>
       </div>
     </div>
-  </div>
+  </div>-->
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      <v-flex xs12>
+        <v-card dark color="teal" class="white--text">
+          <div class="bk-text">
+            <v-card-text class="px-0">Title</v-card-text>
+            <v-card-text class="px-0">{{book.title}}</v-card-text>
+          </div>
+          <div class="bk-text">
+            <v-card-text class="px-0">Author</v-card-text>
+            <v-card-text class="px-0">{{book.author}}</v-card-text>
+          </div>
+          <div class="bk-text">
+            <v-card-text class="px-0">Sender</v-card-text>
+            <v-card-text class="px-0">{{sender.email}}</v-card-text>
+          </div>
+          <v-card-actions v-if="!approved">
+            <v-btn flat color="yellow" @click="approve()" style="margin: auto">Approve</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script type="text/ecmascript-6">
@@ -62,13 +85,14 @@
   .rq-flex-item {
     flex: 1;
   }
-  .flexItem div {
-    margin: 10px 0;
-  }
   .rq-flex-item.sender {
     flex: 2;
   }
   .rq-button {
     margin-top: 15px;
+  }
+  .bk-text {
+    display: inline-block;
+    margin: 0 20px 0 20px;
   }
 </style>

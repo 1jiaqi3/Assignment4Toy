@@ -372,8 +372,9 @@ apiRoutes.post('/sendreq', function (req, res) {
         } if (!receiver) {
           res.status(400).send({ error: 'no receiver found!' });
         } else {
-          if (sender._id === receiver._id) {
-            res.status(400).send({error: 'You can request a book from yourself!'});
+
+          if (String(sender._id) === String(receiver._id)) {
+            res.status(400).send({error: 'You cannot request a book from yourself!'});
           }
           // check if the req already exist
           Request.findOne({
