@@ -14,4 +14,4 @@
       firebase.initializeApp(config)
     }
 
-  module.export = firebase.app()
+  module.exports = firebase.app()
