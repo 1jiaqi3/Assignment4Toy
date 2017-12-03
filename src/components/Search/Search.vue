@@ -151,17 +151,6 @@
   .sr-field {
     margin: 80px 0;
   }
-  .sr-content {
-    margin: 20px 0;
-  }
-  .sr-listingContainer {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-  }
-  .sr-listItem {
-    margin: auto;
-  }
   .astext {
     background:none;
     border:none;

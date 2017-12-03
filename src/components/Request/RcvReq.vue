@@ -34,7 +34,7 @@
             <v-card-text class="px-0">Sender</v-card-text>
             <v-card-text class="px-0">{{sender.email}}</v-card-text>
           </div>
-          <v-card-actions v-if="!approved">
+          <v-card-actions v-if="String(req.status) !== 'approved'">
             <v-btn flat color="yellow" @click="approve()" style="margin: auto">Approve</v-btn>
           </v-card-actions>
         </v-card>
@@ -52,8 +52,16 @@
     },
     data() {
       return {
-        approved: false
+        req: Object
       }
+    },
+    created() {
+      this.$http.post('/v1/getreq', {
+        rid: this.req_id
+      }).then(response => {
+        this.req = response.body
+        console.log(this.req)
+      })
     },
     methods: {
       approve() {
@@ -63,7 +71,7 @@
           bid: this.book._id,
           uid: this.sender._id
         }).then(response => {
-          this.approved = true
+          this.req.status = 'approved'
         }, response => {
           console.log(response)
         })
@@ -73,24 +81,6 @@
 </script>
 
 <style rel="stylesheet">
-  .rq-subcontent-item {
-    margin: 20px auto;
-    width: 90%;
-    padding: 10px 20px;
-    border: 1px solid;
-  }
-  .rq-flex-container {
-    display: flex;
-  }
-  .rq-flex-item {
-    flex: 1;
-  }
-  .rq-flex-item.sender {
-    flex: 2;
-  }
-  .rq-button {
-    margin-top: 15px;
-  }
   .bk-text {
     display: inline-block;
     margin: 0 20px 0 20px;

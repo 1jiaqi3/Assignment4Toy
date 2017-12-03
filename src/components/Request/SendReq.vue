@@ -59,21 +59,6 @@
 </script>
 
 <style rel="stylesheet">
-  .rq-subcontent-item {
-    margin: 20px auto;
-    width: 90%;
-    padding: 10px 20px;
-    border: 1px solid;
-  }
-  .rq-flex-container {
-    display: flex;
-  }
-  .rq-flex-item {
-    flex: 1;
-  }
-  .rq-flex-item.owner {
-    flex: 2;
-  }
   .bk-text {
     display: inline-block;
     margin: 0 20px 0 20px;

@@ -29,7 +29,7 @@ const SALT_FACTOR = 10;
 //mongodb:<dbuser>:<dbpassword>@ds117316.mlab.com:17316/heroku_kwp6q0dd
 
 var MONGO_URL_PROD = 'mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd'
-var MONGO_URL_DEV = 'mongodb://192.168.99.100:32770'
+var MONGO_URL_DEV = 'mongodb://192.168.99.100:32773'
 mongoose.connect(MONGO_URL_DEV, {
   useMongoClient: true,
 })
@@ -374,7 +374,7 @@ apiRoutes.post('/sendreq', function (req, res) {
         } else {
 
           if (String(sender._id) === String(receiver._id)) {
-            res.status(400).send({error: 'You cannot request a book from yourself!'});
+            return res.status(400).send({error: 'You cannot request a book from yourself!'});
           }
           // check if the req already exist
           Request.findOne({
