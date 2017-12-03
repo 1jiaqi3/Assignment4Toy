@@ -238,7 +238,6 @@ apiRoutes.post('/addbook', function (req, res) {
   })
 });
 
-
 apiRoutes.post('/getbooks', function (req, res) {
   let data = req.body;
   User.findOne({'email': data.email}, function (err, foundUser) {
@@ -390,7 +389,7 @@ apiRoutes.post('/sendreq', function (req, res) {
             } if (request) {res.status(401).send({ error: 'request already sent' });
             } else {
               // request not sent yet, check if the book is available
-              Book.findOne({_id: data.bid, on_list:true}, function (err, foundBook) {
+              Book.findOne({_id: data.bid, on_list:true, listed_by: receiver._id}, function (err, foundBook) {
                 if(err) {res.status(400).send({error: 'user query error occurred'});
                 } if (!foundBook) {
                   res.status(400).send({ error: 'no book found!' });
