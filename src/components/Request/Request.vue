@@ -1,5 +1,5 @@
 <template>
-  <div class="rq-main">
+  <v-app class="rq-main">
     <div class="menu-container">
       <div class="menu-item">
         <router-link to="/account" class="item">Account</router-link>
@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script type="text/ecmascript-6">
@@ -119,5 +119,15 @@
   }
   h2 {
     align-self: center;
+  }
+  .menu-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .menu-item {
+    margin: 5px 20px;
+  }
+  .item {
+    text-decoration: none;
   }
 </style>

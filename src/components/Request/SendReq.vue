@@ -1,5 +1,5 @@
 <template>
-  <div class="rq-subcontent-item">
+  <!--<div class="rq-subcontent-item">
     <div class="rq-flex-container">
       <div class="rq-flex-item">
         <div>Title</div>
@@ -18,7 +18,31 @@
         <div>{{owner}}</div>
       </div>
     </div>
-  </div>
+  </div>-->
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      <v-flex xs12>
+        <v-card dark color="primary" class="white--text">
+          <div class="bk-text">
+            <v-card-text class="px-0">Title</v-card-text>
+            <v-card-text class="px-0">{{title}}</v-card-text>
+          </div>
+          <div class="bk-text">
+            <v-card-text class="px-0">Author</v-card-text>
+            <v-card-text class="px-0">{{author}}</v-card-text>
+          </div>
+          <div class="bk-text">
+            <v-card-text class="px-0">Status</v-card-text>
+            <v-card-text class="px-0">{{status}}</v-card-text>
+          </div>
+          <div class="bk-text">
+            <v-card-text class="px-0">Owner</v-card-text>
+            <v-card-text class="px-0">{{owner}}</v-card-text>
+          </div>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script type="text/ecmascript-6">
@@ -35,22 +59,8 @@
 </script>
 
 <style rel="stylesheet">
-  .rq-subcontent-item {
-    margin: 20px auto;
-    width: 90%;
-    padding: 10px 20px;
-    border: 1px solid;
-  }
-  .rq-flex-container {
-    display: flex;
-  }
-  .rq-flex-item {
-    flex: 1;
-  }
-  .flexItem div {
-    margin: 10px 0;
-  }
-  .rq-flex-item.owner {
-    flex: 2;
+  .bk-text {
+    display: inline-block;
+    margin: 0 20px 0 20px;
   }
 </style>

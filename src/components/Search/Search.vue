@@ -1,32 +1,66 @@
 <template>
-  <div class="sr-main">
-    <div class="sr-header">
-      <div class="sr-headerItem">
-        <button class="astext" @click="toAccount">
-          <h2>Account</h2>
-        </button>
-      </div>
-    </div>
-    <div class="sr-title">
-      <h1>Lion Books!</h1>
-      <div>Borrow/buy second-hand book from your peer or trade in your books in a snap.</div>
-    </div>
-    <form class="sr-search">
-      <input v-model="searchStr" class="sr-input">
-      <button type="button" @click="submitForm" class="sr-button">Search</button>
-    </form>
-    <div class="sr-content">
-      <div class="sr-listingContainer" v-for="book in books">
-        <div class="sr-listItem">
-          <img src="../../assets/pikapika.jpg">
-          <h1>{{book.title}}</h1>
-          <div>
-            <button @click="requestBook(book._id, book.listed_by)">Request</button>
-          </div>
-          <p>{{reqSuccess}}</p>
+  <div>
+    <v-app class="sr-main">
+      <div class="sr-header">
+        <div class="sr-headerItem">
+          <button class="astext" @click="toAccount">
+            <h2>Account</h2>
+          </button>
         </div>
       </div>
-    </div>
+      <div class="sr-title">
+        <h1>Lion Books!</h1>
+        <div>Borrow/buy second-hand book from your peer or trade in your books in a snap.</div>
+      </div>
+      <v-form>
+        <v-text-field
+          label="Search"
+          v-model="searchStr"
+          :counter="100"
+          class="sr-field"
+        ></v-text-field>
+        <v-btn
+          class="blue lighten-2 mt-5"
+          dark
+          large
+          @click="submitForm"
+          type="button"
+        >
+          Search
+        </v-btn>
+      </v-form>
+
+      <!--<div class="sr-content">
+        <div class="sr-listingContainer" v-for="book in books">
+          <div class="sr-listItem">
+            <img src="../../assets/pikapika.jpg">
+            <h1>{{book.title}}</h1>
+            <div>
+              <button @click="requestBook(book._id, book.listed_by)">Request</button>
+            </div>
+            <p>{{reqSuccess}}</p>
+          </div>
+        </div>
+      </div>-->
+      <v-layout v-for="book in books">
+        <v-flex xs12 sm6 offset-sm3>
+          <v-card>
+            <v-card-media :src="require('../../assets/book2.png')" height="200px">
+            </v-card-media>
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">{{book.title}}</h3>
+                <div>By {{book.author}}</div>
+              </div>
+            </v-card-title>
+            <v-card-actions>
+              <v-btn flat color="orange" @click="requestBook(book._id, book.listed_by)">Request</v-btn>
+              <p>{{reqSuccess}}</p>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-app>
   </div>
 </template>
 
@@ -72,7 +106,7 @@
               currentUserEmail = profile.email
             })
           } else {
-            this.$router.push('/login')
+            // this.$router.push('/login')
           }
         })
         this.$http.post('/v1/sendreq', {
@@ -102,9 +136,9 @@
 
 <style rel="stylesheet">
   .sr-main {
-    width: 90%;
+    width: 100%;
     margin: auto;
-    padding: 20px;
+    padding: 50px;
   }
   .sr-header {
     display: flex;
@@ -114,29 +148,8 @@
   .sr-headerItem {
     margin: 20px;
   }
-  .sr-search {
-    margin: 40px 0;
-  }
-  .sr-input {
-    width: 800px;
-    height: 35px;
-  }
-  .sr-button {
-    border-radius: 8px;
-    font-size: 25px;
-    height: 35px;
-    width: 130px;
-  }
-  .sr-content {
-    margin: 20px 0;
-  }
-  .sr-listingContainer {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-  }
-  .sr-listItem {
-    margin: auto;
+  .sr-field {
+    margin: 80px 0;
   }
   .astext {
     background:none;
