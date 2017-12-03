@@ -45,14 +45,22 @@ describe('loading express', function () {
       })
       .expect(200, done)
   });
-  it('test registration for new email login 2', function testRoute(done) {
+  let uid;
+  var getuid = function(res) {
+    uid = res.body.id;
+    console.log("get uid")
+    console.log(uid);
+  };
+  it('test registration for new email login 3', function testRoute(done) {
     request(server)
       .post('/v1/googlelogin')
       .send({
         'name': 'Kim Kom Kum',
         'email': 'ks@columbia.edu'
       })
-      .expect(200, done)
+      .expect(200)
+      .expect(getuid)
+      .end(done)
   });
 
 
@@ -129,6 +137,62 @@ describe('loading express', function () {
       .post('/v1/getbooks')
       .send({
         'email': 'zz@columbia.edu',
+      })
+      .expect(400, done)
+  })
+  it('test getbooks with valid email, but no books', function testRoute(done) {
+    request(server)
+      .post('/v1/getbooks')
+      .send({
+        'email': 'ks@columbia.edu',
+      })
+      .expect(400, done)
+  })
+  it('test getbook', function testRoute(done) {
+    request(server)
+      .post('/v1/getbook')
+      .send({
+        'bid': bid,
+      })
+      .expect(200, done)
+  })
+  it('test getbook with invalid bid', function testRoute(done) {
+    request(server)
+      .post('/v1/getbook')
+      .send({
+        'bid': '555',
+      })
+      .expect(400, done)
+  })
+  it('test getuser with valid uid', function testRoute(done) {
+    request(server)
+      .post('/v1/getuser')
+      .send({
+        'uid': uid
+      })
+      .expect(200, done)
+  })
+  it('test getuser with valid email', function testRoute(done) {
+    request(server)
+      .post('/v1/getuser')
+      .send({
+        'email': 'ks@columbia.edu'
+      })
+      .expect(200, done)
+  })
+  it('test getuser with invalid email', function testRoute(done) {
+    request(server)
+      .post('/v1/getuser')
+      .send({
+        'email': 'ts@columbia.edu'
+      })
+      .expect(400, done)
+  })
+  it('test getuser with invalid uid', function testRoute(done) {
+    request(server)
+      .post('/v1/getuser')
+      .send({
+        'uid': '555'
       })
       .expect(400, done)
   })
