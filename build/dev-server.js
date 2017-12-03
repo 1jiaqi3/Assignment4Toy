@@ -364,62 +364,67 @@ apiRoutes.all('/search', function (req, res) {
 
 apiRoutes.post('/sendreq', function (req, res) {
   let data = req.body;
+
   User.findOne({'email' : data.from}, function (err, sender) {
     if(err) {res.status(400).send({error: 'sender query error occurred'});
-    } if (!sender) {
+    } else if (!sender) {
       res.status(400).send({ error: 'no sender found!' });
     } else {
+
       User.findOne({'email' : data.to}, function (err, receiver) {
         if(err) {res.status(400).send({error: 'receiver query error occurred'});
-        } if (!receiver) {
+        } else if (!receiver) {
           res.status(400).send({ error: 'no receiver found!' });
         } else {
-
           if (String(sender._id) === String(receiver._id)) {
             return res.status(400).send({error: 'You cannot request a book from yourself!'});
           }
-          // check if the req already exist
-          Request.findOne({
-            'from':sender.id,
-            'to': receiver.id,
-            'bid': data.bid,
-            'status': 'pending'
-          }, function (err, request) {
-            if(err) {res.status(400).send({error: 'request query error occurred'});
-            } if (request) {res.status(401).send({ error: 'request already sent' });
-            } else {
-              // request not sent yet, check if the book is available
-              Book.findOne({_id: data.bid, on_list:true, listed_by: receiver._id}, function (err, foundBook) {
-                if(err) {res.status(400).send({error: 'user query error occurred'});
-                } if (!foundBook) {
-                  res.status(400).send({ error: 'no book found!' });
-                } else {
-                  // book found
-                  // send new req
-                  let request = new Request({
-                    from: sender._id,
-                    to: receiver._id,
-                    status: 'pending',
-                    bid: data.bid,
-                    read:false
-                  });
+          else {
+            // check if the req already exist
+            Request.findOne({
+              'from': sender.id,
+              'to': receiver.id,
+              'bid': data.bid,
+              'status': 'pending'
+            }, function (err, request) {
+              if (err) {
+                res.status(400).send({error: 'request query error occurred'});
+              } else if (request) {
+                res.status(401).send({error: 'request already sent'});
+              } else {
+                // request not sent yet, check if the book is available
+                Book.findOne({_id: data.bid, on_list: true, listed_by: receiver._id}, function (err, foundBook) {
+                  if (err) {
+                    res.status(400).send({error: 'user query error occurred'});
+                  } else if (!foundBook) {
+                    res.status(400).send({error: 'no book found!'});
+                  } else {
+                    // book found
+                    // send new req
+                    let request = new Request({
+                      from: sender._id,
+                      to: receiver._id,
+                      status: 'pending',
+                      bid: data.bid,
+                      read: false
+                    });
 
-                  request.save(function (err) {
-                    if (err) {
-                      console.log(err);
-                      res.status(400).send({error: 'cannot save req to database'});
-                    } else {
-                      // success
-                      console.log(request);
-                      res.status(200).send(request);
-                    }
-                  });
-                }
-              })
+                    request.save(function (err) {
+                      if (err) {
+                        console.log(err);
+                        res.status(400).send({error: 'cannot save req to database'});
+                      } else {
+                        // success
+                        console.log(request);
+                        res.status(200).send(request);
+                      }
+                    });
+                  }
+                })
 
-            }
-          });
-
+              }
+            });
+          }
         }
       })
     }
