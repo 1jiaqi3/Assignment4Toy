@@ -104,6 +104,23 @@
         }).then((response1) => {
           response1 = response1.body
           if (response1.errno === ERR_OK) {
+            this.$http.post('/v1/getbooks', {
+              email: localStorage.getItem('email')
+            }).then((response) => {
+              response = response.body
+              console.log(response)
+              if (response.errno === ERR_OK) {
+                this.books = response.books
+                for (let book of response.books) {
+                  book.lentoEmail = 'N/A'
+                  this.books = response.books
+                  this.$forceUpdate()
+                }
+              }
+            }, response => {
+              console.log('Wrong combination of email and password!')
+            })
+
             this.$forceUpdate()
           }
         }, response1 => {
