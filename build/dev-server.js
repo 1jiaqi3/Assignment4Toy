@@ -492,13 +492,13 @@ apiRoutes.post('/getRecvReqs', function (req, res) {
   User.findOne({'email': data.email}, function (err, foundUser) {
     if(err) {
       res.status(400).send({error: 'user query error occurred'});
-    } if (!foundUser) {
+    } else if (!foundUser) {
       res.status(400).send({ error: 'no user found!' });
     } else {
       // user found, query book
       Request.find({'to':foundUser._id}, function (err, reqs) {
         if(err) {res.status(400).send({error: 'request error occurred'});
-        } if (!reqs) {
+        } else if (reqs.length == 0) {
           res.status(400).send({ error: 'no reqs found!' });
         } else {
           console.log(reqs);
