@@ -29,7 +29,7 @@ const SALT_FACTOR = 10;
 //mongodb:<dbuser>:<dbpassword>@ds117316.mlab.com:17316/heroku_kwp6q0dd
 
 var MONGO_URL_PROD = 'mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd'
-var MONGO_URL_DEV = 'mongodb://192.168.99.100:32775'
+var MONGO_URL_DEV = 'mongodb://127.0.0.1:27017'
 mongoose.connect(MONGO_URL_DEV, {
   useMongoClient: true,
 })
@@ -188,6 +188,8 @@ apiRoutes.post('/account', function (req, res) {
   User.findOne({'email': data.email}, function (err, foundUser) {
     if (err) {
       res.status(400).send({error: 'query error occurred'});
+    } if (!foundUser){
+      res.status(404).send({error: 'user not found'});
     } else {
       res.status(200).json({
         first_name: foundUser.first_name,
