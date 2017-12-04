@@ -4,7 +4,7 @@
       <div class="sr-header">
         <div class="sr-headerItem">
           <button class="astext" @click="toAccount">
-            <h2>Account</h2>
+            <h2>Account{{unread}}</h2>
           </button>
         </div>
       </div>
@@ -67,11 +67,22 @@
 <script type="text/ecmascript-6">
   const ERR_OK = 0
   export default {
+    beforeCreate() {
+      this.$http.post('/v1/getUnread', {
+        email: localStorage.getItem('email')
+      }).then(response => {
+        response = response.body
+        if (response.unread > 0) {
+          this.unread = '(' + response.unread + ')'
+        }
+      })
+    },
     data() {
       return {
         searchStr: '',
         books: [],
-        reqSuccess: ''
+        reqSuccess: '',
+        unread: ''
       }
     },
     methods: {
