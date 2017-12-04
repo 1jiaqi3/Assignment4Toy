@@ -212,7 +212,6 @@ apiRoutes.post('/addbook', function (req, res) {
       console.log('not found user!')
       res.status(400).send({error: 'no user found!'});
     } else {
-
       let book = new Book({
         title: data.title,
         author: data.author,
@@ -312,7 +311,7 @@ apiRoutes.post('/getreq', function (req, res) {
   let data = req.body;
   Request.findOne({'_id': data.rid}, function (err, foundReq) {
     if(err) {res.status(400).send({error: 'user query error occurred'});
-    } if (!foundReq) {
+    } else if (!foundReq) {
       res.status(400).send({ error: 'no req found!' });
     } else {
       // book found
@@ -432,67 +431,13 @@ apiRoutes.post('/sendreq', function (req, res) {
 
 
 apiRoutes.post('/acceptreq', function (req, res) {
-  let data = req.body;
-
-  User.findOne({'email' : data.from}, function (err, sender) {
-    if(err) {res.status(400).send({error: 'sender query error occurred'});
-    } if (!sender) {res.status(400).send({ error: 'no sender found!' });
-    } else {
-      User.findOne({'email' : data.to}, function (err, receiver) {
-        if(err) {res.status(400).send({error: 'receiver query error occurred'});
-        } if (!receiver) { res.status(400).send({ error: 'no receiver found!' });
-        } else {
-          Request.findOne({
-            'from':sender.id,
-            'to': receiver.id,
-            'bid': data.bid,
-            'status': 'pending'
-          }, function (err, request) {
-            if(err) {res.status(400).send({error: 'request query error occurred'});
-            } if (!request) {res.status(400).send({ error: 'req found!' });
-            } else {
-              Book.findOne({_id:data.bid}, function (err, book) {
-                if (err) {res.status(400).send({error: 'request query error occurred'})
-                } else {
-                  // update req and book
-                  // update req and book
-                  request.status = 'approved';
-                  request.read = true;
-                  book.status = 'lent';
-                  book.on_list = false;
-                  book.lento = sender._id;
-
-                  request.save(function (err) {
-                    if (err) {
-                      console.log(err);
-                      res.status(400).send({error: 'cannot update req database'});
-                    } else {
-                      // success
-                      console.log(request);
-                      book.save(function (err) {
-                        if (err) {
-                          console.log(err);
-                          res.status(400).send({error: 'cannot update book database'});
-                        } else {
-                          // success
-                          console.log(request);
-                          res.status(200).send(request);
-                        }});
-                    }});
-                }
-              });
-            }
-          });
-        }
-      });
-    }
-  })
+  var data = req.body;
   Request.findOne({
     '_id': data.req_id,
     'status': 'pending'
   }, function (err, request) {
     if(err) {res.status(400).send({error: 'request query error occurred'});
-    } if (!request) {res.status(400).send({ error: 'req not found!' });
+    } else if (!request) {res.status(400).send({ error: 'req not found!' });
     } else {
       Book.findOne({_id: data.bid}, function (err, book) {
         if (err) {res.status(400).send({error: 'request query error occurred'})
@@ -547,13 +492,13 @@ apiRoutes.post('/getreqs', function (req, res) {
   let data = req.body;
   User.findOne({'email': data.email}, function (err, foundUser) {
     if(err) {res.status(400).send({error: 'user query error occurred'});
-    } if (!foundUser) {
+    } else if (!foundUser) {
       res.status(400).send({ error: 'no user found!' });
     } else {
       // user found, query book
       Request.find({'to':foundUser._id}, function (err, reqs) {
         if(err) {res.status(400).send({error: 'request error occurred'});
-        } if (!reqs) {
+        } else if (reqs.length == 0) {
           res.status(400).send({ error: 'no reqs found!' });
         } else {
           console.log(reqs);
@@ -568,7 +513,6 @@ apiRoutes.post('/getreqs', function (req, res) {
                 res.status(400).send({error: 'cannot update request database'});
               }});
             updatedReqs.push(request);
-
           }
           res.status(200).json({reqs: updatedReqs});
         }
