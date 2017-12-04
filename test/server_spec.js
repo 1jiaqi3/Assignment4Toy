@@ -196,6 +196,13 @@ describe('loading express', function () {
       })
       .expect(400, done)
   })
+  let rObj;
+  var getrObj = function(res) {
+    rObj = res.body;
+    console.log("get rObj")
+    console.log(rObj);
+  };
+
   it('test sendreq', function testRoute(done) {
      request(server)
        .post('/v1/sendreq')
@@ -204,7 +211,9 @@ describe('loading express', function () {
          'to': 'ms@columbia.edu',
          'bid': bid
        })
-       .expect(200, done)
+       .expect(200)
+       .expect(getrObj)
+       .end(done)
    });
   it('test sendreq to self', function testRoute(done) {
     request(server)
@@ -275,7 +284,50 @@ describe('loading express', function () {
       })
       .expect(200, done)
   });
-
+  it('test getreqs with invalid user', function testRoute(done) {
+    request(server)
+      .post('/v1/getreqs')
+      .send({
+        'email': 'ts@columbia.edu'
+      })
+      .expect(400, done)
+  });
+  it('test getreqs with valid user with no requests', function testRoute(done) {
+    request(server)
+      .post('/v1/getreqs')
+      .send({
+        'email': 'ps@columbia.edu'
+      })
+      .expect(400, done)
+  });
+  it('test getunread', function testRoute(done) {
+    request(server)
+      .post('/v1/getUnread')
+      .send({
+        'email': 'ms@columbia.edu'
+      })
+      .expect(200, done)
+  });
+  it('test acceptreq', function testRoute(done) {
+    request(server)
+      .post('/v1/acceptreq')
+      .send({
+        'req_id': rObj._id,
+        'bid': rObj.bid,
+        'uid': rObj._from
+      })
+      .expect(200, done)
+  });
+  it('test acceptreq with accepted request', function testRoute(done) {
+    request(server)
+      .post('/v1/acceptreq')
+      .send({
+        'req_id': rObj._id,
+        'bid': rObj.bid,
+        'uid': rObj._from
+      })
+      .expect(400, done)
+  });
   it('test search', function testRoute(done) {
     request(server)
       .post('/v1/search')
