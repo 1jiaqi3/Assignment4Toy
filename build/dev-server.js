@@ -240,22 +240,21 @@ apiRoutes.post('/getbooks', function (req, res) {
   let data = req.body;
   User.findOne({'email': data.email}, function (err, foundUser) {
     if(err) {res.status(400).send({error: 'user query error occurred'});
-    } if (!foundUser) {
+    } else if (!foundUser) {
       res.status(400).send({ error: 'no user found!' });
     } else {
       // user found, query book
       Book.find({'listed_by':foundUser._id}, function (err, foundBooks) {
         if(err) {res.status(400).send({error: 'book query error occurred'});
-        } if (!foundBooks) {
+        } else if (foundBooks.length == 0) {
           res.status(400).send({ error: 'no books found!' });
         } else {
           // found books in a list
           console.log(foundBooks);
-          res.json({
+          res.status(200).json({
             books: foundBooks,
             errno: 0
           });
-
         }
       })
     }
