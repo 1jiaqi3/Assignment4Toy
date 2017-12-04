@@ -265,22 +265,21 @@ apiRoutes.post('/getbook', function (req, res) {
   let data = req.body;
   Book.findOne({'_id': data.bid}, function (err, foundBook) {
     if(err) {res.status(400).send({error: 'user query error occurred'});
-    } if (!foundBook) {
+    } else if (!foundBook) {
       res.status(400).send({ error: 'no book found!' });
     } else {
       // book found
       console.log(foundBook);
-      res.status(200).json({book: foundBook});
+      res.status(200).send(foundBook);
     }
   })
 });
-
 apiRoutes.post('/getuser', function (req, res) {
   let data = req.body;
   if (data.uid) {
     User.findOne({'_id': data.uid}, function (err, foundUser) {
       if(err) {res.status(400).send({error: 'user query error occurred'});
-      } if (!foundUser) {
+      } else if (!foundUser) {
         res.status(400).send({ error: 'no user found!' });
       } else {
         // book found
@@ -291,7 +290,7 @@ apiRoutes.post('/getuser', function (req, res) {
   } else if (data.email) {
     User.findOne({'email': data.email}, function (err, foundUser) {
       if(err) {res.status(400).send({error: 'user query error occurred'});
-      } if (!foundUser) {
+      } else if (!foundUser) {
         res.status(400).send({ error: 'no user found!' });
       } else {
         // book found
@@ -302,7 +301,6 @@ apiRoutes.post('/getuser', function (req, res) {
   } else {
     res.status(400).send({ error: 'wrong req format' });
   }
-
 });
 
 apiRoutes.post('/getreq', function (req, res) {
