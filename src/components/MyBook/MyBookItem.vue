@@ -52,11 +52,11 @@
   export default {
     props: {
       title: String,
-      author: String
+      author: String,
+      status: String
     },
     data() {
       return {
-        status: AVAILABLE,
         lento: 'N/A'
       }
     }

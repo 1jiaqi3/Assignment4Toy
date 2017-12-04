@@ -14,7 +14,7 @@
     <hr/>
     <div class="mb-content">
       <div class="mb-content-container" v-for="book in books">
-        <MyBookItem :title="book.title" :author="book.author"></MyBookItem>
+        <MyBookItem :title="book.title" :author="book.author" :status="book.status"></MyBookItem>
       </div>
     </div>
 
