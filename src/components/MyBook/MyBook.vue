@@ -14,7 +14,7 @@
     <hr/>
     <div class="mb-content">
       <div class="mb-content-container" v-for="book in books">
-        <MyBookItem :title="book.title" :author="book.author" :status="book.status"></MyBookItem>
+        <MyBookItem :title="book.title" :author="book.author" :status="book.status" :lento="book.lentoEmail"></MyBookItem>
       </div>
     </div>
 
@@ -66,7 +66,7 @@
         updated: false
       }
     },
-    created() {
+    beforeCreate() {
       this.$http.post('/v1/getbooks', {
         email: localStorage.getItem('email')
       }).then((response) => {
@@ -74,20 +74,20 @@
         console.log(response)
         if (response.errno === ERR_OK) {
           this.books = response.books
-        }
-      }, response => {
-        console.log('Wrong combination of email and password!')
-      })
-    },
-    beforeUpdate() {
-      this.$http.post('/v1/getbooks', {
-        email: localStorage.getItem('email')
-      }).then((response) => {
-        response = response.body
-        console.log(response)
-        if (response.errno === ERR_OK && !this.updated) {
-          this.books = response.books
-          this.updated = true
+          for (let book of response.books) {
+            if (!book.lento || book.lento.length === 0) {
+              book.lentoEmail = 'N/A'
+              continue
+            }
+            this.$http.post('/v1/getuser', {
+              uid: book.lento
+            }).then(responseUser => {
+              responseUser = responseUser.body
+              book.lentoEmail = responseUser.email
+              this.books = response.books
+              this.$forceUpdate()
+            })
+          }
         }
       }, response => {
         console.log('Wrong combination of email and password!')

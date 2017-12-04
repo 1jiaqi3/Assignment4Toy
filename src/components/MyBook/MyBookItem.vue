@@ -53,12 +53,8 @@
     props: {
       title: String,
       author: String,
-      status: String
-    },
-    data() {
-      return {
-        lento: 'N/A'
-      }
+      status: String,
+      lento: String
     }
   }
 </script>
