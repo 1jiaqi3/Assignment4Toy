@@ -57,8 +57,9 @@
             }).then(responseUser => {
               responseUser = responseUser.body
               req.user = responseUser
-              console.log(req.user)
+              // console.log(req.user)
               this.recvReqs = response.reqs
+              this.$forceUpdate()
             })
           })
         }
@@ -81,6 +82,8 @@
               responseUser = responseUser.body
               req.email = responseUser.email
               this.sentReqs = response.reqs
+              this.$forceUpdate()
+              console.log(this.sentReqs)
             })
           })
         }
