@@ -29,8 +29,9 @@ const SALT_FACTOR = 10;
 //mongodb:<dbuser>:<dbpassword>@ds117316.mlab.com:17316/heroku_kwp6q0dd
 
 var MONGO_URL_PROD = 'mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd'
-var MONGO_URL_DEV = 'mongodb://127.0.0.1:27017'
-mongoose.connect(MONGO_URL_DEV, {
+var MONGO_URL_DEV_LOCAL = 'mongodb://127.0.0.1:27017'
+var MONGO_URL_DEV_MLAB = 'mongodb://teamsprite:teamsprite2017@ds133876.mlab.com:33876/teamsprite'
+mongoose.connect(MONGO_URL_DEV_MLAB, {
   useMongoClient: true,
 })
 // default port where dev server listens for incoming traffic
