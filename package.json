@@ -9,7 +9,7 @@
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
-    "test": "mocha",
+    "test": "nyc mocha",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
     "heroku-postbuild": "webpack -p --config ./build/webpack.prod.conf.js --progress"
   },
@@ -90,7 +90,8 @@
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
-    "jshint": "^2.9.5"
+    "jshint": "^2.9.5",
+    "nyc": "^11.3.0"
   },
   "engines": {
     "node": ">= 4.0.0",
