@@ -33,6 +33,7 @@ describe('loading express', function () {
   };
 
   it('test registration for new email login', function testRoute(done) {
+    this.timeout(10000)
     request(server)
       .post('/v1/googlelogin')
       .send({
@@ -60,6 +61,7 @@ describe('loading express', function () {
     console.log(uid);
   };
   it('test registration for new email login 3', function testRoute(done) {
+    this.timeout(10000)
     request(server)
       .post('/v1/googlelogin')
       .send({
@@ -105,6 +107,7 @@ describe('loading express', function () {
     console.log("get bid")
     console.log(bid);
   };
+
   it('test add book', function testRoute(done) {
     request(server)
       .post('/v1/addbook')
@@ -308,6 +311,24 @@ describe('loading express', function () {
       })
       .expect(400, done)
   });
+
+  it('test getSentReqs', function testRoute(done) {
+    request(server)
+      .post('/v1//getSentReqs')
+      .send({
+        'email': 'ms@columbia.edu'
+      })
+      .expect(200, done)
+  });
+  it('test getSentReqs with invalid user', function testRoute(done) {
+    request(server)
+      .post('/v1//getSentReqs')
+      .send({
+        'email': 'ts@columbia.edu'
+      })
+      .expect(400, done)
+  });
+
   it('test getunread', function testRoute(done) {
     request(server)
       .post('/v1/getUnread')
@@ -316,6 +337,16 @@ describe('loading express', function () {
       })
       .expect(200, done)
   });
+
+  it('test getreq', function testRoute(done) {
+    request(server)
+      .post('/v1/getreq')
+      .send({
+        'rid': rObj._id,
+      })
+      .expect(200, done)
+  });
+
   it('test acceptreq', function testRoute(done) {
     request(server)
       .post('/v1/acceptreq')
