@@ -23,7 +23,7 @@ describe('loading express', function () {
   it('load server', function setUp(done){
     request(server)
       .get('/v1/test')
-      .expect(404, done)
+      .expect(200, done)
   })
   let uid1;
   var getuid1 = function(res) {
