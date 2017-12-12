@@ -31,7 +31,7 @@ const SALT_FACTOR = 10;
 var MONGO_URL_PROD = 'mongodb://heroku_kwp6q0dd:20ijifp8vurchbqel0id4r3ebq@ds117316.mlab.com:17316/heroku_kwp6q0dd'
 var MONGO_URL_DEV_LOCAL = 'mongodb://127.0.0.1:27017'
 var MONGO_URL_DEV_MLAB = 'mongodb://teamsprite:teamsprite2017@ds043972.mlab.com:43972/teamsprite'
-mongoose.connect(MONGO_URL_DEV_MLAB, {
+mongoose.connect(MONGO_URL_PROD, {
   useMongoClient: true,
 })
 // default port where dev server listens for incoming traffic
