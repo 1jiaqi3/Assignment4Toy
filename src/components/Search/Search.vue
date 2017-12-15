@@ -18,6 +18,7 @@
           v-model="searchStr"
           :counter="100"
           class="sr-field"
+          v-on:keyup="enterHandler"
         ></v-text-field>
         <v-btn
           class="blue lighten-2 mt-5"
@@ -86,6 +87,12 @@
       }
     },
     methods: {
+      enterHandler(event) {
+        console.log(event.key)
+        if (event.key === 'Enter') {
+          this.submitForm()
+        }
+      },
       submitForm() {
         this.$http.post('/v1/search', {
           titleOrAuthor: this.searchStr
