@@ -230,6 +230,37 @@ apiRoutes.post('/getuser', function (req, res) {
   }
 });
 
+// apiRoutes.post('/deleteBook', function (req, res) {
+//   let data = req.body;
+//   Book.remove({'_id': data.bid, status: 'available'}, function (err, foundBook) {
+//     if(err) {res.status(400).send({error: 'user query error occurred'});
+//     } else if (!foundBook) {
+//       res.status(400).send({ error: 'no book found!' });
+//     } else {
+//       // book deleted
+//       // update request
+//       Request.find({'bid': data.bid}, function (err, reqs) {
+//         if(err) {res.status(400).send({error: 'request query error occurred'});
+//         } if (!reqs) {
+//           // no other requests
+//           res.status(200).json({req: request});
+//         } else {
+//           console.log(reqs);
+//           // found reqs in a list
+//           while (reqs.length !== 0) {
+//             r = reqs.pop();
+//             r.status = 'invalid';
+//             r.save(function (err) {
+//               if (err) {res.status(400).send({error: 'cannot update request database'});
+//               }});}
+//           res.status(200).send('book deleted');
+//         }
+//       });
+//     }
+//   })
+// });
+
+
 apiRoutes.post('/getreq', function (req, res) {
   let data = req.body;
   Request.findOne({'_id': data.rid}, function (err, foundReq) {
