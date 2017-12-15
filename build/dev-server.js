@@ -251,6 +251,13 @@ apiRoutes.all('/search', function (req, res) {
     console.log(srch);
     srch.trim();
     let srchArray = srch.split(" ");
+    let stopWords = ["a", "on", "to", "the", "of", "in", "at", "about", "an", "as"]
+    for (var i = 0; i < stopWords.length; i++){
+      var index = srchArray.indexOf(stopWords[i])
+      if (index > -1){
+        srchArray.splice(index, 1)
+      }
+    }
     var srchexp = new RegExp(srchArray.join("|"), "i");
     console.log(srchexp);
     Book.find({
