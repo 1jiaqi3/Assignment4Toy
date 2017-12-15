@@ -197,7 +197,7 @@ apiRoutes.post('/getbook', function (req, res) {
     } else {
       // book found
       console.log(foundBook);
-      res.status(200).send(foundBook);
+      res.status(200).send({book: foundBook});
     }
   })
 });
@@ -428,7 +428,7 @@ apiRoutes.post('/getRecvReqs', function (req, res) {
         } else if (reqs.length == 0) {
           res.status(400).send({ error: 'no reqs found!' });
         } else {
-          console.log(reqs);
+          // console.log(reqs);
           // found reqs in a list
           let updatedReqs = []
           while (reqs.length !== 0) {
@@ -442,6 +442,8 @@ apiRoutes.post('/getRecvReqs', function (req, res) {
             updatedReqs.push(request);
 
           }
+          console.log("Sending Requests");
+          console.log(updatedReqs);
           res.status(200).json({reqs: updatedReqs});
         }
       })
@@ -461,9 +463,10 @@ apiRoutes.post('/getSentReqs', function (req, res) {
       // user found, query book
       Request.find({'from':foundUser._id}, function (err, reqs) {
         if(err) {res.status(400).send({error: 'request error occurred'});
-        } if (!reqs) {
+        } if (reqs.length == 0) {
           res.status(400).send({ error: 'no reqs found!' });
         } else {
+          console.log("Sending Reqs");
           console.log(reqs);
           res.status(200).json({reqs: reqs});
         }

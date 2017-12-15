@@ -52,10 +52,14 @@
           }).then(responseBook => {
             responseBook = responseBook.body
             req.book = responseBook.book
+            console.log('the book!!!!')
+            console.log(responseBook)
             this.$http.post('/v1/getuser', {
               uid: req.from
             }).then(responseUser => {
               responseUser = responseUser.body
+              console.log('the user!!!!!')
+              console.log(responseUser)
               req.user = responseUser
               // console.log(req.user)
               this.recvReqs = response.reqs
