@@ -67,6 +67,10 @@
       }
     },
     beforeCreate() {
+      var userEmail = localStorage.getItem('email')
+      if (userEmail === '1') {
+        this.$router.push('/')
+      }
       this.$http.post('/v1/getbooks', {
         email: localStorage.getItem('email')
       }).then((response) => {
@@ -95,9 +99,13 @@
     },
     methods: {
       submitForm() {
+        var userEmail = localStorage.getItem('email')
+        if (userEmail === '1') {
+          this.$router.push('/')
+        }
         this.updated = false
         this.$http.post('/v1/addbook', {
-          email: localStorage.getItem('email'),
+          email: userEmail,
           title: this.title,
           author: this.author,
           remarks: this.remarks

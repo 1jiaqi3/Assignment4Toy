@@ -94,11 +94,9 @@
         this.$router.push('/search')
       },
       logOut() {
-        /*
         localStorage.setItem('status', false)
-        localStorage.setItem('id', '')
-        localStorage.setItem('email', '')
-        */
+        localStorage.setItem('id', '1')
+        localStorage.setItem('email', '1')
         var firebase = require('firebase')
         var firebaseApp = require('../../fireconfig.js')
         firebase.auth().onAuthStateChanged(function(user) {

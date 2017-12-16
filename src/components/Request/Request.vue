@@ -42,6 +42,10 @@
       }
     },
     beforeCreate() {
+      var userEmail = localStorage.getItem('email')
+      if (userEmail === '1') {
+        this.$router.push('/')
+      }
       this.$http.post('/v1/getRecvReqs', {
         email: localStorage.getItem('email')
       }).then(response => {
