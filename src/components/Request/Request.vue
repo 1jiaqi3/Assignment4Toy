@@ -17,7 +17,7 @@
         <div class="rq-flex-item rq-flex-item-left">
           <h2>Sent</h2>
           <div class="rq-sub-container"  v-for="req in sentReqs">
-            <send-req :title="req.book.title" :author="req.book.author" :owner="req.email" :status="req.status"></send-req>
+            <send-req :title="req.book.title" :author="req.book.author" :owner="String(req.status) === 'approved' ? req.email : 'Secret'" :status="req.status"></send-req>
           </div>
         </div>
         <div class="rq-flex-item">
